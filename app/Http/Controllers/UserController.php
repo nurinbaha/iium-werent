@@ -19,10 +19,15 @@ class UserController extends Controller
         // Check for the 'edit' query parameter
         $isEditMode = $request->query('edit') === 'true';
 
+        $rentHistory = RentHistory::where('renter_id', $user->id)
+        ->with('item')  // Assuming you have an item relationship
+        ->get();
+
         return view('profile', [
             'user' => $user,
             'userItems' => $userItems,
-            'isEditMode' => $isEditMode // Pass to the view
+            'isEditMode' => $isEditMode,
+            'rentHistory' => $rentHistory
         ]);
     }
 
@@ -125,5 +130,30 @@ class UserController extends Controller
 
         return redirect()->route('profile')->with('success', 'Profile updated successfully!');
     }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id); // Fetch user by ID
+        $userItems = Item::where('user_id', $id)->get();
+        $rentHistory = RentHistory::where('user_id', $user->id)
+                                    ->with('item')  // Assuming you have an item relationship
+                                    ->get();
+
+        return view('profile', compact('user','userItems','rentHistory')); // Ensure you have the profile view
+    
+    }
+
+    public function showProfile($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Fetch reviews from RentHistory for this user
+        $reviews = RentHistory::where('renter_id', $id)
+            ->whereNotNull('item_review')
+            ->get();
+
+        return view('profiles.show', compact('user', 'reviews'));
+    }
+
 
 }

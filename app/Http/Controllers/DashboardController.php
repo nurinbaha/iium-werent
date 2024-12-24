@@ -26,4 +26,11 @@ class DashboardController extends Controller
         // Pass the user and latest items to the dashboard view
         return view('dashboard', compact('user', 'latestItems'));
     }
+
+    public function dashboard()
+    {
+        $notifications = auth()->user()->notifications;
+
+        return view('dashboard', compact('notifications'));
+    }
 }

@@ -128,11 +128,44 @@
             </h2>
             </div>
 
-            <!-- Page Title Section -->
-            <div class="page-title">
-                <h2>User's Rent History</h2>
-                <p>This is the landing page for rent history.</p>
+            @section('content')
+            <div class="container">
+                <h1>Rent History</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Owner</th>
+                            <th>Renter</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($rentHistories as $history)
+                            <tr>
+                                <td>{{ $history->item->item_name }}</td>
+                                <td>{{ $history->owner->name }}</td>
+                                <td>{{ $history->renter->name }}</td>
+                                <td>{{ $history->start_date }}</td>
+                                <td>{{ $history->end_date }}</td>
+                                <td>{{ ucfirst($history->status) }}</td>
+                                <td>
+                                    @if($history->status === 'active' && $history->owner_id === auth()->id())
+                                        <form action="{{ route('rent.markReturned', $history->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success">Mark as Returned</button>
+                                        </form>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
+            @endsection
 
         </div>
     </div>

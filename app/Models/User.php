@@ -77,4 +77,15 @@ class User extends Authenticatable
         return $this->hasMany(Message::class, 'receiver_id');
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'user_id');
+    }
+
+    public function renterReviews()
+    {
+        return $this->hasMany(RentHistory::class, 'renter_id');
+    }
+
+
 }

@@ -14,6 +14,11 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Admin\AdminReportController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\RentController;
+use App\Http\Controllers\RentRequestController;
+use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\ReviewController;
 
 
 // Display the sign-up form using the SignUpController
@@ -232,6 +237,46 @@ Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 Route::get('/profile/edit', [UserController::class, 'edit'])->name('profile.edit');
 Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 
+Route::get('/notifications', [NotificationsController::class, 'index'])->name('notifications.index')->middleware('auth');
+Route::get('/notifications/mark-as-read/{id}', [NotificationsController::class, 'markAsRead'])->name('notifications.markAsRead');
+Route::get('/notifications', [UserController::class, 'showNotifications'])->name('notifications.index');
+
+// Routes for approving and declining rent requests
+Route::post('/rent/approve/{id}', [RentRequestController::class, 'approve'])->name('rent.approve');
+Route::post('/rent/decline/{id}', [RentRequestController::class, 'decline'])->name('rent.decline');
+Route::get('/profile/{id}', [UserController::class, 'show'])->name('user.profile');
+
+Route::get('/items/{id}/edit', [ItemController::class, 'edit'])->name('items.edit')->middleware('auth');
+Route::put('/items/{id}', [ItemController::class, 'update'])->name('items.update')->middleware('auth');
+Route::get('/items/{id}', [ItemController::class, 'show'])->name('items.show');
+
+Route::get('/item/{id}/rent', [RentController::class, 'showRentForm'])->name('item.rent.form');
+Route::post('/item/{id}/rent/confirm', [RentController::class, 'confirmRent'])->name('item.rent.confirm');
+Route::post('/item/{id}/rent/submit', [RentController::class, 'submitRent'])->name('item.rent.submit');
+
+Route::get('/rent-notifications', [NotificationsController::class, 'showRentNotifications'])->name('notifications.rent');
+Route::get('/rent-out-notifications', [NotificationsController::class, 'showNotifications'])->name('notifications.rent_out');
+Route::post('/notifications/{id}/approve', [NotificationsController::class, 'approveNotification'])->name('notifications.approve');
+Route::post('/notifications/{id}/decline', [NotificationsController::class, 'declineNotification'])->name('notifications.decline');
+// Route to handle Proceed to Chat action
+Route::get('/chat/proceed/{id}', [ChatController::class, 'proceedToChat'])->name('chat.proceed');
+
+Route::get('/rent-history', [HistoryController::class, 'showRentHistory'])->name('rent.history');
+Route::get('/rent-out-history', [HistoryController::class, 'showRentOutHistory'])->name('rentout.history');
+
+Route::patch('/history/mark-returned/{id}', [HistoryController::class, 'markAsReturned'])->name('history.markReturned');
+Route::patch('/rent-out-history/mark-returned/{id}', [HistoryController::class, 'markAsReturnedRentOut'])->name('rentOutHistory.markReturned');
+
+// Review routes for rent history (renter reviewing owner and item)
+Route::get('/history/review/{id}', [ReviewController::class, 'reviewRentHistory'])->name('history.review');
+
+// Review routes for rent-out history (owner reviewing renter)
+Route::get('/rent-out-history/review/{id}', [ReviewController::class, 'reviewRentOutHistory'])->name('rentOutHistory.review');
+
+Route::post('/history/submit-review/{id}', [ReviewController::class, 'submitRentReview'])->name('history.submitReview');
+Route::post('/rent-out-history/submit-review/{id}', [ReviewController::class, 'submitRentOutReview'])->name('rentOutHistory.submitReview');
+
+Route::get('/user/{id}/profile', [UserController::class, 'showProfile'])->name('user.profile');
 
 
 

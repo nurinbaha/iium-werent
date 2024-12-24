@@ -42,6 +42,16 @@ class Item extends Model
     {
         return $this->hasMany(Wishlist::class);
     }
+ 
+     public function owner()
+     {
+         return $this->belongsTo(User::class, 'user_id'); // 'user_id' represents the owner
+     }
+     
+     public function reviews()
+    {
+        return $this->hasMany(RentHistory::class, 'item_id');
+    }
 
 }
 
