@@ -12,15 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->id();
-            $table->string('item_name');
-            $table->text('item_description');
-            $table->string('category');
-            $table->decimal('price', 8, 2);
-            $table->string('location');
-            $table->string('pickup_method');
-            $table->string('item_image')->nullable();
-            $table->timestamps();
+            $table->bigIncrements('id'); // Primary key
+            $table->unsignedBigInteger('user_id'); // Foreign key for users
+            $table->string('item_name'); // Name of the item
+            $table->text('item_description'); // Description of the item
+            $table->string('category'); // Category of the item
+            $table->decimal('price', 8, 2); // Price with two decimal places
+            $table->string('location'); // Location of the item
+            $table->string('pickup_method'); // Pickup method
+            $table->string('item_image')->nullable(); // Image of the item (nullable)
+            $table->timestamps(); // Includes `created_at` and `updated_at`
+
+            // Define foreign key constraints
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
