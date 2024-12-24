@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRentRequestsTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -25,4 +25,4 @@ class CreateRentRequestsTable extends Migration
     {
         Schema::dropIfExists('rent_requests');
     }
-}
+};

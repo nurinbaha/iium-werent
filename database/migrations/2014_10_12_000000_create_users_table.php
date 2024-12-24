@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('is_suspended')->default(false)->after('status'); // false = active, true = suspended
+            $table->boolean('is_suspended')->default(false); // false = active, true = suspended
             $table->string('suspend_reason')->nullable();
             $table->rememberToken();
             $table->timestamps(); // Includes `created_at` and `updated_at`
@@ -25,11 +25,10 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('gender')->nullable();
             $table->string('status')->nullable();
-            $table->boolean('is_suspended')->default(false);
             $table->string('user_image')->nullable();
-            $table->string('suspend_reason')->nullable();
         });
     }
+    
 
     /**
      * Reverse the migrations.
