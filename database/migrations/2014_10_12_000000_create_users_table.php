@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('is_suspended')->default(false)->after('status'); // false = active, true = suspended
+            $table->string('suspend_reason')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
