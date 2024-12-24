@@ -347,6 +347,33 @@
 <!-- Report Button Trigger -->
 <button class="btn btn-danger" onclick="openReportModal()">Report Item</button>
 
+<!-- Rent Button (Only visible to users who are not the item owner) -->
+@if($item->user_id !== auth()->id())
+    <a href="{{ route('item.rent.form', $item->id) }}" class="btn btn-success">
+        <i class="fas fa-calendar-alt"></i> Rent
+    </a>
+@endif
+
+<!-- Edit Button (Only visible to the owner of the item) -->
+@if($item->user_id === auth()->id())
+    <a href="{{ route('items.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+@endif
+
+<h2>Item Reviews</h2>
+@if($item->reviews->isEmpty())
+    <p>No reviews for this item yet.</p>
+@else
+    <ul>
+        @foreach($item->reviews as $review)
+            <li>
+                <strong>Reviewed by:</strong> {{ $review->renter->name }} <br>
+                <strong>Review:</strong> {{ $review->item_review }} <br>
+                <strong>Submitted on:</strong> {{ $review->updated_at->format('d M Y') }}
+            </li>
+        @endforeach
+    </ul>
+@endif
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function openReportModal() {
