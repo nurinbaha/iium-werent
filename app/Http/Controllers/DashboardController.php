@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Item; // Make sure you have the Item model imported
+
+class DashboardController extends Controller
+{
+    /**
+     * Show the dashboard.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index()
+    {
+        // Static user info (you can replace this with dynamic data if needed)
+        $user = [
+            'name' => 'Admin #1',
+            'role' => 'Admin'
+        ];
+
+        // Fetch the latest items, ordered by creation date, with a limit of 5 (you can adjust this)
+        $latestItems = Item::orderBy('created_at', 'desc')->take(5)->get();
+
+        // Pass the user and latest items to the dashboard view
+        return view('dashboard', compact('user', 'latestItems'));
+    }
+}
