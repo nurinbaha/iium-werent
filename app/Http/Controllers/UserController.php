@@ -7,6 +7,7 @@ use App\Models\Item; // Import the Item model
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\RentHistory;
 
 class UserController extends Controller
 {
