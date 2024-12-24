@@ -275,7 +275,7 @@
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
+<div class="dashboard-container">
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>IIUM WeRent</h2>
@@ -285,6 +285,7 @@
                 <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
                 <li><a href="{{ url('/rent-history') }}"><i class="fas fa-history"></i> Rent History</a></li>
                 <li><a href="{{ url('/notifications') }}"><i class="fas fa-bell"></i> Notifications</a></li>
+                <li><a href="{{ url('/chat') }}"><i class="fas fa-comments"></i> Chat</a></li>
                 <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Profile</a></li>
                 <li><a href="{{ url('/terms') }}"><i class="fas fa-file-contract"></i> T&Cs</a></li> <!-- T&Cs Link -->
                 <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -295,13 +296,26 @@
         <div class="main-content">
             <!-- Header -->
             <div class="header">
-    <div class="header-title">
-        <h2>IIUM WeRent</h2>
-    </div>
-    <button class="add-post-btn">
-        <a href="{{ route('posts.add') }}">Add A Post</a>
-    </button>
-</div>
+                <div class="header-title">
+                    <h2>IIUM WeRent</h2>
+                </div>
+                <button class="add-post-btn">
+                    <a href="{{ route('posts.add') }}">Add A Post</a>
+                </button>
+            </div>
+
+            <!-- Flash Messages -->
+            @if (session('success'))
+                <div class="post-alert post-alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="post-alert post-alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
 
 <!-- Page Title Section -->
 <div class="page-title">
@@ -309,7 +323,6 @@
         {{ ucfirst($categoryName) }} Page
     </h2>
 </div>
-
 
             <!-- Search Box -->
             <div class="search-section">
@@ -370,15 +383,13 @@
             <div class="categories-section">
                 <h2>Browse Categories</h2><br>
                 <div class="categories-buttons">
-                <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
-                <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
-                <li><a href="{{ url('/rent-history') }}"><i class="fas fa-history"></i> Rent History</a></li>
-                <li><a href="{{ url('/notifications') }}"><i class="fas fa-bell"></i> Notifications</a></li>
-                <li><a href="{{ url('/chat') }}"><i class="fas fa-comments"></i> Chat</a></li>
-                <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Profile</a></li>
-                <li><a href="{{ url('/terms') }}"><i class="fas fa-file-contract"></i> T&Cs</a></li> <!-- T&Cs Link -->
-                <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    <a href="{{ url('/category/fashion') }}" class="category-btn">Fashion</a>
+                    <a href="{{ url('/category/home-living') }}" class="category-btn">Home & Living</a>
+                    <a href="{{ url('/category/books-stationaries') }}" class="category-btn">Books & Stationaries</a>
+                    <a href="{{ url('/category/sports-equipment') }}" class="category-btn">Sports Equipment</a>
+                    <a href="{{ url('/category/mobile-electronics') }}" class="category-btn">Mobile & Electronics</a>
+                    <a href="{{ url('/category/free-items') }}" class="category-btn">Free Items</a>
+                    <a href="{{ url('/category/others') }}" class="category-btn">Others</a>
                 </div>
             </div>
 

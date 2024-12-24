@@ -239,7 +239,6 @@ Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('
 
 Route::get('/notifications', [NotificationsController::class, 'index'])->name('notifications.index')->middleware('auth');
 Route::get('/notifications/mark-as-read/{id}', [NotificationsController::class, 'markAsRead'])->name('notifications.markAsRead');
-Route::get('/notifications', [UserController::class, 'showNotifications'])->name('notifications.index');
 
 // Routes for approving and declining rent requests
 Route::post('/rent/approve/{id}', [RentRequestController::class, 'approve'])->name('rent.approve');
