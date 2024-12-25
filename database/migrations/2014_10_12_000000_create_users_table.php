@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('role')->default('user'); // Role column, default is 'user'
             $table->boolean('is_suspended')->default(false); // false = active, true = suspended
             $table->string('suspend_reason')->nullable();
             $table->rememberToken();

@@ -43,6 +43,7 @@ class SignUpController extends Controller
                 'status' => $validated['status'],
                 'location' => $validated['location'],
                 'password' => Hash::make($validated['password']),
+                'role' => 'user', // Default role
             ]);
 
             // Log successful registration

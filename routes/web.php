@@ -64,14 +64,18 @@ Route::get('/admin/login', function () {
 })->name('admin.login');
 
 // Handle the admin login form submission
-Route::post('/admin/login', [AuthController::class, 'adminLogin'])->name('admin.login.post');
+// Admin Routes
+Route::prefix('admin')->group(function () {
+    // Admin Authentication
+    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
-Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
-Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
-Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware('auth')->name('admin.dashboard');
+    // Admin Pages
+    Route::get('/dashboard', [AdminAuthController::class, 'showAdminDashboard'])->name('admin.dashboard');
+    Route::get('/reports', [AdminReportController::class, 'index'])->name('admin.reports');
+});
+
 
 Route::get('/admin/dashboard', function () {
     return view('admin-dashboard');

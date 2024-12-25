@@ -27,17 +27,19 @@ class AdminAuthController extends Controller
         ]);
 
         // Find the user by email
-        $user = User::where('email', $request->email)->first();
+        $admin = User::where('email', $request->email)
+        ->where('role', 'admin') // Ensure the role is admin
+        ->first();
 
         // Check if the user exists and is an admin
-        if ($user && Hash::check($request->password, $user->password)) {
-            Auth::login($user);
+        if ($admin && Hash::check($request->password, $admin->password)) {
+            Auth::login($admin);
             return redirect()->intended('admin/dashboard'); // Redirect to admin dashboard
         }
 
         // Authentication failed
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'The provided credentials do not match our records or you are not an admin.',
         ])->onlyInput('email');
     }
 
