@@ -22,6 +22,8 @@ class NotificationsController extends Controller
                                         ->where('status', 'pending')
                                         ->get();
     
+                                        // If no notifications, show an appropriate message on the rent out notifications page                                     // If no notifications, redirect to My Rent Out page with a message
+       
         // Pass data to the view
         return view('notifications.rent_out', compact('rentOutNotifications'));
     }    

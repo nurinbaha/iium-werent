@@ -329,16 +329,15 @@
             </div>
 
  <div class="container">
-    <h1>Rent Out Notifications</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-success text-white">
-                    <h3>Rent Out Notifications</h3>
+                 
                 </div>
                 <div class="card-body">
                     @if($rentOutNotifications->isEmpty())
-                        <p>No rent out notifications available.</p>
+                        <p>No rent request available.</p>
                     @else
                         <ul class="list-group">
                             @foreach($rentOutNotifications as $rentOutNotification)

@@ -329,13 +329,12 @@
             </div>
 
 <div class="container">
-    <h1>My Rental</h1>
     <div class="row">
         <!-- Rent Section -->
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header bg-primary text-white">
-                    <h3>Rent Notifications</h3>
+
                 </div>
                 <div class="card-body">
                     @if($rentNotifications->isEmpty())
