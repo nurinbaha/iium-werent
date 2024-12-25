@@ -328,7 +328,6 @@
             </h2>
             </div>
 
-@section('content')
 <div class="container">
     <h1>Rent Item: {{ $item->item_name }}</h1>
     <p>Price per day: RM {{ number_format($item->price, 2) }}</p>
@@ -396,7 +395,6 @@ function calculateTotal() {
     
 </script>
 
-@endsection
 
 </body>
 </html>

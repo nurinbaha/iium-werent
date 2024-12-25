@@ -328,7 +328,6 @@
             </h2>
             </div>
 
-@section('content')
 <div class="container">
     <h1>Confirm Your Rent Request</h1>
     <p><strong>Item Name:</strong> {{ $item->item_name }}</p>
@@ -399,8 +398,6 @@
     });
 
     </script>
-
-@endsection
 
 </body>
 </html>
