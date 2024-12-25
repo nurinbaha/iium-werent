@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('custom_rent_requests', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id(); // Primary key (bigint, auto-increment, unsigned)
             $table->unsignedBigInteger('user_id')->nullable(); // Foreign key for user
             $table->unsignedBigInteger('item_id'); // Foreign key for item
