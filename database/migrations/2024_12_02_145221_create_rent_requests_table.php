@@ -16,6 +16,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->integer('total_days');
             $table->decimal('total_price', 10, 2);
+            $table->decimal('final_price', 10, 2)->nullable(); // Final price after any adjustments
             $table->string('status')->default('pending'); // default status is pending
             $table->timestamps();
         });
