@@ -212,7 +212,7 @@
 
             <!-- Profile Section -->
             <div class="profile-container">
-                <img src="{{ asset($user->user_image ?? 'images/profiles/profile.png') }}" alt="User Image" class="profile-image">
+                <img src="{{ asset($user->user_image ? 'storage/' . $user->user_image : 'images/profiles/profile.png') }}" alt="User Image" class="profile-image">
                 <div class="user-info">
                     <table>
                         <tr>

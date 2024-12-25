@@ -205,7 +205,7 @@
             @else
                 @foreach($latestUsers as $latestUser)
                     <div class="user-card">
-                        <img src="{{ asset($latestUser->user_image ?? 'images/profiles/profile.png') }}" alt="User Photo">
+                        <img src="{{ asset($latestUser->user_image ? 'storage/' . $latestUser->user_image : 'images/profiles/profile.png') }}" alt="User Photo">
                         <div class="user-info">
                             <!-- Make the user name clickable, linking to the profile page -->
                             <h3><a href="{{ route('admin.user.details', $latestUser->id) }}">{{ $latestUser->name }}</a></h3>

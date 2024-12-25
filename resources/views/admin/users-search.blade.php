@@ -199,7 +199,7 @@
             @else
                 @foreach($users as $user)
                     <div class="user-card">
-                        <img src="{{ asset($user->user_image ?? 'images/default-profile.png') }}" alt="User Photo">
+                        <img src="{{ asset($user->user_image ? 'storage/' . $user->user_image : 'images/profiles/profile.png') }}" alt="User Photo">
                         <div class="user-info">
                             <!-- Link user name to admin/user-details.blade.php -->
                             <h3><a href="{{ route('admin.user.details', $user->id) }}">{{ $user->name }}</a></h3>
