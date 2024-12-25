@@ -415,7 +415,7 @@
                         <!-- Wrap the item card in an anchor tag to link to the item details page -->
                         <a href="{{ route('item.show', ['id' => $item->id]) }}" class="item-link">
                             <div class="item-card">
-                                <img src="{{ asset('images/' . $item->item_image) }}" alt="{{ $item->item_name }}" class="item-image">
+                                <img src="{{ asset('storage/' . $item->item_image) }}" alt="{{ $item->item_name }}" class="item-image">
                                 <div class="item-details">
                                     <h3 style="color:blue;">{{ $item->item_name }}</h3><br>
                                     <p style="color:red;"><strong>RM{{ $item->price }}/day</strong></p>

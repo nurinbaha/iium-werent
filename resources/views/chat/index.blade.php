@@ -323,7 +323,7 @@
 <ul style="list-style: none; padding-left: 0;">
     @foreach ($messagedUsers as $user)
         <li style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
-            <img src="{{ asset($user->user_image ? 'storage/' . $user->user_image : 'images/default-profile.png') }}" 
+            <img src="{{ asset($user->user_image ? 'storage/' . $user->user_image : 'images/profiles/profile.png') }}" 
                  alt="Profile Picture" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
             <a href="{{ route('chat.index', $user->id) }}" style="text-decoration: none; color: #333; font-weight: bold; font-size: 16px;">
                 {{ $user->name }}

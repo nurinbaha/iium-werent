@@ -212,7 +212,7 @@
 
             <!-- Profile Section -->
             <div class="profile-container">
-                <img src="{{ asset($user->user_image ?? 'images/default-profile.png') }}" alt="User Image" class="profile-image">
+                <img src="{{ asset($user->user_image ?? 'images/profiles/profile.png') }}" alt="User Image" class="profile-image">
                 <div class="user-info">
                     <table>
                         <tr>
@@ -263,7 +263,7 @@
                     @foreach($userItems as $item)
                         <a href="{{ route('admin.item.details', ['id' => $item->id]) }}" class="item-link">
                             <div class="item-card">
-                                <img src="{{ asset('images/' . $item->item_image) }}" alt="{{ $item->item_name }}" class="item-image">
+                                <img src="{{ asset('storage/' . $item->item_image) }}" alt="{{ $item->item_name }}" class="item-image">
                                 <div class="item-details">
                                     <h3>{{ $item->item_name }}</h3>
                                     <p>RM{{ $item->price }}/day</p>
