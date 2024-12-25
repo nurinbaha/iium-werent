@@ -279,11 +279,11 @@
                 <ul class="nav" id="history-sections" style="display: none;">
                         <!-- Rent History Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('rent.history') }}">Rent History</a>
+                            <a class="nav-link" href="{{ route('rent.history') }}">My Rental</a>
                         </li>
                         <!-- Rent Out Notifications Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('rentout.history') }}">Rent Out History</a>
+                            <a class="nav-link" href="{{ route('rentout.history') }}">My Rent Out</a>
                         </li>
                     </ul>
                 </li>
@@ -291,11 +291,11 @@
                 <ul class="nav" id="notification-sections" style="display: none;">
                         <!-- Rent Notifications Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('notifications.rent') }}">Rent Notifications</a>
+                            <a class="nav-link" href="{{ route('notifications.rent') }}">My Rental Status</a>
                         </li>
                         <!-- Rent Out Notifications Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('notifications.rent_out') }}">Rent Out Notifications</a>
+                            <a class="nav-link" href="{{ route('notifications.rent_out') }}">My Rent Request</a>
                         </li>
                     </ul>
                 </li>
@@ -447,6 +447,26 @@
                 }, 3000);
             }
         });
+
+        // JavaScript to toggle the visibility of rent and rent out sections
+    document.getElementById('notification-link').addEventListener('click', function() {
+        var sections = document.getElementById('notification-sections');
+        if (sections.style.display === "none" || sections.style.display === "") {
+            sections.style.display = "block"; // Show the sections
+        } else {
+            sections.style.display = "none"; // Hide the sections
+        }
+    });
+
+     // JavaScript to toggle the visibility of rent and rent out sections
+     document.getElementById('history-link').addEventListener('click', function() {
+        var sections = document.getElementById('history-sections');
+        if (sections.style.display === "none" || sections.style.display === "") {
+            sections.style.display = "block"; // Show the sections
+        } else {
+            sections.style.display = "none"; // Hide the sections
+        }
+    });
     </script>
 </body>
 </html>

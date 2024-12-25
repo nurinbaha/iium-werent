@@ -166,9 +166,31 @@
                 <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
                 <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
-                <li><a href="{{ url('/rent-history') }}"><i class="fas fa-history"></i> Rent History</a></li>
-                <li><a href="{{ url('/notifications') }}"><i class="fas fa-bell"></i> Notifications</a></li>
-                <li><a href="{{ url('/chat') }}"><i class="fas fa-comments"></i> Chat</a></li>
+                <li><a href="#" id="history-link"><i class="fas fa-history"></i> History</a>
+                <ul class="nav" id="history-sections" style="display: none;">
+                        <!-- Rent History Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('rent.history') }}">My Rental </a>
+                        </li>
+                        <!-- Rent Out Notifications Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('rentout.history') }}"> My Rent Out </a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#" id="notification-link"><i class="fas fa-bell"></i> Notifications</a>
+                <ul class="nav" id="notification-sections" style="display: none;">
+                        <!-- Rent Notifications Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('notifications.rent') }}">My Rental Status</a>
+                        </li>
+                        <!-- Rent Out Notifications Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('notifications.rent_out') }}">My Rent Request</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="{{ url('/chat') }}"><i class="fas fa-message"></i> Chat</a></li>
                 <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Profile</a></li>
                 <li><a href="{{ url('/terms') }}"><i class="fas fa-file-contract"></i> T&Cs</a></li> <!-- T&Cs Link -->
                 <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -232,5 +254,28 @@
             </div>
         </div> <!-- End of main content -->
     </div> <!-- End of dashboard container -->
+
+    <script>
+    // JavaScript to toggle the visibility of rent and rent out sections
+    document.getElementById('notification-link').addEventListener('click', function() {
+        var sections = document.getElementById('notification-sections');
+        if (sections.style.display === "none" || sections.style.display === "") {
+            sections.style.display = "block"; // Show the sections
+        } else {
+            sections.style.display = "none"; // Hide the sections
+        }
+    });
+
+     // JavaScript to toggle the visibility of rent and rent out sections
+     document.getElementById('history-link').addEventListener('click', function() {
+        var sections = document.getElementById('history-sections');
+        if (sections.style.display === "none" || sections.style.display === "") {
+            sections.style.display = "block"; // Show the sections
+        } else {
+            sections.style.display = "none"; // Hide the sections
+        }
+    });
+
+    </script>
 </body>
 </html>
