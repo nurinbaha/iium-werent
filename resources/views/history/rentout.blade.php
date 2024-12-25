@@ -268,8 +268,7 @@
     </ul>
 @endif
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
-
+<script>
         // JavaScript to toggle the visibility of rent and rent out sections
         document.getElementById('notification-link').addEventListener('click', function() {
         var sections = document.getElementById('notification-sections');
