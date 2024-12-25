@@ -21,16 +21,15 @@ class RentNotification extends Model
         'final_price',
     ];
 
-    // Define relationships if needed
-
+    // Relationship with the Item model
     public function item()
     {
         return $this->belongsTo(Item::class);
     }
 
-        public function renter()
+    // Relationship with the User model for the renter
+    public function renter()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 }
-

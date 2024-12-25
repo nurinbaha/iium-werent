@@ -33,6 +33,22 @@ class ChatController extends Controller
         $receiver = null;
     
         if ($receiver_id) {
+            // Check if the current user has permission to chat with this receiver
+            $allowed = \DB::table('rent_history')
+                ->where(function ($query) use ($receiver_id) {
+                    $query->where('renter_id', auth()->id())
+                          ->where('owner_id', $receiver_id);
+                })
+                ->orWhere(function ($query) use ($receiver_id) {
+                    $query->where('owner_id', auth()->id())
+                          ->where('renter_id', $receiver_id);
+                })
+                ->exists();
+    
+            if (!$allowed) {
+                return redirect()->route('notifications.rent')->withErrors('You are not authorized to chat with this user.');
+            }
+    
             $receiver = User::findOrFail($receiver_id);
             $messages = Message::where(function ($query) use ($receiver_id) {
                     $query->where('sender_id', auth()->id())
@@ -48,6 +64,7 @@ class ChatController extends Controller
     
         return view('chat.index', compact('messagedUsers', 'messages', 'receiver'));
     }
+    
 
     public function sendMessage(Request $request)
     {
@@ -64,4 +81,21 @@ class ChatController extends Controller
 
         return back();
     }
+
+    public function proceedToChat($rentNotificationId)
+{
+    // Find the RentNotification
+    $rentNotification = RentNotification::findOrFail($rentNotificationId);
+
+    // Get the renter (user) ID and owner (item owner) ID
+    $renterId = $rentNotification->user_id;
+    $ownerId = $rentNotification->item->user_id;
+
+    // Determine the chat partner based on the current user
+    $chatPartnerId = auth()->id() === $renterId ? $ownerId : $renterId;
+
+    // Redirect to the chat page with the selected chat partner
+    return redirect()->route('chat.index', ['receiver_id' => $chatPartnerId]);
+}
+
 }

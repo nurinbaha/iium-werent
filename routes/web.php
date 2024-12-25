@@ -235,6 +235,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
 });
 
+
 // Edit Profile Page
 Route::post('/profile/update-image', [UserController::class, 'updateProfileImage'])->name('profile.updateImage');
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');
@@ -262,7 +263,7 @@ Route::get('/rent-out-notifications', [NotificationsController::class, 'showNoti
 Route::post('/notifications/{id}/approve', [NotificationsController::class, 'approveNotification'])->name('notifications.approve');
 Route::post('/notifications/{id}/decline', [NotificationsController::class, 'declineNotification'])->name('notifications.decline');
 // Route to handle Proceed to Chat action
-Route::get('/chat/proceed/{id}', [ChatController::class, 'proceedToChat'])->name('chat.proceed');
+Route::get('/chat/proceed/{rentNotification}', [ChatController::class, 'proceedToChat'])->name('chat.proceed');
 
 Route::get('/rent-history', [HistoryController::class, 'showRentHistory'])->name('rent.history');
 Route::get('/rent-out-history', [HistoryController::class, 'showRentOutHistory'])->name('rentout.history');

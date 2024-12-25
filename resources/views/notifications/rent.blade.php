@@ -354,11 +354,11 @@
                         </li>
 
                          <!-- Show Proceed to Chat Button for Approved Notifications -->
-                            @if($rentNotification->status === 'approved')
-                                <form action="{{ route('chat.proceed', $rentNotification->id) }}" method="GET">
-                                    <button type="submit" class="btn btn-primary">Proceed to Chat</button>
-                                </form>
-                            @endif
+                         @if($rentNotification->status === 'approved')
+                            <a href="{{ route('chat.index', ['receiver_id' => $rentNotification->item->user_id]) }}" class="btn btn-primary">Proceed to Chat</a>
+                        @endif
+
+
                         @endforeach
                         </ul>
                     @endif
