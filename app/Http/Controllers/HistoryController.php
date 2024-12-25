@@ -19,8 +19,17 @@ class HistoryController extends Controller
 
         // Fetch rent history where the current user is the renter
         $rentHistory = RentHistory::where('renter_id', auth()->id())
-                                    ->whereNull('item_review')
-                                    ->get();
+        ->with(['item'])
+        ->orderByRaw("
+            CASE 
+                WHEN status = 'rented' THEN 1
+                WHEN status = 'returned' THEN 2
+                WHEN status = 'reviewed' THEN 3
+                ELSE 4
+            END
+        ")
+        ->orderBy('created_at', 'desc')
+        ->get();
         
         return view('history.rent', compact('rentHistory'));
     }
@@ -32,9 +41,18 @@ class HistoryController extends Controller
         }
 
         $rentOutHistory = RentOutHistory::where('owner_id', auth()->id())
-                                         ->whereNull('renter_review')
-                                         ->get();
-
+        ->with(['item'])
+        ->orderByRaw("
+            CASE 
+                WHEN status = 'rented' THEN 1
+                WHEN status = 'returned' THEN 2
+                WHEN status = 'reviewed' THEN 3
+                ELSE 4
+            END
+        ")
+        ->orderBy('created_at', 'desc')
+        ->get();
+                                        
         return view('history.rentout', compact('rentOutHistory'));
     }
 

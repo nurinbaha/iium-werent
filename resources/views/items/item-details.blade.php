@@ -228,6 +228,18 @@
     color: #ff6b6b; /* Light red hover color */
 }
 
+.custom-rent-button {
+        background-color: #28a745; /* Green color */
+        border-color: #28a745;    /* Green border */
+        color: white;             /* White text */
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .custom-rent-button:hover {
+        background-color: #218838; /* Darker green on hover */
+        border-color: #1e7e34;    /* Darker border on hover */
+    }
+
     </style>
 </head>
 <body>
@@ -341,10 +353,6 @@
 
   <!-- Action Buttons -->
 <div class="item-actions" style="display: flex; gap: 10px; align-items: center;">
-    <!-- Rent Button -->
-    <button class="btn-rent" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
-        Rent
-    </button>
 
     <!-- Wishlist Button -->
     <form action="{{ route('wishlist.toggle', $item->id) }}" method="POST" class="wishlist-form">
@@ -371,7 +379,7 @@
 
 <!-- Rent Button (Only visible to users who are not the item owner) -->
 @if($item->user_id !== auth()->id())
-    <a href="{{ route('item.rent.form', $item->id) }}" class="btn btn-success">
+    <a href="{{ route('item.rent.form', $item->id) }}" class="btn btn-success custom-rent-button">
         <i class="fas fa-calendar-alt"></i> Rent
     </a>
 @endif

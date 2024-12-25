@@ -246,25 +246,31 @@
                     Status: {{ ucfirst($history->status) }}<br>
                     Total Price: RM {{ number_format($history->total_price, 2) }}<br>
                     Final Price: RM {{ number_format($history->final_price, 2) }}<br>
-
+                    @if($history->status === 'reviewed' )
+                        Review:{{ $history->item_review }}<br>
+                    @endif
                     @if($history->status === 'rented')
                         <form action="{{ route('history.markReturned', $history->id) }}" method="POST">
                             @csrf
                             @method('PATCH')
                             <button type="submit" class="btn btn-primary">Returned</button>
                         </form>
-                    @elseif($history->status === 'returned' && is_null($history->item_review))
+                    @elseif($history->status === 'returned' )
                         <form action="{{ route('history.submitReview', $history->id) }}" method="POST">
                             @csrf
                             <div>
-                                <label for="item_review">Write a Review:</label><br>
+                                <label for="item_review">Write a Review for item:</label><br>
                                 <textarea id="item_review" name="item_review" rows="3" cols="50" placeholder="Enter your review" required></textarea>
                             </div>
                             <br>
                             <button type="submit" class="btn btn-secondary">Submit Review</button>
                         </form>
+                        @elseif($history->status === 'reviewed')
+                        <a href="{{ route('item.rent.form', $history->item->id) }}" class="btn btn-success">
+                            <i class="fas fa-redo"></i> Rent Again
+                        </a>
                     @endif
-                </li>
+                </li><br>
             @endforeach
         </ul>
     @endif

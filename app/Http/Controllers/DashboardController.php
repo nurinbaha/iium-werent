@@ -20,8 +20,16 @@ class DashboardController extends Controller
             'role' => 'Admin'
         ];
 
-        // Fetch the latest items, ordered by creation date, with a limit of 5 (you can adjust this)
-        $latestItems = Item::orderBy('created_at', 'desc')->take(5)->get();
+        $userItems = Item::where('user_id', auth()->id())
+        ->orderBy('updated_at', 'desc')
+        ->get();
+    
+    
+          $latestItems = Item::where('user_id', '!=', auth()->id())
+          ->orderBy('created_at', 'desc')
+          ->take(10)
+          ->get();
+    
 
         // Pass the user and latest items to the dashboard view
         return view('dashboard', compact('user', 'latestItems'));

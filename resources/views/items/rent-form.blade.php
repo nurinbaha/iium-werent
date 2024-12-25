@@ -395,6 +395,5 @@ function calculateTotal() {
     
 </script>
 
-
 </body>
 </html>

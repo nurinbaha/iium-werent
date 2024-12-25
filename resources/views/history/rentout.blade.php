@@ -245,7 +245,9 @@
                 Status: {{ ucfirst($history->status) }}<br>
                 Total Price: RM {{ number_format($history->total_price, 2) }}<br>
                 Final Price: RM {{ number_format($history->final_price, 2) }}<br>
-
+                @if($history->status === 'reviewed' )
+                        Review:{{ $history->renter_review }}<br>
+                    @endif
                 @if($history->status === 'rented')
                     <form action="{{ route('rentOutHistory.markReturned', $history->id) }}" method="POST">
                         @csrf
@@ -256,14 +258,14 @@
                     <form action="{{ route('rentOutHistory.submitReview', $history->id) }}" method="POST">
                         @csrf
                         <div>
-                            <label for="renter_review">Write a Review:</label><br>
+                            <label for="renter_review">Write a Review for renter:</label><br>
                             <textarea id="renter_review" name="renter_review" rows="3" cols="50" placeholder="Enter your review" required></textarea>
                         </div>
                         <br>
                         <button type="submit" class="btn btn-secondary">Submit Review</button>
                     </form>
                 @endif
-            </li>
+            </li><br>
         @endforeach
     </ul>
 @endif
