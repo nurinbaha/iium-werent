@@ -265,6 +265,84 @@
             text-decoration: none;
         }
 
+        .container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+        color: #333;
+        margin-top: 95px;
+        text-align: center;
+    }
+
+    .container h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #3c75ba;
+    }
+
+    .container p {
+        font-size: 16px;
+        margin: 10px 0;
+        line-height: 1.5;
+    }
+
+    .container p strong {
+        font-weight: bold;
+        color: #000;
+    }
+
+    .container .text-danger {
+        font-size: 14px;
+        color: #dc3545;
+        margin-top: 10px;
+    }
+
+    .container label {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .container a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .container a:hover {
+        text-decoration: underline;
+    }
+
+    .container button {
+    display: block;
+    width: 25%;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 20px auto 0; /* Auto margins for centering */
+    text-align: center; /* Ensures text stays centered */
+}
+
+
+    .container button:hover {
+        background-color: #218838;
+    }
+
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+
     </style>
 </head>
 <body>
@@ -321,14 +399,7 @@
 
 <br>
 
-            <!-- Page Title Section -->
-            <div class="page-title">
-            <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
-                Confirm Form 
-            </h2>
-            </div>
-
-<div class="container">
+            <div class="container">
     <h1>Confirm Your Rent Request</h1>
     <p><strong>Item Name:</strong> {{ $item->item_name }}</p>
     <p><strong>Price per day:</strong> RM {{ number_format($item->price, 2) }}</p>
@@ -339,13 +410,14 @@
     <p><strong>Final Price (Including Deposit):</strong> RM {{ number_format($final_price, 2) }}</p>
     <p class="text-danger"><em>* The price includes a refundable deposit equivalent to the total rent price.</em></p>
 
-    <div>
-        <input type="checkbox" id="agreeTnC" name="agreeTnC">
-        <label for="agreeTnC">
-            By agreeing to these Terms & Conditions, you acknowledge that you have read, understood, and agree to be bound by the policies governing this rental. This includes adherence to payment obligations, proper care of the rented item, and the return of the item in the condition it was provided. Failure to comply may result in additional charges or penalties as outlined in the agreement. 
-            <a href="/terms-and-conditions" target="_blank">Terms & Conditions</a>
-        </label>
-    </div>
+    <div class="checkbox-container">
+    <input type="checkbox" id="agreeTnC" name="agreeTnC">
+    <label for="agreeTnC">
+        By agreeing to these Terms & Conditions, you acknowledge that you have read, understood, and agree to be bound by the policies governing this rental. 
+        <a href="{{ route('terms') }}" target="_blank">Terms & Conditions</a>
+    </label>
+</div>
+
 
     <form id="confirmRentForm" action="{{ route('item.rent.submit', $item->id) }}" method="POST">
         @csrf
@@ -353,7 +425,7 @@
         <input type="hidden" name="end_date" value="{{ $end_date }}">
         <input type="hidden" name="total_days" value="{{ $total_days }}">
         <input type="hidden" name="final_price" value="{{ $final_price }}">
-        <button type="submit" class="btn btn-success">Confirm Rent</button>
+        <button type="submit">Confirm Rent</button>
     </form>
 </div>
 

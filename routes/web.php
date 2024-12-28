@@ -282,6 +282,10 @@ Route::post('/rent-out-history/submit-review/{id}', [ReviewController::class, 's
 
 Route::get('/user/{id}/profile', [UserController::class, 'showProfile'])->name('user.profile');
 
+Route::get('/terms-and-conditions', function () {
+    return view('terms');
+})->name('terms');
+
 
 
 
