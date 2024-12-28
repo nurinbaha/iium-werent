@@ -64,6 +64,8 @@
             padding: 20px;
             background-color: #f8f9fa;
             min-height: 100vh;
+            align-items: center;
+            margin-top: 180px;
         }
 
         /* Header Styling */
@@ -155,12 +157,14 @@
         }
 
         .add-post-submit-btn {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            width: 100%; /* Makes the button take full width */
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #28a745;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
         }
 
         .add-post-submit-btn:hover {
