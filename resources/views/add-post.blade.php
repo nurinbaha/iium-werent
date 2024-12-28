@@ -170,7 +170,7 @@
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
+
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>IIUM WeRent</h2>
@@ -278,6 +278,7 @@
                             <label for="location">Location:</label>
                             <select id="location" name="location" required>
                             <option value="">Location</option>
+                            <option value="Mahallah Ali">Mahallah Ali</option>
                             <option value="Mahallah Zubair">Mahallah Zubair</option>
                             <option value="Mahallah Uthman">Mahallah Uthman</option>
                             <option value="Mahallah Faruq">Mahallah Faruq</option>

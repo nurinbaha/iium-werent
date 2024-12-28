@@ -14,25 +14,17 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // Static user info (you can replace this with dynamic data if needed)
-        $user = [
-            'name' => 'Admin #1',
-            'role' => 'Admin'
-        ];
+        // Get the authenticated user
+        $user = auth()->user();
 
-        $userItems = Item::where('user_id', auth()->id())
-        ->orderBy('updated_at', 'desc')
-        ->get();
-    
-    
-          $latestItems = Item::where('user_id', '!=', auth()->id())
-          ->orderBy('created_at', 'desc')
-          ->take(10)
-          ->get();
-    
+        // Fetch items that match the user's location and exclude the user's own items
+        $itemsNearYou = Item::where('location', $user->location)
+            ->where('user_id', '!=', $user->id) // Exclude items listed by the same user
+            ->orderBy('created_at', 'desc') // Order by latest upload
+            ->get();
 
-        // Pass the user and latest items to the dashboard view
-        return view('dashboard', compact('user', 'latestItems'));
+        // Pass the user and items near them to the dashboard view
+        return view('dashboard', compact('user', 'itemsNearYou'));
     }
 
     public function dashboard()

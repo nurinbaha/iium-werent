@@ -409,29 +409,30 @@
                 </div>
             </div>
 
-            <!-- Latest Items Section in Dashboard -->
-            <div class="latest-items-section-dashboard">
-                <h2>Latest Items</h2>
-                @if($latestItems->isEmpty())
-                    <p>No items available.</p>
-                @else
-                    @foreach($latestItems as $item)
-                        <!-- Wrap the item card in an anchor tag to link to the item details page -->
-                        <a href="{{ route('item.show', ['id' => $item->id]) }}" class="item-link">
-                            <div class="item-card">
-                                <img src="{{ asset('storage/' . $item->item_image) }}" alt="{{ $item->item_name }}" class="item-image">
-                                <div class="item-details">
-                                    <h3>{{ $item->item_name }}</h3><br>
-                                    <p><strong>RM{{ $item->price }}/day</strong></p>
-                                    <p>{{ $item->created_at->format('d M Y , H:i') }}</p>
-                                    <p>{{ $item->location }}</p>
-                                    <p>Category > {{ $item->category }}</p>
-                                </div>
-                            </div>
-                        </a>
-                    @endforeach
-                @endif
-            </div> <!-- End of latest items section -->
+<!-- Items Near You Section in Dashboard -->
+<div class="latest-items-section-dashboard">
+    <h2>Items Near You</h2>
+    @if($itemsNearYou->isEmpty())
+        <p>No items available near your location.</p>
+    @else
+        @foreach($itemsNearYou as $item)
+            <!-- Wrap the item card in an anchor tag to link to the item details page -->
+            <a href="{{ route('item.show', ['id' => $item->id]) }}" class="item-link">
+                <div class="item-card">
+                    <img src="{{ asset('storage/' . $item->item_image) }}" alt="{{ $item->item_name }}" class="item-image">
+                    <div class="item-details">
+                        <h3>{{ $item->item_name }}</h3><br>
+                        <p><strong>RM{{ $item->price }}/day</strong></p>
+                        <p>{{ $item->created_at->format('d M Y , H:i') }}</p>
+                        <p>{{ $item->location }}</p>
+                        <p>Category > {{ $item->category }}</p>
+                    </div>
+                </div>
+            </a>
+        @endforeach
+    @endif
+</div> <!-- End of items near you section -->
+
 
         </div> <!-- End of main content -->
     </div> <!-- End of dashboard container -->
