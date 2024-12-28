@@ -115,7 +115,7 @@
 
         /* Breadcrumb */
         .breadcrumb {
-            margin-top: 0px;
+            margin-top: 10px;
             margin-bottom: 20px;
             font-size: 14px;
         }
@@ -228,18 +228,6 @@
     color: #ff6b6b; /* Light red hover color */
 }
 
-.custom-rent-button {
-        background-color: #28a745; /* Green color */
-        border-color: #28a745;    /* Green border */
-        color: white;             /* White text */
-        transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-
-    .custom-rent-button:hover {
-        background-color: #218838; /* Darker green on hover */
-        border-color: #1e7e34;    /* Darker border on hover */
-    }
-
     </style>
 </head>
 <body>
@@ -291,12 +279,27 @@
                 </button>
             </div>
 
-            <!-- Page Title Section -->
-            <div class="page-title">
-            <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
-                {{ $item->item_name }}
-            </h2>
-            </div>
+<!-- Page Title Section -->
+<div class="page-title" style="display: flex; align-items: center; gap: 10px; margin-top: 70px;">
+    <h2 style="margin: 0; font-size: 30px; color: black;">
+        {{ $item->item_name }}
+    </h2>
+    @if($item->user_id !== auth()->id())
+    <!-- Wishlist Button (Only visible to non-owners) -->
+    <form action="{{ route('wishlist.toggle', $item->id) }}" method="POST" style="margin: 0;">
+        @csrf
+        <button type="submit" style="background: none; border: none; cursor: pointer; font-size: 24px; display: flex; align-items: center;">
+            @if ($item->is_in_wishlist)
+                <i class="fas fa-heart" style="color: red;"></i> <!-- Already in Wishlist -->
+            @else
+                <i class="far fa-heart"></i> <!-- Not in Wishlist -->
+            @endif
+        </button>
+    </form>
+    @endif
+</div>
+
+
 
             <!-- Breadcrumb -->
             <div class="breadcrumb">
@@ -315,6 +318,7 @@
                 <!-- Item Information -->
                 <div class="item-info">
                     <h1>{{ $item->name }}</h1>
+                    
                     <p>Listed on {{ $item->created_at->format('d M Y, H:i') }} / {{ $item->location }}</p>
 
                     <!-- Item Info Table -->
@@ -351,43 +355,29 @@
                         </tr>
                     </table>
 
-  <!-- Action Buttons -->
+<!-- Action Buttons -->
 <div class="item-actions" style="display: flex; gap: 10px; align-items: center;">
 
-    <!-- Wishlist Button -->
-    <form action="{{ route('wishlist.toggle', $item->id) }}" method="POST" class="wishlist-form">
-        @csrf
-        <button type="submit" class="wishlist-button" style="background: none; border: none; cursor: pointer; font-size: 24px;">
-            @if ($item->is_in_wishlist)
-                <i class="fas fa-heart" style="color: red;"></i> <!-- Already in Wishlist -->
-            @else
-                <i class="far fa-heart"></i> <!-- Not in Wishlist -->
-            @endif
-        </button>
-    </form>
+    <!-- Rent Button -->
+    @if($item->user_id !== auth()->id())
+        <a href="{{ route('item.rent.form', $item->id) }}" class="btn btn-success" style="padding: 8px 15px;">
+            <i class="fas fa-calendar-alt"></i> Rent
+        </a>
+    @endif
+
+    <!-- Report Button -->
+    @if($item->user_id !== auth()->id())
+        <button class="btn btn-danger" style="padding: 8px 15px;" onclick="openReportModal()">Report Item</button>
+    @endif
+
+    <!-- Edit Button (Only visible to the owner of the item) -->
+    @if($item->user_id === auth()->id())
+        <a href="{{ route('items.edit', $item->id) }}" class="btn btn-warning" style="padding: 8px 15px;">
+            Edit
+        </a>
+    @endif
 </div>
 
-<!-- Hidden Form for Report Submission -->
-<form id="reportForm" action="{{ route('report.store') }}" method="POST" style="display: none;">
-    @csrf
-    <input type="hidden" name="item_id" value="{{ $item->id }}">
-    <input type="hidden" name="reason" id="reportReason">
-</form>
-
-<!-- Report Button Trigger -->
-<button class="btn btn-danger" onclick="openReportModal()">Report Item</button>
-
-<!-- Rent Button (Only visible to users who are not the item owner) -->
-@if($item->user_id !== auth()->id())
-    <a href="{{ route('item.rent.form', $item->id) }}" class="btn btn-success custom-rent-button">
-        <i class="fas fa-calendar-alt"></i> Rent
-    </a>
-@endif
-
-<!-- Edit Button (Only visible to the owner of the item) -->
-@if($item->user_id === auth()->id())
-    <a href="{{ route('items.edit', $item->id) }}" class="btn btn-warning">Edit</a>
-@endif
 
 <h2>Item Reviews</h2>
 @if($item->reviews->isEmpty())

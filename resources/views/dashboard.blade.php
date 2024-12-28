@@ -411,7 +411,7 @@
 
 <!-- Items Near You Section in Dashboard -->
 <div class="latest-items-section-dashboard">
-    <h2>Items Near You</h2>
+    <h2>Recomended Items Near You</h2>
     @if($itemsNearYou->isEmpty())
         <p>No items available near your location.</p>
     @else
