@@ -107,8 +107,8 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 200px;
-            margin-top: 70px; /* Space below the fixed header */
+            margin-left: 250px;
+            margin-top: 120px; /* Space below the fixed header */
             padding: 20px;
             background-color: #f8f9fa;
             min-height: 100vh;
@@ -116,7 +116,7 @@
 
         /* Wishlist Item Styling */
         .wishlist-section h2 {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .item-card {
@@ -130,8 +130,8 @@
         }
 
         .item-card img {
-            width: 80px;
-            height: 80px;
+            width: 200px;
+            height: 200px;
             margin-right: 20px;
             border-radius: 4px;
         }
@@ -177,7 +177,7 @@
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
+
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>IIUM WeRent</h2>
@@ -230,34 +230,40 @@
 
             <!-- Wishlist Section -->
             <div class="wishlist-section">
-                <h2>Your Wishlist</h2>
-                @if($wishlistItems->isNotEmpty())
-                    @foreach($wishlistItems as $wishlist)
-                        @if($wishlist->item) <!-- Ensure the item exists -->
-                        <div class="item-card">
-                            <img src="{{ asset('storage/' . $wishlist->item->item_image) }}" alt="{{ $wishlist->item->item_name }}">
-                            <div class="item-details">
-                                <h3>{{ $wishlist->item->item_name }}</h3>
-                                <p>Category: {{ ucfirst($wishlist->item->category) }}</p>
-                                <p>RM{{ $wishlist->item->price }}</p>
-                            </div>
-                            <div class="item-actions">
-                                <a href="{{ route('item.show', $wishlist->item->id) }}" class="btn btn-info">View Item</a>
-                                <form action="{{ route('wishlist.remove', $wishlist->item->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Remove</button>
-                                </form>
-                            </div>
-                        </div>
-                        @else
-                            <p>Item not available anymore.</p>
-                        @endif
-                    @endforeach
-                @else
-                    <p>Your wishlist is empty. Start adding some items!</p>
-                @endif
-            </div>
+    <h2>Wishlist Items</h2>
+    @if($wishlistItems->isNotEmpty())
+        @foreach($wishlistItems as $wishlist)
+            @if($wishlist->item) <!-- Ensure the item exists -->
+                <div class="item-card">
+                    <img src="{{ asset('storage/' . $wishlist->item->item_image) }}" alt="{{ $wishlist->item->item_name }}" class="item-image">
+                    <div class="item-details">
+                        <h3>{{ $wishlist->item->item_name }}</h3>
+                        <p><strong>RM{{ $wishlist->item->price }}/day</strong></p>
+                        <p>{{ $wishlist->item->created_at->format('d M Y, H:i') }}</p>
+                        <p>{{ $wishlist->item->location }}</p>
+                        <p>Category > {{ $wishlist->item->category }}</p>
+                    </div>
+                    <div class="item-actions">
+                        <!-- View Item Button -->
+                        <a href="{{ route('item.show', ['id' => $wishlist->item->id]) }}" class="btn btn-info">View Item</a>
+                        
+                        <!-- Remove Button -->
+                        <form action="{{ route('wishlist.remove', $wishlist->item->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+                    </div>
+                </div>
+            @else
+                <p>Item not available anymore.</p>
+            @endif
+        @endforeach
+    @else
+        <p>Your wishlist is empty. Start adding some items!</p>
+    @endif
+</div>
+
         </div>
     </div>
     <!-- SweetAlert for Session Messages -->
