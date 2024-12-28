@@ -228,6 +228,38 @@
     color: #ff6b6b; /* Light red hover color */
 }
 
+.review-container {
+    margin-top: 20px;
+}
+
+.review-box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-box strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.review-box p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.review-box .review-date {
+    font-size: 12px;
+    color: #888;
+    text-align: right;
+}
+
+
     </style>
 </head>
 <body>
@@ -242,11 +274,11 @@
                 <ul class="nav" id="history-sections" style="display: none;">
                         <!-- Rent History Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('rent.history') }}">My Rental </a>
+                            <a class="nav-link" href="{{ route('rent.history') }}">My Rental</a>
                         </li>
                         <!-- Rent Out Notifications Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('rentout.history') }}">My Rent Out </a>
+                            <a class="nav-link" href="{{ route('rentout.history') }}">My Rent Out</a>
                         </li>
                     </ul>
                 </li>
@@ -380,19 +412,22 @@
 
 
 <h2>Item Reviews</h2>
-@if($item->reviews->isEmpty())
-    <p>No reviews for this item yet.</p>
-@else
-    <ul>
+<div class="review-container">
+    @if($item->reviews->isEmpty())
+        <p>No reviews for this item yet.</p>
+    @else
         @foreach($item->reviews as $review)
-            <li>
-                <strong>Reviewed by:</strong> {{ $review->renter->name }} <br>
-                <strong>Review:</strong> {{ $review->item_review }} <br>
-                <strong>Submitted on:</strong> {{ $review->updated_at->format('d M Y') }}
-            </li>
+            <div class="review-box">
+                <strong>Reviewed by :  {{ $review->renter->name }}</strong>
+                <p>{{ $review->item_review }}</p>
+                <div class="review-date">
+                    <em>Submitted on : {{ $review->updated_at->format('d M Y') }}</em>
+                </div>
+            </div>
         @endforeach
-    </ul>
-@endif
+    @endif
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -468,7 +503,6 @@
             sections.style.display = "none"; // Hide the sections
         }
     });
-
     
 </script>
 
