@@ -111,7 +111,46 @@
         button:hover {
             background-color: #0056b3;
         }
-    </style>
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 9999; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        border-radius: 8px;
+        width: 80%; /* Could be more or less, depending on screen size */
+        max-width: 500px;
+    }
+
+    /* Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+    }
+</style>    
 </head>
 <body>
     <div class="signup-container">
@@ -202,13 +241,55 @@
                 </div>
 
                 <div class="terms">
-                    <input type="checkbox" name="terms" id="terms" required>
-                    <label for="terms">I agree to the terms and conditions and understand my information will be used accordingly.</label>
-                </div>
+    <input type="checkbox" name="terms" id="terms" required>
+    <label for="terms">
+        I agree to the <a href="#" id="tandc-link">terms and conditions</a> and understand my information will be used accordingly.
+    </label>
+</div>
+
+<!-- T&Cs Modal -->
+<div id="tandc-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Terms and Conditions</h3>
+        <p>
+            <!-- Add your terms and conditions here -->
+            1. By signing up, you agree to provide accurate and truthful information.<br>
+            2. Your information will only be used for the purposes stated.<br>
+            3. You agree to comply with all platform rules and policies.<br>
+            4. Data privacy will be respected as per our privacy policy.<br>
+            5. Misuse of the platform may result in account suspension or termination.
+        </p>
+    </div>
+</div>
 
                 <button type="submit">Sign Up</button>
             </form>
         </div>
     </div>
+    <script>
+    // Get modal elements
+    const modal = document.getElementById("tandc-modal");
+    const link = document.getElementById("tandc-link");
+    const closeBtn = document.querySelector(".close");
+
+    // Open modal when clicking the link
+    link.addEventListener("click", function (event) {
+        event.preventDefault();
+        modal.style.display = "block";
+    });
+
+    // Close modal when clicking the close button
+    closeBtn.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    // Close modal when clicking anywhere outside the modal content
+    window.addEventListener("click", function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    });
+</script>
 </body>
 </html>
