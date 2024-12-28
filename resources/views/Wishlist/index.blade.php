@@ -237,7 +237,7 @@
                 <div class="item-card">
                     <img src="{{ asset('storage/' . $wishlist->item->item_image) }}" alt="{{ $wishlist->item->item_name }}" class="item-image">
                     <div class="item-details">
-                        <h3>{{ $wishlist->item->item_name }}</h3>
+                        <h3>{{ $wishlist->item->item_name }}</h3><br>
                         <p><strong>RM{{ $wishlist->item->price }}/day</strong></p>
                         <p>{{ $wishlist->item->created_at->format('d M Y, H:i') }}</p>
                         <p>{{ $wishlist->item->location }}</p>

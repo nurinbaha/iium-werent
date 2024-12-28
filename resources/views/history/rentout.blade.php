@@ -104,8 +104,8 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 200px;
-            margin-top: 70px; /* Space below the fixed header */
+            margin-left: 250px;
+            margin-top: 120px; /* Space below the fixed header */
             padding: 20px;
             background-color: #f8f9fa;
             min-height: 100vh;
@@ -127,8 +127,8 @@
         }
 
         .item-card img {
-            width: 80px;
-            height: 80px;
+            width: 200px;
+            height: 200px;
             margin-right: 20px;
             border-radius: 4px;
         }
@@ -171,10 +171,11 @@
         .btn:hover {
             opacity: 0.9;
         }
+
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
+
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>IIUM WeRent</h2>
@@ -227,48 +228,48 @@
 
 <br>
 
-            <!-- Page Title Section -->
-            <div class="page-title">
-            <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
-                My Rent Out
-            </h2>
-            </div>
-
-@if($rentOutHistory->isEmpty())
-    <p>No rent-out history found.</p>
-@else
-    <ul>
+            <div class="rent-history-section">
+    <h2>My Rent Out History</h2>
+    @if($rentOutHistory->isNotEmpty())
         @foreach($rentOutHistory as $history)
-            <li>
-                <strong>Item: {{ $history->item->item_name }}</strong><br>
-                Rent Duration: {{ $history->start_date }} to {{ $history->end_date }} ({{$history->total_days}} days)<br>
-                Status: {{ ucfirst($history->status) }}<br>
-                Total Price: RM {{ number_format($history->total_price, 2) }}<br>
-                Final Price: RM {{ number_format($history->final_price, 2) }}<br>
-                @if($history->status === 'reviewed' )
-                        Review:{{ $history->renter_review }}<br>
-                    @endif
-                @if($history->status === 'rented')
-                    <form action="{{ route('rentOutHistory.markReturned', $history->id) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="btn btn-primary">Returned</button>
-                    </form>
-                @elseif($history->status === 'returned' && is_null($history->renter_review))
-                    <form action="{{ route('rentOutHistory.submitReview', $history->id) }}" method="POST">
-                        @csrf
-                        <div>
-                            <label for="renter_review">Write a Review for renter:</label><br>
-                            <textarea id="renter_review" name="renter_review" rows="3" cols="50" placeholder="Enter your review" required></textarea>
-                        </div>
-                        <br>
-                        <button type="submit" class="btn btn-secondary">Submit Review</button>
-                    </form>
-                @endif
-            </li><br>
+            @if($history->item) <!-- Ensure the item exists -->
+                <div class="item-card">
+                    <img src="{{ asset('storage/' . $history->item->item_image) }}" alt="{{ $history->item->item_name }}" class="item-image">
+                    <div class="item-details">
+                        <h3>{{ $history->item->item_name }}</h3><br>
+                        <p><strong>Rent Duration:</strong> {{ $history->start_date }} to {{ $history->end_date }} ({{ $history->total_days }} days)</p>
+                        <p><strong>Status:</strong> {{ ucfirst($history->status) }}</p>
+                        <p><strong>Total Price:</strong> RM {{ number_format($history->total_price, 2) }}</p>
+                        <p><strong>Final Price:</strong> RM {{ number_format($history->final_price, 2) }}</p>
+                        @if($history->status === 'reviewed')
+                            <p><strong>Renter's Review:</strong> {{ $history->renter_review }}</p>
+                        @endif
+                    </div>
+                    <div class="item-actions">
+                        @if($history->status === 'rented')
+                            <form action="{{ route('rentOutHistory.markReturned', $history->id) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-primary">Mark as Returned</button>
+                            </form>
+                        @elseif($history->status === 'returned' && is_null($history->renter_review))
+                            <form action="{{ route('rentOutHistory.submitReview', $history->id) }}" method="POST">
+                                @csrf
+                                <textarea name="renter_review" rows="2" placeholder="Write a review for the renter..." required></textarea>
+                                <button type="submit" class="btn btn-secondary">Submit Review</button>
+                            </form>
+                        @endif
+                    </div>
+                </div>
+            @else
+                <p>Item not available anymore.</p>
+            @endif
         @endforeach
-    </ul>
-@endif
+    @else
+        <p>No rent-out history found. Start renting out some items!</p>
+    @endif
+</div>
+
 
 <script>
         // JavaScript to toggle the visibility of rent and rent out sections

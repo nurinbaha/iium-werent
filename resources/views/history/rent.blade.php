@@ -55,6 +55,69 @@
             color: #0dcaf0;
         }
 
+        .item-card {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item-card img {
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
+    border-radius: 4px;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-details h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.item-details p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.item-actions {
+    display: flex;
+    gap: 10px;
+    flex-direction: column; /* Ensure buttons stack vertically */
+}
+
+.btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+
 /* Header Styling */
 .header {
     background-color: #3c75ba;
@@ -105,8 +168,8 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 200px;
-            margin-top: 70px; /* Space below the fixed header */
+            margin-left: 250px;
+            margin-top: 120px; /* Space below the fixed header */
             padding: 20px;
             background-color: #f8f9fa;
             min-height: 100vh;
@@ -128,8 +191,8 @@
         }
 
         .item-card img {
-            width: 80px;
-            height: 80px;
+            width: 200px;
+            height: 200px;
             margin-right: 20px;
             border-radius: 4px;
         }
@@ -175,7 +238,7 @@
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
+
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>IIUM WeRent</h2>
@@ -226,54 +289,52 @@
             </div>
         </div>
 
-           <!-- Page Title Section -->
-           <div class="page-title">
-            <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
-                My Rental
-            </h2>
-            </div>
-
-   
-
-    @if($rentHistory->isEmpty())
-        <p>No rent history found.</p>
-    @else
-        <ul>
-            @foreach($rentHistory as $history)
-                <li>
-                    <strong>Item: {{ $history->item->item_name }}</strong><br>
-                    Rent Duration: {{ $history->start_date }} to {{ $history->end_date }} ({{$history->total_days}} days)<br>
-                    Status: {{ ucfirst($history->status) }}<br>
-                    Total Price: RM {{ number_format($history->total_price, 2) }}<br>
-                    Final Price: RM {{ number_format($history->final_price, 2) }}<br>
-                    @if($history->status === 'reviewed' )
-                        Review:{{ $history->item_review }}<br>
-                    @endif
-                    @if($history->status === 'rented')
-                        <form action="{{ route('history.markReturned', $history->id) }}" method="POST">
-                            @csrf
-                            @method('PATCH')
-                            <button type="submit" class="btn btn-primary">Returned</button>
-                        </form>
-                    @elseif($history->status === 'returned' )
-                        <form action="{{ route('history.submitReview', $history->id) }}" method="POST">
-                            @csrf
-                            <div>
-                                <label for="item_review">Write a Review for item:</label><br>
-                                <textarea id="item_review" name="item_review" rows="3" cols="50" placeholder="Enter your review" required></textarea>
-                            </div>
-                            <br>
-                            <button type="submit" class="btn btn-secondary">Submit Review</button>
-                        </form>
+            <div class="rent-history-section">
+    <h2>My Rental History</h2>
+    @if($rentHistory->isNotEmpty())
+        @foreach($rentHistory as $history)
+            @if($history->item) <!-- Ensure the item exists -->
+                <div class="item-card">
+                    <img src="{{ asset('storage/' . $history->item->item_image) }}" alt="{{ $history->item->item_name }}" class="item-image">
+                    <div class="item-details">
+                        <h3>{{ $history->item->item_name }}</h3><br>
+                        <p><strong>Rent Duration:</strong> {{ $history->start_date }} to {{ $history->end_date }} ({{ $history->total_days }} days)</p>
+                        <p><strong>Status:</strong> {{ ucfirst($history->status) }}</p>
+                        <p><strong>Total Price:</strong> RM {{ number_format($history->total_price, 2) }}</p>
+                        <p><strong>Final Price:</strong> RM {{ number_format($history->final_price, 2) }}</p>
+                        @if($history->status === 'reviewed')
+                            <p><strong>Review:</strong> {{ $history->item_review }}</p>
+                        @endif
+                    </div>
+                    <div class="item-actions">
+                        @if($history->status === 'rented')
+                            <form action="{{ route('history.markReturned', $history->id) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-primary">Mark as Returned</button>
+                            </form>
+                        @elseif($history->status === 'returned')
+                            <form action="{{ route('history.submitReview', $history->id) }}" method="POST">
+                                @csrf
+                                <textarea name="item_review" rows="2" placeholder="Write a review..." required></textarea>
+                                <button type="submit" class="btn btn-secondary">Submit Review</button>
+                            </form>
                         @elseif($history->status === 'reviewed')
-                        <a href="{{ route('item.rent.form', $history->item->id) }}" class="btn btn-success">
-                            <i class="fas fa-redo"></i> Rent Again
-                        </a>
-                    @endif
-                </li><br>
-            @endforeach
-        </ul>
+                            <a href="{{ route('item.rent.form', $history->item->id) }}" class="btn btn-success">
+                                Rent Again
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            @else
+                <p>Item not available anymore.</p>
+            @endif
+        @endforeach
+    @else
+        <p>No rental history found. Start renting some items!</p>
     @endif
+</div>
+
 
     <script>
     document.getElementById('notification-link').addEventListener('click', function() {
