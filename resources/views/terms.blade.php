@@ -65,6 +65,7 @@
             padding: 20px;
             background-color: #f8f9fa;
             min-height: 100vh;
+            margin-top: 1250px;
         }
 
         /* Header Styling */
@@ -155,10 +156,79 @@
             margin-right: 35px;
         }
 
+        .content-section {
+            margin-top: 70px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .content-section h2 {
+            font-size: 28px;
+            color: #3c75ba;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+.content-section h3 {
+            font-size: 22px;
+            color: #555;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .rule-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .rule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .rule-card i {
+            font-size: 24px;
+            color: #3c75ba;
+            margin-right: 15px;
+        }
+
+        .rule-card p {
+            font-size: 16px;
+            color: #666;
+            margin: 0;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3c75ba;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-to-top:hover {
+            background-color: #0056b3;
+        }
+
+
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
+
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>IIUM WeRent</h2>
@@ -197,6 +267,8 @@
             </ul>
         </div>
 
+    <div class="main-content
+
         <!-- Main Content -->
         <div class="main-content">
             <!-- Header -->
@@ -209,73 +281,125 @@
                 </button>
             </div>
 
-            <!-- Page Title Section -->
-            <div class="page-title">
-                <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
-                    Rules & Guidelines
-                </h2>
-            </div>
+<!-- Content Section -->
+<div class="content-section">
+    <h2>Rules & Guidelines</h2>
 
-            <!-- Rules & Guidelines Content -->
-            <div class="content-section">
-                <h2>General Rules</h2>
-                <p>
-                    - All users must provide accurate and up-to-date information during registration.<br>
-                    - Any fraudulent activity, including the posting of fake items or false information, is strictly prohibited.<br>
-                    - Users should communicate respectfully and professionally at all times.
-                </p>
+    <!-- General Rules -->
+    <h3>General Rules</h3>
+    <div class="rule-card">
+        <i class="fas fa-info-circle"></i>
+        <p>All users must provide accurate and up-to-date information during registration.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-ban"></i>
+        <p>Fraudulent activity, including the posting of fake items, is strictly prohibited.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-comments"></i>
+        <p>Users must communicate respectfully and professionally at all times.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-shield-alt"></i>
+        <p>Misuse of the platform, such as attempting to manipulate policies or circumvent systems, is strictly forbidden.</p>
+    </div>
 
-                <h3>For Renters (Those Offering Items for Rent)</h3>
-                <ul>
-                    <li><strong>Listing Accuracy:</strong> Ensure that the item details, including pictures, descriptions, and prices, are accurate and updated.</li>
-                    <li><strong>Condition of Items:</strong> Items listed for rent should be in good, functional condition. It is the renter's responsibility to ensure the item is clean and ready for use.</li>
-                    <li><strong>Timely Communication:</strong> Respond to inquiries and booking requests promptly.</li>
-                    <li><strong>Damage & Liability:</strong> Clearly state any terms regarding liability in case of damage to the item.</li>
-                    <li><strong>Legal Ownership:</strong> You must legally own or have the right to rent out the item.</li>
-                    <li><strong>Return Process:</strong> Arrange the return of the item at the end of the rental period in a timely manner.</li>
-                </ul>
+    <!-- Privacy Policy -->
+    <h3>Privacy Policy</h3>
+    <div class="rule-card">
+        <i class="fas fa-lock"></i>
+        <p>User data is collected to improve the platform's functionality and services. Sensitive information will not be shared without explicit consent.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-shield-alt"></i>
+        <p>Your data is encrypted and stored securely in compliance with applicable data protection regulations.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-user-shield"></i>
+        <p>Users may request access to their data, request deletion, or inquire about how their data is used by contacting support.</p>
+    </div>
 
-                <h3>For Renters (Those Renting the Items)</h3>
-                <ul>
-                    <li><strong>Inspection of Items:</strong> Inspect the item upon receiving it to ensure it matches the listing.</li>
-                    <li><strong>Use of Items:</strong> Use rented items responsibly and avoid actions that could lead to damage or loss.</li>
-                    <li><strong>Return of Items:</strong> Return the rented item on time, in the same condition you received it.</li>
-                    <li><strong>Damage & Responsibility:</strong> If the item is damaged, lost, or stolen, you may be held liable for repairs or replacement costs.</li>
-                    <li><strong>No Subletting:</strong> You are not allowed to rent out or sublet an item you have rented to others.</li>
-                </ul>
+    <!-- For Renters (Offering Items) -->
+    <h3>For Renters (Those Offering Items for Rent)</h3>
+    <div class="rule-card">
+        <i class="fas fa-box-open"></i>
+        <p>Ensure that item details, including pictures, descriptions, and prices, are accurate and updated.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-tools"></i>
+        <p>Items must be in good, functional condition and clean before renting out.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-clock"></i>
+        <p>Respond promptly to inquiries and booking requests.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>Clearly outline any terms regarding liability in case of damage to the item.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-gavel"></i>
+        <p>You must legally own or have the right to rent out the item.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-undo-alt"></i>
+        <p>Arrange for the item to be returned promptly at the end of the rental period.</p>
+    </div>
 
-                <h3>Prohibited Items</h3>
-                <ul>
-                    <li>Illegal items or substances.</li>
-                    <li>Weapons, hazardous materials, or any items that pose a safety risk.</li>
-                    <li>Items with expired or fraudulent warranties.</li>
-                </ul>
+    <!-- For Renters (Renting Items) -->
+    <h3>For Renters (Those Renting Items)</h3>
+    <div class="rule-card">
+        <i class="fas fa-search"></i>
+        <p>Inspect the item upon receiving it to ensure it matches the listing.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-user-check"></i>
+        <p>Use rented items responsibly and avoid causing any damage.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-undo-alt"></i>
+        <p>Return the item on time and in the same condition as received.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-ban"></i>
+        <p>Subletting rented items to other users is strictly prohibited.</p>
+    </div>
 
-            </div>
-        </div> <!-- End of main content -->
-    </div> <!-- End of dashboard container -->
+    <!-- Prohibited Activities -->
+    <h3>Prohibited Activities</h3>
+    <div class="rule-card">
+        <i class="fas fa-ban"></i>
+        <p>Listing illegal items or substances is prohibited.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-exclamation-circle"></i>
+        <p>Items that pose safety risks, such as weapons or toxic chemicals, are not allowed.</p>
+    </div>
+    <div class="rule-card">
+        <i class="fas fa-certificate"></i>
+        <p>Items with expired or fraudulent warranties must not be listed.</p>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
 
     <script>
-    // JavaScript to toggle the visibility of rent and rent out sections
-    document.getElementById('notification-link').addEventListener('click', function() {
-        var sections = document.getElementById('notification-sections');
-        if (sections.style.display === "none" || sections.style.display === "") {
-            sections.style.display = "block"; // Show the sections
-        } else {
-            sections.style.display = "none"; // Hide the sections
-        }
-    });
+        // Back-to-top button functionality
+        const backToTopButton = document.getElementById("back-to-top");
 
-     // JavaScript to toggle the visibility of rent and rent out sections
-     document.getElementById('history-link').addEventListener('click', function() {
-        var sections = document.getElementById('history-sections');
-        if (sections.style.display === "none" || sections.style.display === "") {
-            sections.style.display = "block"; // Show the sections
-        } else {
-            sections.style.display = "none"; // Hide the sections
-        }
-    });
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 200) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        });
 
+        backToTopButton.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
     </script>
 </body>
 </html>
