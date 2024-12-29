@@ -399,7 +399,8 @@
 
     <!-- Report Button -->
     @if($item->user_id !== auth()->id())
-        <button class="btn btn-danger" style="padding: 8px 15px;" onclick="openReportModal()">Report Item</button>
+    <button class="btn" style="padding: 8px 15px; background-color: green; color: white; border: none; border-radius: 5px;" onclick="openReportModal()">Report Item</button>
+
     @endif
 
     <!-- Edit Button (Only visible to the owner of the item) -->
