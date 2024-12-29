@@ -60,7 +60,8 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 260px;
+            margin-left: 40px;
+            margin-top: 0px;
             padding: 20px;
             background-color: #f8f9fa;
             min-height: 100vh;
@@ -93,7 +94,7 @@
         .admin-dashboard {
             text-align: center;
             padding: 20px;
-            margin-top: 160px;
+            margin-top: 10px;
         }
 
         .admin-dashboard h2 {
@@ -150,10 +151,20 @@
         transform: scale(1.05); /* Slightly enlarges the card */
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Adds a stronger shadow */
     }
+
+    .dashboard-container {
+    margin-left: 180px; /* Matches the width of the sidebar */
+    margin-top: 40px; /* Matches the height of the header */
+    padding: 20px; /* Adds internal padding for content */
+    background-color: #ffffff; /* Background color for the dashboard */
+    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+}
     </style>
 </head>
 <body>
-
+<div class="dashboard-container">
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>IIUM WeRent</h2>

@@ -61,11 +61,21 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 260px;
+            margin-left: 40px;
             padding: 20px;
             background-color: #f8f9fa;
             min-height: 100vh;
         }
+
+
+.page-title {
+    margin-top: 20px; /* Keeps spacing consistent from the main-content padding */
+    margin-bottom: 20px; /* Adds spacing below the title */
+    font-size: 30px;
+    text-align: left;
+    color: black;
+}
+
 
         /* Header Styling */
         .header {
@@ -92,25 +102,33 @@
         }
 
         .profile-image {
-            width: 120px;
-            height: 120px;
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
             margin-right: 40px;
             object-fit: cover;
         }
 
+        .container {
+    margin-top: 20px; /* Adds spacing from the previous section */
+    padding: 20px; /* Adds internal spacing */
+}
+
+
         /* User Info Section */
         .user-info {
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            margin-top: 60px;
-        }
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 20px; /* Adds spacing between sections */
+    padding: 10px; /* Internal spacing for better readability */
+}
+
 
         .user-info table {
             width: auto;
             border-collapse: collapse;
-            margin-left: 20px;
+            margin-left: 0px;
         }
 
         .user-info table th, .user-info table td {
@@ -146,28 +164,30 @@
 
         /* Profile Section */
         .profile-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 0px;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
         .profile-image {
-        width: 350px;
-        height: 350px;
+        width: 500px;
+        height: 500px;
         border-radius: 0; /* Square shape */
         margin-right: 40px;
         object-fit: cover;
         }.user-info table {
-            width: 100%;
-            max-width: 400px;
+            width: 200%;
+            max-width: 60000px;
             border-collapse: collapse;
         }
 
         /* Items Section */
         .user-items-section {
-            margin-top: 40px;
-        }
+    margin-top: 0px; /* Reduced margin to maintain consistency */
+    padding: 20px; /* Adds internal spacing for items */
+}
+
 
         .item-card {
             display: flex;
@@ -180,8 +200,8 @@
         }
 
         .item-card img {
-            width: 80px;
-            height: 80px;
+            width: 200px;
+            height: 200px;
             margin-right: 20px;
             border-radius: 4px;
         }
@@ -232,10 +252,21 @@
         .user-items-section a:hover {
             text-decoration: none;
         }
+
+        .dashboard-container {
+    margin-left: 180px; /* Matches the width of the sidebar */
+    margin-top: 40px; /* Matches the height of the header */
+    padding: 20px; /* Adds internal padding for content */
+    background-color: #ffffff; /* Background color for the dashboard */
+    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+}
+
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
+<div class="dashboard-container">
         <!-- Sidebar -->
         <div class="sidebar"><br><br>
             <ul>
@@ -285,10 +316,11 @@
 
             <!-- Page Title Section -->
             <div class="page-title">
-            <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
-                User Profile
-            </h2>
+                <h2 style="margin-top: 30px; font-size:30px; text-align: left; color: black;">
+                Profile Page 
+                </h2>
             </div>
+
             <!-- User Information -->
             <div class="profile-container">
             <!-- User Image with Edit Icon -->
@@ -296,7 +328,7 @@
                 <img src="{{ asset($user->user_image ? 'storage/' . $user->user_image : 'images/profiles/profile.png') }}" 
                     alt="User Image" 
                     class="profile-image" 
-                    style="width:150px; height:150px; object-fit:cover; border: 2px solid #ddd; border-radius: 10px;">
+                    style="width:400px; height:400px; object-fit:cover; border: 2px solid #ddd; border-radius: 10px;">
                 
                 <!-- Icon to Trigger File Input -->
                 <label for="user_image" style="
@@ -316,9 +348,10 @@
                     @csrf
                     <input type="file" name="user_image" id="user_image" style="display: none;" onchange="document.getElementById('upload-form').submit();">
                 </form>
-            </div>                                                                                     
+            </div>    
+
                 <div class="container">
-                    <h2>User Profile</h2>
+                    <h2>User Informations</h2>
 
                     @if (session('success'))
                         <script>
@@ -372,8 +405,10 @@
                             <a href="{{ route('profile') }}" class="btn btn-secondary">Cancel</a>
                         </form>
                     @else
-                        <!-- Profile Information -->
-                        <div class="user-info">
+                       
+                    
+                    <!-- Profile Information -->
+            <div class="user-info">
                     <table>
                         <tr>
                             <th>Name</th>
@@ -428,13 +463,6 @@
                     @endforeach
                 @endif
             </div>
-
-            <!-- Logout Form -->
-            <form action="{{ url('/logout') }}" method="POST" style="text-align: center;">
-                @csrf
-                <button type="submit" class="logout-btn">Logout</button>
-            </form>
-        </div>
     </div>
 
     <script>

@@ -100,127 +100,69 @@
         }
 
         .main-content {
-    margin-left: 200px; /* Adjust to align with the sidebar */
-    padding: 20px;
-    margin-top: 60px; /* Adjust this value to ensure content starts below the fixed header */
-    background-color: #f8f9fa; /* Optional background color */
-    min-height: 100vh;
-}
-
-
-        .item-container {
-    display: flex;
-    justify-content: flex-start; /* Pastikan kandungan selari ke kiri */
-    align-items: flex-start; /* Kandungan sejajar di atas */
-    gap: 30px; /* Jarak antara imej dan maklumat */
-    padding: 30px;
-    margin-left: 200px; /* Pastikan jauh dari sidebar */
-}
-
-.item-image {
-    width: 40%;
-}
-
-.item-image img {
-    width: 100%;
-    height: auto; /* Kekalkan nisbah imej */
-    border-radius: 10px;
-}
-
-        .item-info {
-            width: 55%;
-            padding-left: 20px;
+            margin-left: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            min-height: 100vh;
         }
 
-        .item-info h1 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .item-info p {
-            font-size: 14px;
-            color: #777;
-        }
-
-        .item-info table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        .item-info th, .item-info td {
-            text-align: left;
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-
-        /* Item Description */
-        .item-description {
-            margin-top: 30px;
-        }
-
-        .item-description h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        .item-description p {
-            font-size: 14px;
-            line-height: 1.6;
-        }
+        /* Item Card Styling */
         .item-card {
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        }
+    display: flex;
+    justify-content: space-between; /* Add this */
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.item-details {
+    flex-grow: 1; /* Allows the details to take up remaining space */
+}
 
         .item-card img {
-            width: 100px;
-            height: 100px;
+            width: 180px;
+            height: 180px;
             margin-right: 20px;
-            object-fit: cover;
-            border-radius: 8px;
+            border-radius: 4px;
         }
 
-        .item-details {
-            flex: 1;
-        }
-
-        .item-details h3 {
-            margin: 0 0 10px;
-            font-size: 1.2rem;
-            color: #333;
-        }
-
-        .item-details p {
-            margin: 5px 0;
-            color: #555;
+        .item-card .item-info {
+            font-size: 16px;
         }
 
         .btn-view {
-            background-color: #dc3545;
-            color: #fff;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-        }
+    background-color: #dc3545;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-left: 20px; /* Add some spacing from the details */
+}
 
-        .btn-view:hover {
-            background-color: #c82333;
-        }
-
+.btn-view:hover {
+    background-color: #c82333;
+}
         .content-header {
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 20px;
             color: #333;
         }
+
+        .dashboard-container {
+    margin-left: 180px; /* Matches the width of the sidebar */
+    margin-top: 40px; /* Matches the height of the header */
+    padding: 20px; /* Adds internal padding for content */
+    background-color: #ffffff; /* Background color for the dashboard */
+    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+}
+
     </style>
 </head>
 <body>
@@ -246,7 +188,7 @@
 
             <!-- Page Title Section -->
             <div class="page-title">
-                <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
+                <h2 style="margin-top: 40px; font-size: 30px; text-align: left; color: black;">
                     Reports
                 </h2>
             </div>
@@ -259,15 +201,17 @@
                 <p>No reported items found.</p>
             @else
                 @foreach($reportedItems as $report)
-                    <div class="item-card">
-                        <img src="{{ asset('storage/' . $report->item->item_image) }}" alt="{{ $report->item->item_name }}">
-                        <div class="item-details">
-                            <h3>{{ $report->item->item_name }}</h3>
-                            <p><strong>Reported Reason:</strong> {{ $report->reason }}</p>
-                            <p><strong>Reported By:</strong> {{ $report->user->name ?? 'N/A' }}</p>
-                            <a href="{{ route('admin.report.details', $report->item_id) }}" class="btn-view">View Details</a>
-                        </div>
-                    </div>
+                <div class="item-card">
+    <img src="{{ asset('storage/' . $report->item->item_image) }}" alt="{{ $report->item->item_name }}">
+    <div class="item-details">
+        <h3>{{ $report->item->item_name }}</h3>
+        <p><strong>Reported Reason:</strong> {{ $report->reason }}</p>
+        <p><strong>Reported By:</strong> {{ $report->user->name ?? 'N/A' }}</p>
+        <p><strong>Reporter Email:</strong> {{ $report->user->email ?? 'N/A' }}</p>
+    </div>
+    <a href="{{ route('admin.report.details', $report->item_id) }}" class="btn-view">View Details</a>
+</div>
+
                 @endforeach
             @endif
         </div>

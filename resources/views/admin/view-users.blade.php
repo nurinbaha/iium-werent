@@ -122,8 +122,8 @@
         }
 
         .user-card img {
-            width: 80px;
-            height: 80px;
+            width: 180px;
+            height: 180px;
             margin-right: 20px;
             border-radius: 4px;
         }
@@ -131,6 +131,35 @@
         .user-card .user-info {
             font-size: 16px;
         }
+
+        .user-card .user-info h3 a {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Inherits the color from parent */
+}
+
+.user-card .user-info h3 a:hover {
+    text-decoration: underline; /* Optionally add underline on hover for clarity */
+    color: #007bff; /* Optionally change hover color */
+}
+
+
+        .dashboard-container {
+    margin-left: 180px; /* Matches the width of the sidebar */
+    margin-top: 40px; /* Matches the height of the header */
+    padding: 20px; /* Adds internal padding for content */
+    background-color: #ffffff; /* Background color for the dashboard */
+    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+}
+
+.main-content {
+            margin-left: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
     </style>
 </head>
 <body>
@@ -156,7 +185,7 @@
 
             <!-- Page Title Section -->
             <div class="page-title">
-                <h2 style="margin-top: 70px; font-size:30px; text-align: left; color: black;">
+                <h2 style="margin-top: 40px; font-size:30px; text-align: left; color: black;">
                     Users
                 </h2>
             </div>

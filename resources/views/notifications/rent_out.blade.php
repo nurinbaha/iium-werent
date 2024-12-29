@@ -51,7 +51,7 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 260px; /* To align with the sidebar */
+            margin-left: 40px;
             padding: 20px;
             background-color: #f8f9fa;
             min-height: 100vh;
@@ -190,26 +190,35 @@
         }
 
         .item-card {
-            display: flex;
-            align-items: center;
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        }
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between; /* Spreads the content within the card */
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 320%; /* Makes the card take the full width of the container */
+}
 
-        .item-card img {
-            width: 80px;
-            height: 80px;
-            margin-right: 20px;
-            border-radius: 4px;
-        }
+.item-card img {
+    max-width: 180px;
+    max-height: 180px;
+    margin-right: 20px;
+    border-radius: 4px;
+    align-self: center; /* Ensures the image is centered vertically */
+}
 
-        .item-details {
-            display: flex;
-            flex-direction: column;
-        }
+.item-details {
+    flex: 1; /* Allows the item details to expand and fill the available space */
+    font-size: 16px;
+}
+
+.item-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
         /* Remove underline from item links */
         .latest-items-section-dashboard a {
@@ -265,10 +274,31 @@
             text-decoration: none;
         }
 
+        .dashboard-container {
+    margin-left: 180px; /* Matches the width of the sidebar */
+    margin-top: 40px; /* Matches the height of the header */
+    padding: 20px; /* Adds internal padding for content */
+    background-color: #ffffff; /* Background color for the dashboard */
+    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+}
+
+.container {
+    margin-left: 0px; /* Matches the width of the sidebar */
+    margin-top: 40px; /* Matches the height of the header */
+    padding: 20px; /* Adds internal padding */
+    background-color: #ffffff; /* Optional: Sets a background color */
+    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+    box-sizing: border-box; /* Ensures padding is included in the width/height calculations */
+}
+
+
     </style>
 </head>
 <body>
-
+<div class="dashboard-container">
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>IIUM WeRent</h2>
@@ -323,48 +353,51 @@
 
             <!-- Page Title Section -->
             <div class="page-title">
-            <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
+            <h2 style="margin-top: 40px; font-size: 30px; text-align: left; color: black;">
                 My Rent Request 
             </h2>
             </div>
 
- <div class="container">
+            <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header bg-success text-white">
-                 
-                </div>
-                <div class="card-body">
-                    @if($rentOutNotifications->isEmpty())
-                        <p>No rent request available.</p>
+            @if($rentOutNotifications->isEmpty())
+                <p>No rent request available.</p>
+            @else
+                @foreach($rentOutNotifications as $notification)
+                    @if($notification->item) <!-- Ensure the item exists -->
+                        <div class="item-card">
+                            <img src="{{ asset('storage/' . $notification->item->item_image) }}" alt="{{ $notification->item->item_name }}" class="item-image">
+                            <div class="item-details">
+                                <h3>{{ $notification->item->item_name }}</h3>
+                                <p><strong>Requested By:</strong> <a href="{{ route('user.profile', $notification->renter->id) }}">{{ $notification->renter->name }}</a></p>
+                                <p><strong>Status:</strong> {{ ucfirst($notification->status) }}</p>
+                                <p><strong>Start Date:</strong> {{ $notification->start_date }}</p>
+                                <p><strong>End Date:</strong> {{ $notification->end_date }}</p>
+                                <p><strong>Total Days:</strong> {{ $notification->total_days }}</p>
+                                <p><strong>Total Price (without deposit):</strong> RM {{ number_format($notification->total_price, 2) }}</p>
+                                <p><strong>Final Price (with deposit):</strong> RM {{ number_format($notification->final_price, 2) }}</p>
+                            </div>
+                            <div class="item-actions">
+                                <form action="{{ route('notifications.approve', $notification->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">Approve</button>
+                                </form>
+                                <form action="{{ route('notifications.decline', $notification->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Decline</button>
+                                </form>
+                            </div>
+                        </div>
                     @else
-                        <ul class="list-group">
-                            @foreach($rentOutNotifications as $rentOutNotification)
-                                <li class="list-group-item">
-                                    <strong>Rent request for item: <a href="{{ route('items.show', ['id' => $rentOutNotification->item->id]) }}">{{ $rentOutNotification->item->item_name }}</a></strong>
-                                    <p>Status: {{ ucfirst($rentOutNotification->status) }}</p>
-                                    <p>Requested by: <a href="{{ route('user.profile', ['id' => $rentOutNotification->renter->id]) }}">{{ $rentOutNotification->renter->name }}</a></p>
-                                    <p>Start Date: {{ $rentOutNotification->start_date }}</p>
-                                    <p>End Date: {{ $rentOutNotification->end_date }}</p>
-                                    <p>Total Days: {{ $rentOutNotification->total_days }}</p>
-                                    <p>Total Price (without deposit): RM {{ number_format($rentOutNotification->total_price, 2) }}</p>
-                                    <p>Final Price (with deposit): RM {{ number_format($rentOutNotification->final_price, 2) }}</p>
-                                    <form method="POST" action="{{ route('notifications.approve', $rentOutNotification->id) }}">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success">Approve</button>
-                                    </form>
-                                    <form method="POST" action="{{ route('notifications.decline', $rentOutNotification->id) }}">
-                                        @csrf
-                                        <button type="submit" class="btn btn-danger">Decline</button>
-                                    </form>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <p>Item not available anymore.</p>
                     @endif
-                </div>
-            </div>
+                @endforeach
+            @endif
         </div>
+    </div>
+</div>
+
     </div>
 </div>
 

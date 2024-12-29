@@ -87,5 +87,9 @@ class User extends Authenticatable
         return $this->hasMany(RentHistory::class, 'renter_id');
     }
 
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'user_id');
+    }
 
 }

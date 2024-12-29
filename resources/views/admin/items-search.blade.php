@@ -122,8 +122,8 @@
         }
 
         .item-card img {
-            width: 80px;
-            height: 80px;
+            width: 180px;
+            height: 180px;
             margin-right: 20px;
             border-radius: 4px;
         }
@@ -132,14 +132,33 @@
             font-size: 16px;
         }
 
-        .item-card .item-info a {
-            text-decoration: none;
-            color: #007bff;
+        .item-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color from parent */
+}
+
+.item-link:hover {
+    color: inherit; /* Keep the color unchanged on hover */
+    text-decoration: none; /* Ensure no underline appears */
+}
+
+        .dashboard-container {
+    margin-left: 180px; /* Matches the width of the sidebar */
+    margin-top: 40px; /* Matches the height of the header */
+    padding: 20px; /* Adds internal padding for content */
+    background-color: #ffffff; /* Background color for the dashboard */
+    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+}
+
+.main-content {
+            margin-left: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            min-height: 100vh;
         }
 
-        .item-card .item-info a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
@@ -165,7 +184,7 @@
 
             <!-- Page Title Section -->
             <div class="page-title">
-                <h2 style="margin-top: 70px; font-size:30px; text-align: left; color: black;">
+                <h2 style="margin-top: 40px; font-size:30px; text-align: left; color: black;">
                     Search Items
                 </h2>
             </div>

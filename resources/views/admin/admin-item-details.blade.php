@@ -105,11 +105,13 @@
     align-items: flex-start; /* Kandungan sejajar di atas */
     gap: 30px; /* Jarak antara imej dan maklumat */
     padding: 30px;
-    margin-left: 200px; /* Pastikan jauh dari sidebar */
+    margin-left: 20px; /* Pastikan jauh dari sidebar */
+    margin-bottom: 0px;
 }
 
 .item-image {
-    width: 40%;
+    width: 600px;
+    height: 600px;
 }
 
 .item-image img {
@@ -230,11 +232,6 @@
             background-color: #5a6268;
         }
 
-        /* Item Description */
-        .item-description {
-            margin-top: 30px;
-        }
-
         .item-description h3 {
             font-size: 1.5em;
             margin-bottom: 10px;
@@ -245,6 +242,23 @@
             line-height: 1.6;
         }
  
+        .dashboard-container {
+    margin-left: 180px; /* Matches the width of the sidebar */
+    margin-top: 40px; /* Matches the height of the header */
+    padding: 20px; /* Adds internal padding for content */
+    background-color: #ffffff; /* Background color for the dashboard */
+    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+}
+
+.main-content {
+            margin-left: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
     </style>
 </head>
 <body>
@@ -268,6 +282,12 @@
                 <h1>IIUM WeRent</h1>
             </div>
 
+                        <!-- Page Title Section -->
+                        <div class="page-title">
+                <h2 style="margin-top: 40px; font-size: 30px; text-align: left; color: black;">
+                    Item Details
+                </h2>
+            </div>
 
             <!-- Breadcrumb -->
             <div class="breadcrumb">
@@ -345,13 +365,6 @@
                     </form>
                 </div>
             </div>
-
-            <!-- Item Description -->
-            <div class="item-description">
-                <h3>Description</h3>
-                <p>{{ $item->item_description }}</p>
-            </div> 
-
         </div>
     </div>
 

@@ -10,6 +10,7 @@ class ReportController extends Controller
 {
     public function store(Request $request)
     {
+        $reports = Report::with(['user', 'item'])->get();
         $validated = $request->validate([
             'item_id' => 'required|exists:items,id',
             'reason' => 'required|string|max:255',
@@ -22,8 +23,8 @@ class ReportController extends Controller
         ]);
     
         // Add success message to session
+        return view('admin.reports.index', compact('reports'));
         return redirect()->back()->with('success', 'Thank you for reporting. Your submission has been sent to the admin for review.');
-    }
-    
+    }   
     
 }

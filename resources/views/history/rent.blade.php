@@ -66,8 +66,8 @@
 }
 
 .item-card img {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     margin-right: 20px;
     border-radius: 4px;
 }
@@ -168,12 +168,12 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 250px;
-            margin-top: 120px; /* Space below the fixed header */
+            margin-left: 40px;
             padding: 20px;
             background-color: #f8f9fa;
             min-height: 100vh;
         }
+
 
         /* Wishlist Item Styling */
         .wishlist-section h2 {
@@ -191,8 +191,8 @@
         }
 
         .item-card img {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             margin-right: 20px;
             border-radius: 4px;
         }
@@ -235,10 +235,21 @@
         .btn:hover {
             opacity: 0.9;
         }
+
+        .dashboard-container {
+    margin-left: 180px; /* Matches the width of the sidebar */
+    margin-top: 40px; /* Matches the height of the header */
+    padding: 20px; /* Adds internal padding for content */
+    background-color: #ffffff; /* Background color for the dashboard */
+    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+}
+
     </style>
 </head>
 <body>
-
+<div class="dashboard-container">
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>IIUM WeRent</h2>
@@ -289,8 +300,14 @@
             </div>
         </div>
 
+                            <!-- Page Title Section -->
+                            <div class="page-title">
+                <h2 style="margin-top: 40px; font-size: 30px; text-align: left; color: black;">
+                    My Rental History
+                </h2>
+            </div>
+
             <div class="rent-history-section">
-    <h2>My Rental History</h2>
     @if($rentHistory->isNotEmpty())
         @foreach($rentHistory as $history)
             @if($history->item) <!-- Ensure the item exists -->
