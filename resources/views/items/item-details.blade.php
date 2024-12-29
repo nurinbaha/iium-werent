@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $item->name }} - IIUM WeRent</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    #<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    
     <style>
         /* Sidebar Styling */
         .sidebar {
@@ -57,12 +58,15 @@
             color: #0dcaf0;
         }
 
+        .dashboard-container{
+            margin-left: 220px;
+        }
+
         /* Main Content Styling */
         .main-content {
-            margin-left: 260px;
-            padding: 20px;
-            background-color: #f8f9fa;
-            min-height: 100vh;
+            padding-inline: 30px;
+            background-color: rgb(255, 255, 255);
+            overflow: auto; /* Allow the content to grow dynamically */
         }
 
         /* Header Styling */
@@ -128,6 +132,50 @@
 
         .breadcrumb a:hover {
             text-decoration: underline;
+        }
+
+        /*carousel*/
+        .custom-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-images img {
+            width: 100%;
+            flex-shrink: 0;
+            border-radius: 10px;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        .carousel-control.prev {
+            left: 10px;
+        }
+
+        .carousel-control.next {
+            right: 10px;
+        }
+
+        .carousel-control:hover {
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
         /* Item Container */
@@ -311,25 +359,25 @@
                 </button>
             </div>
 
-<!-- Page Title Section -->
-<div class="page-title" style="display: flex; align-items: center; gap: 10px; margin-top: 70px;">
-    <h2 style="margin: 0; font-size: 30px; color: black;">
-        {{ $item->item_name }}
-    </h2>
-    @if($item->user_id !== auth()->id())
-    <!-- Wishlist Button (Only visible to non-owners) -->
-    <form action="{{ route('wishlist.toggle', $item->id) }}" method="POST" style="margin: 0;">
-        @csrf
-        <button type="submit" style="background: none; border: none; cursor: pointer; font-size: 24px; display: flex; align-items: center;">
-            @if ($item->is_in_wishlist)
-                <i class="fas fa-heart" style="color: red;"></i> <!-- Already in Wishlist -->
-            @else
-                <i class="far fa-heart"></i> <!-- Not in Wishlist -->
-            @endif
-        </button>
-    </form>
-    @endif
-</div>
+            <!-- Page Title Section -->
+            <div class="page-title" style="display: flex; align-items: center; gap: 10px; margin-top: 70px;">
+                <h2 style="margin: 0; font-size: 30px; color: black;">
+                    {{ $item->item_name }}
+                </h2>
+                @if($item->user_id !== auth()->id())
+                <!-- Wishlist Button (Only visible to non-owners) -->
+                <form action="{{ route('wishlist.toggle', $item->id) }}" method="POST" style="margin: 0;">
+                    @csrf
+                    <button type="submit" style="background: none; border: none; cursor: pointer; font-size: 24px; display: flex; align-items: center;">
+                        @if ($item->is_in_wishlist)
+                            <i class="fas fa-heart" style="color: red;"></i> <!-- Already in Wishlist -->
+                        @else
+                            <i class="far fa-heart"></i> <!-- Not in Wishlist -->
+                        @endif
+                    </button>
+                </form>
+                @endif
+            </div>
 
 
 
@@ -344,7 +392,15 @@
             <div class="item-container">
                 <!-- Item Image -->
                 <div class="item-image">
-                    <img src="{{ asset('storage/' . $item->item_image) }}" alt="{{ $item->name }}">
+                    <div class="custom-carousel">
+                        <div class="carousel-images">
+                            @foreach ($item->images as $image)
+                                <img src="{{ asset('storage/' . $image->path) }}" alt="Item Image" />
+                            @endforeach
+                        </div>
+                        <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
+                        <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
+                    </div>
                 </div>
 
                 <!-- Item Information -->
@@ -428,6 +484,38 @@
         @endforeach
     @endif
 </div>
+
+<script>
+    let currentIndex = 0;
+
+    function showSlide(index) {
+        const carouselImages = document.querySelector('.carousel-images');
+        const totalSlides = document.querySelectorAll('.carousel-images img').length;
+
+        if (index >= totalSlides) {
+            currentIndex = 0; // Loop back to the first image
+        } else if (index < 0) {
+            currentIndex = totalSlides - 1; // Loop back to the last image
+        } else {
+            currentIndex = index;
+        }
+
+        const offset = -currentIndex * 100; // Calculate the offset
+        carouselImages.style.transform = `translateX(${offset}%)`;
+    }
+
+    function nextSlide() {
+        showSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+        showSlide(currentIndex - 1);
+    }
+
+    // Initialize the carousel
+    showSlide(currentIndex);
+</script>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -307,50 +307,56 @@
                 </h2>
             </div>
 
-            <div class="rent-history-section">
-    @if($rentHistory->isNotEmpty())
-        @foreach($rentHistory as $history)
-            @if($history->item) <!-- Ensure the item exists -->
-                <div class="item-card">
-                    <img src="{{ asset('storage/' . $history->item->item_image) }}" alt="{{ $history->item->item_name }}" class="item-image">
-                    <div class="item-details">
-                        <h3>{{ $history->item->item_name }}</h3><br>
-                        <p><strong>Rent Duration:</strong> {{ $history->start_date }} to {{ $history->end_date }} ({{ $history->total_days }} days)</p>
-                        <p><strong>Status:</strong> {{ ucfirst($history->status) }}</p>
-                        <p><strong>Total Price:</strong> RM {{ number_format($history->total_price, 2) }}</p>
-                        <p><strong>Final Price:</strong> RM {{ number_format($history->final_price, 2) }}</p>
-                        @if($history->status === 'reviewed')
-                            <p><strong>Review:</strong> {{ $history->item_review }}</p>
-                        @endif
-                    </div>
-                    <div class="item-actions">
-                        @if($history->status === 'rented')
-                            <form action="{{ route('history.markReturned', $history->id) }}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit" class="btn btn-primary">Mark as Returned</button>
-                            </form>
-                        @elseif($history->status === 'returned')
-                            <form action="{{ route('history.submitReview', $history->id) }}" method="POST">
-                                @csrf
-                                <textarea name="item_review" rows="2" placeholder="Write a review..." required></textarea>
-                                <button type="submit" class="btn btn-secondary">Submit Review</button>
-                            </form>
-                        @elseif($history->status === 'reviewed')
-                            <a href="{{ route('item.rent.form', $history->item->id) }}" class="btn btn-success">
-                                Rent Again
-                            </a>
-                        @endif
-                    </div>
-                </div>
+        <div class="rent-history-section">
+                    @if($rentHistory->isNotEmpty())
+                @foreach($rentHistory as $history)
+                    @if($history->item) <!-- Ensure the item exists -->
+                        <div class="item-card">
+                            <!-- Dynamically handle item images -->
+                            @php
+                                $imagePath = $history->item->images->first() 
+                                            ? 'storage/' . $history->item->images->first()->path 
+                                            : 'images/default.jpg';
+                            @endphp
+                            <img src="{{ asset($imagePath) }}" alt="{{ $history->item->item_name }}" class="item-image">
+                            <div class="item-details">
+                                <h3>{{ $history->item->item_name }}</h3><br>
+                                <p><strong>Rent Duration:</strong> {{ $history->start_date }} to {{ $history->end_date }} ({{ $history->total_days }} days)</p>
+                                <p><strong>Status:</strong> {{ ucfirst($history->status) }}</p>
+                                <p><strong>Total Price:</strong> RM {{ number_format($history->total_price, 2) }}</p>
+                                <p><strong>Final Price:</strong> RM {{ number_format($history->final_price, 2) }}</p>
+                                @if($history->status === 'reviewed')
+                                    <p><strong>Review:</strong> {{ $history->item_review }}</p>
+                                @endif
+                            </div>
+                            <div class="item-actions">
+                                @if($history->status === 'rented')
+                                    <form action="{{ route('history.markReturned', $history->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn btn-primary">Mark as Returned</button>
+                                    </form>
+                                @elseif($history->status === 'returned')
+                                    <form action="{{ route('history.submitReview', $history->id) }}" method="POST">
+                                        @csrf
+                                        <textarea name="item_review" rows="2" placeholder="Write a review..." required></textarea>
+                                        <button type="submit" class="btn btn-secondary">Submit Review</button>
+                                    </form>
+                                @elseif($history->status === 'reviewed')
+                                    <a href="{{ route('item.rent.form', $history->item->id) }}" class="btn btn-success">
+                                        Rent Again
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    @else
+                        <p>Item not available anymore.</p>
+                    @endif
+                @endforeach
             @else
-                <p>Item not available anymore.</p>
+                <p>No rental history found. Start renting some items!</p>
             @endif
-        @endforeach
-    @else
-        <p>No rental history found. Start renting some items!</p>
-    @endif
-</div>
+        </div>
 
 
     <script>

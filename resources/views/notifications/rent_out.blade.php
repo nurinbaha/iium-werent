@@ -367,7 +367,13 @@
                 @foreach($rentOutNotifications as $notification)
                     @if($notification->item) <!-- Ensure the item exists -->
                         <div class="item-card">
-                            <img src="{{ asset('storage/' . $notification->item->item_image) }}" alt="{{ $notification->item->item_name }}" class="item-image">
+                            <!-- Dynamically handle item images -->
+                            @php
+                                $imagePath = $notification->item->images->first() 
+                                            ? 'storage/' . $notification->item->images->first()->path 
+                                            : 'images/default.jpg';
+                            @endphp
+                            <img src="{{ asset($imagePath) }}" alt="{{ $notification->item->item_name }}" class="item-image">
                             <div class="item-details">
                                 <h3>{{ $notification->item->item_name }}</h3>
                                 <p><strong>Requested By:</strong> <a href="{{ route('user.profile', $notification->renter->id) }}">{{ $notification->renter->name }}</a></p>

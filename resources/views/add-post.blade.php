@@ -250,8 +250,9 @@
                         @csrf
 
                         <div class="add-post-form-group">
-                            <label for="item_image">Upload an Image:</label>
-                            <input type="file" id="item_image" name="item_image" accept="image/*" required>
+                            <label for="item_images">Upload Images (Max: 10):</label>
+                            <input type="file" id="item_images" name="item_images[]" accept="image/*" multiple required>
+                            <small>Note: You can upload up to 10 images.</small>
                         </div>
 
                         <div class="add-post-form-group">

@@ -48,12 +48,16 @@
             color: #0dcaf0; /* Icon color on hover */
         }
 
+        .dashboard-container{
+            margin-left: 220px;
+            width: 100%;
+        }
+
         /* Main Content Styling */
         .main-content {
-            margin-left: 260px; /* To align with the sidebar */
-            padding: 20px;
-            background-color: #f8f9fa;
-            min-height: 100vh;
+            padding-inline: 130px;
+            background-color: rgb(255, 255, 255);
+            overflow: auto; /* Allow the content to grow dynamically */
         }
 
         /* Sidebar Styling */
@@ -125,6 +129,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
 .search-box input {
@@ -411,7 +416,7 @@
 
 <!-- Items Near You Section in Dashboard -->
 <div class="latest-items-section-dashboard">
-    <h2>Recomended Items Near You</h2>
+    <h2>Recommended Items Near You</h2>
     @if($itemsNearYou->isEmpty())
         <p>No items available near your location.</p>
     @else
@@ -419,13 +424,17 @@
             <!-- Wrap the item card in an anchor tag to link to the item details page -->
             <a href="{{ route('item.show', ['id' => $item->id]) }}" class="item-link">
                 <div class="item-card">
-                    <img src="{{ asset('storage/' . $item->item_image) }}" alt="{{ $item->item_name }}" class="item-image">
+                    @php
+                        // Check if the item has an image; use a default if not
+                        $imagePath = $item->images->first() ? 'storage/' . $item->images->first()->path : 'images/default.jpg';
+                    @endphp
+                    <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" class="item-image">
                     <div class="item-details">
                         <h3>{{ $item->item_name }}</h3><br>
-                        <p><strong>RM{{ $item->price }}/day</strong></p>
+                        <p><strong>RM{{ number_format($item->price, 2) }}/day</strong></p>
                         <p>{{ $item->created_at->format('d M Y , H:i') }}</p>
                         <p>{{ $item->location }}</p>
-                        <p>Category > {{ $item->category }}</p>
+                        <p>Category > {{ ucfirst($item->category) }}</p>
                     </div>
                 </div>
             </a>

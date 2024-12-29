@@ -247,39 +247,43 @@
 
             <!-- Wishlist Section -->
             <div class="wishlist-section">
-    @if($wishlistItems->isNotEmpty())
-        @foreach($wishlistItems as $wishlist)
-            @if($wishlist->item) <!-- Ensure the item exists -->
-                <div class="item-card">
-                    <img src="{{ asset('storage/' . $wishlist->item->item_image) }}" alt="{{ $wishlist->item->item_name }}" class="item-image">
-                    <div class="item-details">
-                        <h3>{{ $wishlist->item->item_name }}</h3><br>
-                        <p><strong>RM{{ $wishlist->item->price }}/day</strong></p>
-                        <p>{{ $wishlist->item->created_at->format('d M Y, H:i') }}</p>
-                        <p>{{ $wishlist->item->location }}</p>
-                        <p>Category > {{ $wishlist->item->category }}</p>
-                    </div>
-                    <div class="item-actions">
-                        <!-- View Item Button -->
-                        <a href="{{ route('item.show', ['id' => $wishlist->item->id]) }}" class="btn btn-info">View Item</a>
-                        
-                        <!-- Remove Button -->
-                        <form action="{{ route('wishlist.remove', $wishlist->item->id) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Remove</button>
-                        </form>
-                    </div>
-                </div>
-            @else
-                <p>Item not available anymore.</p>
-            @endif
-        @endforeach
-    @else
-        <p>Your wishlist is empty. Start adding some items!</p>
-    @endif
-</div>
-
+                @if($wishlistItems->isNotEmpty())
+                    @foreach($wishlistItems as $wishlist)
+                        @if($wishlist->item) <!-- Ensure the item exists -->
+                            <div class="item-card">
+                                @php
+                                    $imagePath = $wishlist->item->images->first() 
+                                                 ? 'storage/' . $wishlist->item->images->first()->path 
+                                                 : 'images/default.jpg';
+                                @endphp
+                                <img src="{{ asset($imagePath) }}" alt="{{ $wishlist->item->item_name }}" class="item-image">
+                                <div class="item-details">
+                                    <h3>{{ $wishlist->item->item_name }}</h3><br>
+                                    <p><strong>RM{{ $wishlist->item->price }}/day</strong></p>
+                                    <p>{{ $wishlist->item->created_at->format('d M Y, H:i') }}</p>
+                                    <p>{{ $wishlist->item->location }}</p>
+                                    <p>Category > {{ $wishlist->item->category }}</p>
+                                </div>
+                                <div class="item-actions">
+                                    <!-- View Item Button -->
+                                    <a href="{{ route('item.show', ['id' => $wishlist->item->id]) }}" class="btn btn-info">View Item</a>
+                                    
+                                    <!-- Remove Button -->
+                                    <form action="{{ route('wishlist.remove', $wishlist->item->id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Remove</button>
+                                    </form>
+                                </div>
+                            </div>
+                        @else
+                            <p>Item not available anymore.</p>
+                        @endif
+                    @endforeach
+                @else
+                    <p>Your wishlist is empty. Start adding some items!</p>
+                @endif
+            </div>
         </div>
     </div>
     <!-- SweetAlert for Session Messages -->
