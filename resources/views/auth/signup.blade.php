@@ -195,15 +195,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="status">Status: <span class="required-symbol">*</span></label>
-                    <select name="status" id="status" required>
-                        <option value="student" {{ old('status') == 'student' ? 'selected' : '' }}>Student</option>
-                        <option value="staff" {{ old('status') == 'staff' ? 'selected' : '' }}>Staff</option>
-                    </select>
-                    @error('status') <div class="error">{{ $message }}</div> @enderror
-                </div>
-
-                <div class="form-group">
                     <label for="location">Location: <span class="required-symbol">*</span></label>
                     <select name="location" id="location" required>
                         <option value="">Select Location</option>
@@ -224,6 +215,7 @@
                         <option value="Mahallah Nusaibah" {{ old('location') == 'Mahallah Nusaibah' ? 'selected' : '' }}>Mahallah Nusaibah</option>
                         <option value="Mahallah Sumayyah" {{ old('location') == 'Mahallah Sumayyah' ? 'selected' : '' }}>Mahallah Sumayyah</option>
                         <option value="Mahallah Safiyyah" {{ old('location') == 'Mahallah Safiyyah' ? 'selected' : '' }}>Mahallah Safiyyah</option>
+                        <option value="Off Campus" {{ request('category') == 'Off Campus' ? 'selected' : '' }}>Off Campus</option>
                     </select>
                     @error('location') <div class="error">{{ $message }}</div> @enderror
                 </div>

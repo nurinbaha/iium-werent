@@ -29,7 +29,6 @@ class SignUpController extends Controller
                 'email' => 'required|string|email|max:255|unique:users',
                 'phone_number' => 'required|string|max:20',
                 'gender' => 'required|string',
-                'status' => 'required|in:student,staff',
                 'location' => 'required|string|max:255',
                 'password' => 'required|string|min:8|confirmed',
             ]);
@@ -40,7 +39,6 @@ class SignUpController extends Controller
                 'email' => $validated['email'],
                 'phone_number' => $validated['phone_number'],
                 'gender' => $validated['gender'],
-                'status' => $validated['status'],
                 'location' => $validated['location'],
                 'password' => Hash::make($validated['password']),
                 'role' => 'user', // Default role

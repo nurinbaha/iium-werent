@@ -380,11 +380,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="status">Status</label>
-                                <input type="text" name="status" class="form-control" value="{{ $user->status }}">
-                            </div>
-
-                            <div class="form-group">
                                 <label for="location">Location</label>
                                 <input type="text" name="location" class="form-control" value="{{ $user->location }}">
                             </div>
@@ -417,10 +412,6 @@
                         <tr>
                             <th>Email</th>
                             <td>{{ $user->email }}</td>
-                        </tr>
-                        <tr>
-                            <th>Status</th>
-                            <td>{{ $user->status ?? 'N/A' }}</td>
                         </tr>
                         <tr>
                             <th>Location</th>

@@ -158,6 +158,7 @@
             background: #007bff;
             padding: 10px 20px;
             border-radius: 5px;
+            margin-bottom: 12px;
         }
     </style>
 </head>

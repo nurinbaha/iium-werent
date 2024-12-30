@@ -251,9 +251,10 @@
                             <td>{{ $user->email }}</td>
                         </tr>
                         <tr>
-                            <th>Status</th>
-                            <td>{{ $user->status ?? 'N/A' }}</td>
+                            <th>Phone Number</th>
+                            <td>{{ $user->phone_number }}</td>
                         </tr>
+
                         <tr>
                             <th>Suspension Status</th>
                             <td>
