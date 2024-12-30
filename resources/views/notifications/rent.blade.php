@@ -333,9 +333,6 @@
         <!-- Rent Section -->
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header bg-primary text-white">
-
-                </div>
                 <div class="card-body">
                     @if($rentNotifications->isEmpty())
                         <p>No rent notifications available.</p>

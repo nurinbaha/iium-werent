@@ -13,28 +13,26 @@
     margin: 0;
     padding: 0;
     color: #333;
-    background: url('/storage/images/iium-background.jpg') no-repeat center fixed;
-    background-size: cover;
-    background-position: center 110%;
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), /* Adds the gradient overlay */
+        url('/storage/images/landing_background.jpg') no-repeat center fixed; /* Background image */
+    background-size: cover; /* Ensure the image covers the entire screen */
+    background-position: center 35%; /* Adjust the vertical position of the image */
     height: 100vh; /* Full screen height */
     display: flex;
     flex-direction: column;
 }
 
+
 .hero {
-    background: linear-gradient(
-            rgba(0, 0, 0, 0.1), /* Adjusted alpha for less opacity */
-            rgba(0, 0, 0, 0.1) /* Same here */
-        ),
-        url('/storage/images/iium-background.jpg') no-repeat center center/cover;
     color: #fff;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 80%; /* Reduced height for better balance */
-    padding: 20px 100px; /* Adjust padding for better spacing */
+    height: 120%; /* Reduced height for better balance */
+ /* Adjust padding for better spacing */
 }
 
 
@@ -42,7 +40,8 @@
     font-size: 3rem; /* Increase heading size */
     font-weight: bold;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add subtle shadow for contrast */
-    margin-bottom: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .hero p {
@@ -103,6 +102,12 @@
             padding: 0px 20px;
         }
 
+        .hero-logo {
+    width: 50px; /* Adjusts the size of the logo */
+    height: auto; /* Maintains aspect ratio */
+    margin-top: 20px; /* Adds spacing above the logo */
+}
+
         
         .features {
     display: flex;
@@ -110,15 +115,15 @@
     align-items: center;
     height: auto; /* Allow content to take its natural height */
     padding: 10px;
-    margin-top: 50px; /* Pull the features section closer to the hero section */
-    margin-bottom: 50px; /* Pull the features section closer to the hero section */
+    margin-top: 20px; /* Pull the features section closer to the hero section */
+    margin-bottom: 20px; /* Pull the features section closer to the hero section */
 }
 
 .feature-item {
     max-width: 250px;
     text-align: center;
     font-size: 14px;
-    background: rgba(255, 255, 255, 0.9); /* Light, semi-transparent background for the box */
+    background: rgba(255, 255, 255, 0.7); /* Light, semi-transparent background for the box */
     padding: 20px;
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
@@ -166,11 +171,13 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <div class="hero">
-        <h1>Welcome to IIUM Werent</h1>
-        <p>Your go-to platform for rental solutions at IIUM!</p>
-    </div>
+<!-- Hero Section -->
+<div class="hero">
+<img src="{{ asset('images/logo.png') }}" alt="IIUM WeRent Logo" style="width: 180px; height: auto; display: block; margin: 20px auto;">
+    <h1>Welcome to IIUM Werent</h1>
+    <p>Your go-to platform for rental solutions at IIUM!</p>
+</div>
+
 
     <section id="features" class="features">
     <div class="feature-item">
