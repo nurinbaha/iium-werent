@@ -328,7 +328,6 @@
             </h2>
             </div>
 
-@section('content')
 <div class="container">
     <h1>Edit Item</h1>
 
@@ -387,7 +386,6 @@
         <button type="submit" class="btn btn-success">Update Item</button>
     </form>
 </div>
-@endsection
 
 <script>
 // JavaScript to toggle the visibility of rent and rent out sections
