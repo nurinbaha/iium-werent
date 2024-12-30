@@ -10,10 +10,11 @@ class WishlistController extends Controller
 {
     public function index()
     {
-        // Fetch the wishlist items with the related item details
+        // Fetch the wishlist items with the related item details and sort by creation date
         $wishlistItems = auth()->user()
             ->wishlistItems()
             ->with('item') // Load the associated item details
+            ->orderBy('created_at', 'desc') // Sort by the most recent additions
             ->get();
     
         return view('wishlist.index', compact('wishlistItems'));
