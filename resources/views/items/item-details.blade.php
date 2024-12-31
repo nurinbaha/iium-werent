@@ -455,9 +455,16 @@
 
     <!-- Report Button -->
     @if($item->user_id !== auth()->id())
-    <button class="btn" style="padding: 8px 15px; background-color: green; color: white; border: none; border-radius: 5px;" onclick="openReportModal()">Report Item</button>
+    <button class="btn btn-danger" style="padding: 8px 15px; background-color: green; color: white; border: none; border-radius: 5px;" onclick="openReportModal()">Report Item</button>
 
     @endif
+
+    <!-- Hidden Report -->
+    <form id="reportForm" action="{{ route('report.store') }}" method="POST" style="display: none;">
+    @csrf
+    <input type="hidden" name="item_id" value="{{ $item->id }}">
+    <input type="hidden" name="reason" id="reportReason">
+</form>
 
     <!-- Edit Button (Only visible to the owner of the item) -->
     @if($item->user_id === auth()->id())
