@@ -231,13 +231,17 @@
 
             <!-- Display Search Results -->
             <br><br>
-            <h2>Search Results</h2>
+            <h2>Results Found</h2>
             @if($items->isEmpty())
                 <p>No items found.</p>
             @else
                 @foreach($items as $item)
                     <div class="item-card">
-                    <img src="{{ asset('storage/' . $item->item_image) }}" alt="{{ $item->name }}">
+                    @php
+                        // Check if the item has an image; use a default if not
+                        $imagePath = $item->images->first() ? 'storage/' . $item->images->first()->path : 'images/default.jpg';
+                    @endphp
+                    <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" style="width: 180px; height: 180px; margin-right: 20px; border-radius: 4px;" class="item-image">
                         <div class="item-info">
                             <h3><a href="{{ route('admin.item.details', $item->id) }}">{{ $item->item_name }}</a></h3>
                             <p>Category: {{ $item->category }}</p>

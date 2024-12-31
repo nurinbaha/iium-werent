@@ -201,7 +201,11 @@
             <a href="{{ url('/admin/admin-item-details/' . $item->id) }}" style="text-decoration: none; color: inherit;">
                 <div class="item-card" 
                      style="display: flex; align-items: center; background-color: #fff; border-radius: 8px; padding: 15px; margin-bottom: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                    <img src="{{ asset('storage/' . $item->item_image) }}" alt="{{ $item->name }}" style="width: 80px; height: 80px; margin-right: 20px; border-radius: 4px;">
+                     @php
+                        // Check if the item has an image; use a default if not
+                        $imagePath = $item->images->first() ? 'storage/' . $item->images->first()->path : 'images/default.jpg';
+                    @endphp
+                    <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" style="width: 180px; height: 180px; margin-right: 20px; border-radius: 4px;" class="item-image">
                     <div class="item-details" style="font-size: 16px;">
                         <h3 style="color: blue;">{{ $item->item_name }}</h3>
                         <p>Price: RM{{ $item->price }}</p>

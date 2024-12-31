@@ -47,14 +47,6 @@
             color: #0dcaf0; /* Icon color on hover */
         }
 
-        /* Main Content Styling */
-        .main-content {
-            margin-left: 260px; /* To align with the sidebar */
-            padding: 20px;
-            background-color: #f8f9fa;
-            min-height: 100vh;
-        }
-
         /* Sidebar Styling */
         .sidebar {
             width: 180px; /* Adjust the sidebar width */
@@ -117,14 +109,15 @@
 
         /* Centered Form Styling */
         .rent-container {
-        max-width: 700px; /* Adjust the width as per your preference */
-        margin: 0 auto; /* Centers the container horizontally */
-        background: #ffffff; /* Optional: to give the container a background */
-        padding: 20px; /* Add some padding */
-        border-radius: 8px; /* Optional: to round the corners */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: for a subtle shadow */
-        margin-top: 70px;
-    }
+    max-width: 900px; /* Increase the maximum width */
+    margin: 0 auto; /* Center the container */
+    background: #ffffff; /* Background color */
+    padding: 100px; /* Increase padding for a larger box */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Add a subtle shadow for better visibility */
+    margin-top: 70px; /* Adjust spacing from the top */
+}
+
 
     .rent-container h1 {
         text-align: center; /* Center the container heading */
@@ -150,11 +143,11 @@
         }
 
         .rent-container .form-group input {
-            width: 95%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
+    width: 100%; /* Make inputs take full width */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
 
         .rent-container .form-group input[readonly] {
             background: #f5f5f5;
@@ -174,7 +167,7 @@
     }
 
     .form-control {
-        width: 100%;
+        width: 300%;
         padding: 10px;
         border-radius: 4px;
         border: 1px solid #ccc;
@@ -195,9 +188,26 @@
         background-color: #218838;
     }
 
+    .dashboard-container {
+    margin-left: 180px; /* Matches the width of the sidebar */
+    margin-top: 0px; /* Matches the height of the header */
+    padding: 20px; /* Adds internal padding for content */
+    background-color: #ffffff; /* Background color for the dashboard */
+    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+}
+
+.main-content {
+            margin-left: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
     </style>
 </head>
 <body>
+<div class="dashboard-container">
     <!-- Sidebar -->
     <div class="sidebar">
         <h2>IIUM WeRent</h2>
@@ -248,9 +258,12 @@
             </button>
         </div>
 
-        <br>
-
         <div class="rent-container">
+        @php
+        // Check if the item has an image; use a default if not
+        $imagePath = $item->images->first() ? 'storage/' . $item->images->first()->path : 'images/default.jpg';
+        @endphp
+        <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" style="width: 180px; height: 180px; margin-right: 20px; border-radius: 4px;" class="item-image">
     <h1>Rent Item : {{ $item->item_name }}</h1>
     <p><strong>Price per day:</strong> RM {{ number_format($item->price, 2) }}</p>
     <p><strong>Location:</strong> {{ $item->location }}</p>

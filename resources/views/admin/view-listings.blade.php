@@ -242,7 +242,11 @@
                 <!-- Wrap the item card in an anchor tag to link to the item details page -->
     <a href="{{ route('admin.item.details', ['id' => $item->id]) }}" class="item-link">
                     <div class="item-card">
-                    <img src="{{ asset('storage/' . $item->item_image) }}" alt="{{ $item->name }}">
+                    @php
+                        // Check if the item has an image; use a default if not
+                        $imagePath = $item->images->first() ? 'storage/' . $item->images->first()->path : 'images/default.jpg';
+                    @endphp
+                    <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" style="width: 180px; height: 180px; margin-right: 20px; border-radius: 4px;" class="item-image">
                         <div class="item-info">
                             <h3>{{ $item->item_name }}</h3>
                             <p>{{ $item->created_at }}</p>
