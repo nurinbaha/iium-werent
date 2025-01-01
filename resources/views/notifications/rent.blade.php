@@ -270,16 +270,17 @@
         }
 
         .dashboard-container {
-            margin-left: 220px; /* Matches the width of the sidebar */
+            margin-left: 180px; /* Matches the width of the sidebar */
             margin-top: 40px; /* Matches the height of the header */
+            padding: 20px; /* Adds internal padding for content */
             background-color: #ffffff; /* Background color for the dashboard */
-            
-            width: 100%; /* Adjusts width to exclude the sidebar */
+            min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+            width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
             box-sizing: border-box; /* Ensures padding is included in width/height calculations */
         }
 
         .container1 {
-            margin-left: 0px; /* Matches the width of the sidebar */
+            margin-left: 10px; /* Matches the width of the sidebar */
             padding: 20px; /* Adds internal padding */
              /* Optional: Sets a background color */ /* Adjusts height to fit within the viewport */
             width: 100%;
@@ -350,12 +351,9 @@
         <a href="{{ route('posts.add') }}">Add A Post</a>
     </button>
     </div>
-
-<br>
-
             <!-- Page Title Section -->
             <div class="page-title">
-            <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
+            <h2 style="margin-top: 40px; font-size: 30px; text-align: left; color: black;">
                 My Rental Status
             </h2>
             </div>
@@ -364,7 +362,10 @@
     @if($rentNotifications->isEmpty())
         <!-- Show the container when there are no rent notifications -->
         <div class="no-rent-requests-container">
-            <p>No rent notifications available.</p>
+            <h3>No rent notifications Available</h3>
+            <p>Please check back later for new requests.</p>
+            <img src="{{ asset('storage/images/unavailable.png') }}" alt="No items found" 
+            style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
         </div>
     @else
         <!-- Display the rent notifications -->
