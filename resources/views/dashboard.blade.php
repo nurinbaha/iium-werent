@@ -494,16 +494,6 @@
             }
         });
 
-        // Toggle visibility for rent and rent-out sections
-        document.getElementById('notification-link').addEventListener('click', function () {
-            var sections = document.getElementById('notification-sections');
-            sections.style.display = sections.style.display === "none" || sections.style.display === "" ? "block" : "none";
-        });
-
-        document.getElementById('history-link').addEventListener('click', function () {
-            var sections = document.getElementById('history-sections');
-            sections.style.display = sections.style.display === "none" || sections.style.display === "" ? "block" : "none";
-        });
     </script>
 
     <style>
@@ -512,11 +502,6 @@
             margin-left: 170px !important; /* Adjust the margin-left value as needed */
         }
     </style>
-
-<<<<<<< Updated upstream
-
-=======
-</script>
 
 <script>
      // Function to toggle sections and arrows
@@ -550,7 +535,6 @@
         margin-left: 150px !important; /* Adjust the margin-left value as needed */
     }
 </style>
->>>>>>> Stashed changes
 
 </body>
 </html>
