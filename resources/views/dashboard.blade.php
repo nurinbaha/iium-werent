@@ -332,6 +332,7 @@
         <a href="{{ route('posts.add') }}">Add A Post</a>
     </button>
 </div>
+
             <!-- Page Title Section -->
             <div class="page-title">
             <h2 style="margin-top: 40px; font-size: 30px; text-align: left; color: black;">
@@ -449,43 +450,61 @@
         </div> <!-- End of main content -->
     </div> <!-- End of dashboard container -->
 
+    <!-- JavaScript for auto-hiding alerts after 3 seconds -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var alertMessage = '{{ session("success") }}'; // Get the success message from the session
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Success message logic
+            var alertMessage = '{{ session("success") }}'; // Get the success message from the session
+            if (alertMessage) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: alertMessage,
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    timer: 3000, // Optional: Auto-close after 3 seconds
+                    timerProgressBar: true,
+                    customClass: {
+                        popup: 'custom-alert' // Add a custom class to the alert
+                    }
+                });
+            }
 
-        if (alertMessage) {
-            Swal.fire({
-                title: 'Success!',
-                text: alertMessage,
-                icon: 'success',
-                confirmButtonText: 'OK',
-                timer: 3000, // Optional: Auto-close after 3 seconds
-                timerProgressBar: true,
-                customClass: {
-                    popup: 'custom-alert' // Add a custom class to the alert
-                }
-            });
+            // Deleted items notification logic
+            var deletedItemsMessage = "{{ session('deleted_items_message') }}"; // Get the deleted items message
+            if (deletedItemsMessage) {
+                Swal.fire({
+                    title: 'Notice',
+                    text: deletedItemsMessage,
+                    icon: 'warning',
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        popup: 'custom-alert' // Add a custom class to the alert
+                    }
+                });
+            }
+        });
+
+        // Toggle visibility for rent and rent-out sections
+        document.getElementById('notification-link').addEventListener('click', function () {
+            var sections = document.getElementById('notification-sections');
+            sections.style.display = sections.style.display === "none" || sections.style.display === "" ? "block" : "none";
+        });
+
+        document.getElementById('history-link').addEventListener('click', function () {
+            var sections = document.getElementById('history-sections');
+            sections.style.display = sections.style.display === "none" || sections.style.display === "" ? "block" : "none";
+        });
+    </script>
+
+    <style>
+        /* Add this CSS to style the SweetAlert */
+        .custom-alert {
+            margin-left: 170px !important; /* Adjust the margin-left value as needed */
         }
-    });
+    </style>
 
-    // Toggle visibility for rent and rent-out sections
-    document.getElementById('notification-link').addEventListener('click', function () {
-        var sections = document.getElementById('notification-sections');
-        sections.style.display = sections.style.display === "none" || sections.style.display === "" ? "block" : "none";
-    });
 
-    document.getElementById('history-link').addEventListener('click', function () {
-        var sections = document.getElementById('history-sections');
-        sections.style.display = sections.style.display === "none" || sections.style.display === "" ? "block" : "none";
-    });
-</script>
-<style>
-    /* Add this CSS to style the SweetAlert */
-    .custom-alert {
-        margin-left: 150px !important; /* Adjust the margin-left value as needed */
-    }
-</style>
 
 </body>
 </html>
