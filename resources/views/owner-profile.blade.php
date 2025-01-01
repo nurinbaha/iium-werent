@@ -311,7 +311,7 @@
     <!-- Page Title Section -->
     <div class="page-title">
         <h2 style="margin-top: 30px; font-size:30px; text-align: left; color: black;">
-            Owner Profile: {{ $owner->name }}
+            Owner Profile / {{ $owner->name }}
         </h2>
     </div>
 
