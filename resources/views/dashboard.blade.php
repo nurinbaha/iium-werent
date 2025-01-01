@@ -269,6 +269,14 @@
             text-decoration: none;
         }
 
+        .no-rent-requests-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
     </style>
 </head>
 <body>
@@ -323,7 +331,6 @@
     </button>
 </div>
 
-<br><br>
             <!-- Flash Messages -->
             @if (session('success'))
                 <div class="post-alert post-alert-success">
@@ -421,7 +428,12 @@
 <div class="latest-items-section-dashboard">
     <h2>Recommended Items Near You</h2>
     @if($itemsNearYou->isEmpty())
-        <p>No items available near your location.</p>
+    <div class="no-rent-requests-container">
+                        <h3>No items was found near you</h3>
+                        <p>Please come and check again soon !</p>
+                        <img src="{{ asset('storage/images/unavailable.png') }}" alt="No items found" 
+                            style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
+    </div>
     @else
         @foreach($itemsNearYou as $item)
             <!-- Wrap the item card in an anchor tag to link to the item details page -->
