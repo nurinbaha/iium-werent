@@ -6,76 +6,87 @@
     <title>Sign Up - IIUM WeRent</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow-y: auto;
-        }
+    body {
+        margin: 0;
+        padding: 0;
+        height: 140vh;
+        background: 
+            linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+            url('/storage/images/landing_background.jpg') no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-        .signup-container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 20px;
-        }
+    .signup-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%; /* Ensure it fully occupies the viewport */
+        padding: 20px; /* Add space for safety */
+        box-sizing: border-box; /* Include padding in the total size */
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
 
-        .signup-card {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
+    .signup-card {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        margin-top: 0px; /* Add extra space from the top */
+        margin bottom: 0px;
+        overflow: hidden; /* Hide overflow content */
+    }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #343a40;
-        }
+    h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        margin-top: 10px;
+        font-size: 24px;
+        color: #343a40;
+    }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #495057;
-        }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #495057;
+    }
 
-        .form-group label .required-symbol {
-            color: #dc3545;
-            margin-left: 5px;
-        }
+    .form-group label .required-symbol {
+        color: #dc3545;
+        margin-left: 5px;
+    }
 
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
-        }
+    .form-group input,
+    .form-group select {
+        width: 95%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
 
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-        }
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
 
-        .password-note {
-            font-size: 12px;
-            color: #6c757d;
-            margin-top: 5px;
-        }
+    .password-note {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 5px;
+    }
 
         .form-group .error {
             color: #dc3545;
@@ -98,19 +109,19 @@
         }
 
         button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+    button:hover {
+        background-color: #0056b3;
+    }
 
     /* The Modal (background) */
     .modal {
@@ -150,12 +161,20 @@
         color: black;
         text-decoration: none;
     }
+
+    .logo {
+            width: 130px;
+            margin-bottom: 10px;
+        }
 </style>    
 </head>
 <body>
     <div class="signup-container">
         <div class="signup-card">
-            <h2>Create Your Account</h2>
+        <img src="{{ asset('images/logo.png') }}" 
+     alt="IIUM WeRent Logo" 
+     style="width: 150px; height: auto; margin-bottom: 0px; display: block; margin: 0 auto;">
+            <h2>Create Your Account Now !</h2>
             
             @if(session('error'))
                 <div class="error-message">{{ session('error') }}</div>

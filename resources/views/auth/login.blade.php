@@ -7,13 +7,25 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
+            /* Body with background image */
+    body {
+        margin: 0;
+        height: 100vh;
+        background: 
+            linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+            url('/storage/images/landing_background.jpg') no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
         /* Center the login card */
         .login-container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f9;
         }
 
         .login-card {
