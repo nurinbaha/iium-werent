@@ -374,6 +374,8 @@
                 </select>
                 <select name="location" class="area-dropdown">
                     <option value="">Select Location</option>
+                    <option value="Off Campus" {{ request('location') == 'Off Campus' ? 'selected' : '' }}>Off Campus</option>
+                    <option value="Mahallah Ali" {{ request('location') == 'Mahallah Ali' ? 'selected' : '' }}>Mahallah Ali</option>
                     <option value="Mahallah Zubair" {{ request('location') == 'Mahallah Zubair' ? 'selected' : '' }}>Mahallah Zubair</option>
                     <option value="Mahallah Uthman" {{ request('location') == 'Mahallah Uthman' ? 'selected' : '' }}>Mahallah Uthman</option>
                     <option value="Mahallah Uthman" {{ request('location') == 'Mahallah Uthman' ? 'selected' : '' }}>Mahallah Uthman</option>

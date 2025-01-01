@@ -118,30 +118,31 @@
 
         /* Search Box Styling */
         .search-section {
-            background-color: transparent;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            margin-top: 0px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    background-color: transparent; /* Change to transparent to remove the grey background */
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-top: 0px; /* Adjust this value to create space between the header and the search section */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-        .search-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.search-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
 
         .search-box input {
-            width: 100%;
-            max-width: 400px;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
+    width: 100%;
+    max-width: 400px; /* Set a consistent width */
+    padding: 10px;
+    margin-bottom: 10px; /* Space below the input field */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
 
         .category-filters {
             display: flex;
@@ -158,18 +159,19 @@
         }
 
         .search-btn {
-            padding: 10px 20px;
-            background-color: #007bff;
-            border: none;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
 
-        .search-btn:hover {
-            background-color: #0056b3;
-        }
+.search-btn:hover {
+    background-color: #0056b3;
+}
+
 
         /* Categories Section */
         .categories-section {
@@ -370,6 +372,8 @@
                 </select>
                 <select name="location" class="area-dropdown">
                     <option value="">Select Location</option>
+                    <option value="Off Campus" {{ request('location') == 'Off Campus' ? 'selected' : '' }}>Off Campus</option>
+                    <option value="Mahallah Ali" {{ request('location') == 'Mahallah Ali' ? 'selected' : '' }}>Mahallah Ali</option>
                     <option value="Mahallah Zubair" {{ request('location') == 'Mahallah Zubair' ? 'selected' : '' }}>Mahallah Zubair</option>
                     <option value="Mahallah Uthman" {{ request('location') == 'Mahallah Uthman' ? 'selected' : '' }}>Mahallah Uthman</option>
                     <option value="Mahallah Uthman" {{ request('location') == 'Mahallah Uthman' ? 'selected' : '' }}>Mahallah Uthman</option>
