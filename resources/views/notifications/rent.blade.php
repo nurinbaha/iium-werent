@@ -51,10 +51,10 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 260px; /* To align with the sidebar */
             padding: 20px;
             background-color: #f8f9fa;
             min-height: 100vh;
+            overflow: auto;
         }
 
         /* Sidebar Styling */
@@ -200,15 +200,19 @@
         }
 
         .item-card img {
-            width: 80px;
-            height: 80px;
+            width: 300px;
+            height: 300px;
             margin-right: 20px;
             border-radius: 4px;
+            object-fit: contain;
         }
 
         .item-details {
             display: flex;
-            flex-direction: column;
+            flex-grow: 1;
+            list-style: none; /* Removes the default marker (bullet points) */
+            padding: 0; /* Optional: To ensure no extra padding */
+            margin: 0; /* Optional: To ensure no extra margin */
         }
 
         /* Remove underline from item links */
@@ -265,10 +269,38 @@
             text-decoration: none;
         }
 
+        .dashboard-container {
+            margin-left: 220px; /* Matches the width of the sidebar */
+            margin-top: 40px; /* Matches the height of the header */
+            background-color: #ffffff; /* Background color for the dashboard */
+            
+            width: 100%; /* Adjusts width to exclude the sidebar */
+            box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+        }
+
+        .container1 {
+            margin-left: 0px; /* Matches the width of the sidebar */
+            padding: 20px; /* Adds internal padding */
+             /* Optional: Sets a background color */ /* Adjusts height to fit within the viewport */
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box; /* Ensures padding is included in the width/height calculations */
+        }
+
+        .no-rent-requests-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .rent-requests {
+
+
     </style>
 </head>
 <body>
-
+    <div class="dashboard-container">
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>IIUM WeRent</h2>
@@ -328,18 +360,26 @@
             </h2>
             </div>
 
-<div class="container">
-    <div class="row">
-        <!-- Rent Section -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    @if($rentNotifications->isEmpty())
-                        <p>No rent notifications available.</p>
-                    @else
-                        <ul class="list-group">
-                        @foreach($rentNotifications as $rentNotification)
-                            <li class="list-group-item">
+            <div class="container1">
+    @if($rentNotifications->isEmpty())
+        <!-- Show the container when there are no rent notifications -->
+        <div class="no-rent-requests-container">
+            <p>No rent notifications available.</p>
+        </div>
+    @else
+        <!-- Display the rent notifications -->
+        <div class="rent-requests">
+            @foreach($rentNotifications as $rentNotification)
+                <div class="item-card">
+                    <!-- Dynamically handle item images -->
+                    @php
+                        $imagePath = $rentNotification->item->images->first() 
+                                    ? 'storage/' . $rentNotification->item->images->first()->path 
+                                    : 'images/default.jpg';
+                    @endphp
+                    <img src="{{ asset($imagePath) }}" alt="{{ $rentNotification->item->item_name }}" class="item-image">
+                    <div class="item-details">
+                        <li class="list-group-item">
                             <p><strong>Item:</strong> <a href="{{ route('items.show', ['id' => $rentNotification->item->id]) }}">{{ $rentNotification->item->item_name }}</a></p>
                             <p><strong>Message:</strong> {{ $rentNotification->message }}</p>
                             <p><strong>Status:</strong> {{ ucfirst($rentNotification->status) }}</p>
@@ -349,20 +389,17 @@
                             <p><strong>Total Price (without deposit):</strong> RM {{ number_format($rentNotification->total_price, 2) }}</p>
                             <p><strong>Final Price (with deposit):</strong> RM {{ number_format($rentNotification->final_price, 2) }}</p>
                         </li>
-
-                         <!-- Show Proceed to Chat Button for Approved Notifications -->
-                         @if($rentNotification->status === 'approved')
+                    </div>
+                    <div class="item-actions">
+                        @if($rentNotification->status === 'approved')
                             <a href="{{ route('chat.index', ['receiver_id' => $rentNotification->item->user_id]) }}" class="btn btn-primary">Proceed to Chat</a>
                         @endif
-
-
-                        @endforeach
-                        </ul>
-                    @endif
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
-    </div>
+    @endif
+</div>
 </div>
 
 <script>
