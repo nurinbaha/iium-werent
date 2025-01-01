@@ -53,7 +53,7 @@
         .main-content {
             margin-left: 40px;
             padding: 20px;
-            background-color: #f8f9fa;
+            
             min-height: 100vh;
         }
 
@@ -198,7 +198,7 @@
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 320%; /* Makes the card take the full width of the container */
+    
 }
 
 .item-card img {
@@ -275,24 +275,38 @@
         }
 
         .dashboard-container {
-    margin-left: 180px; /* Matches the width of the sidebar */
-    margin-top: 40px; /* Matches the height of the header */
-    padding: 20px; /* Adds internal padding for content */
-    background-color: #ffffff; /* Background color for the dashboard */
-    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
-    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
-    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
-}
+            margin-left: 180px; /* Matches the width of the sidebar */
+            margin-top: 40px; /* Matches the height of the header */
+            padding: 20px; /* Adds internal padding for content */
+            background-color: #ffffff; /* Background color for the dashboard */
+            min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+            width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+            box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+        }
 
-.container {
-    margin-left: 0px; /* Matches the width of the sidebar */
-    margin-top: 40px; /* Matches the height of the header */
-    padding: 20px; /* Adds internal padding */
-    background-color: #ffffff; /* Optional: Sets a background color */
-    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
-    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
-    box-sizing: border-box; /* Ensures padding is included in the width/height calculations */
-}
+        .container1 {
+            margin-left: 0px; /* Matches the width of the sidebar */
+            margin-top: 40px; /* Matches the height of the header */
+            padding: 20px; /* Adds internal padding */
+             /* Optional: Sets a background color */ /* Adjusts height to fit within the viewport */
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box; /* Ensures padding is included in the width/height calculations */
+        }
+
+        .no-rent-requests-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .rent-requests {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
 
 
     </style>
@@ -358,52 +372,58 @@
             </h2>
             </div>
 
-            <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            @if($rentOutNotifications->isEmpty())
-                <p>No rent request available.</p>
-            @else
-                @foreach($rentOutNotifications as $notification)
-                    @if($notification->item) <!-- Ensure the item exists -->
-                        <div class="item-card">
-                            <!-- Dynamically handle item images -->
-                            @php
-                                $imagePath = $notification->item->images->first() 
-                                            ? 'storage/' . $notification->item->images->first()->path 
-                                            : 'images/default.jpg';
-                            @endphp
-                            <img src="{{ asset($imagePath) }}" alt="{{ $notification->item->item_name }}" class="item-image">
-                            <div class="item-details">
-                                <h3>{{ $notification->item->item_name }}</h3>
-                                <p><strong>Requested By:</strong> <a href="{{ route('user.profile', $notification->renter->id) }}">{{ $notification->renter->name }}</a></p>
-                                <p><strong>Status:</strong> {{ ucfirst($notification->status) }}</p>
-                                <p><strong>Start Date:</strong> {{ $notification->start_date }}</p>
-                                <p><strong>End Date:</strong> {{ $notification->end_date }}</p>
-                                <p><strong>Total Days:</strong> {{ $notification->total_days }}</p>
-                                <p><strong>Total Price (without deposit):</strong> RM {{ number_format($notification->total_price, 2) }}</p>
-                                <p><strong>Final Price (with deposit):</strong> RM {{ number_format($notification->final_price, 2) }}</p>
-                            </div>
-                            <div class="item-actions">
-                                <form action="{{ route('notifications.approve', $notification->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary">Approve</button>
-                                </form>
-                                <form action="{{ route('notifications.decline', $notification->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger">Decline</button>
-                                </form>
-                            </div>
-                        </div>
-                    @else
-                        <p>Item not available anymore.</p>
-                    @endif
-                @endforeach
-            @endif
-        </div>
-    </div>
-</div>
-
+            <div class="container1">
+                @if($rentOutNotifications->isEmpty())
+                    <!-- Show message when there are no rent requests -->
+                    <div class="no-rent-requests-container">
+                        <h3>No Rent Requests Available</h3>
+                        <p>Please check back later for new requests.</p>
+                    </div>
+                @else
+                    <!-- Show rent request items -->
+                    <div class="rent-requests-container">
+                        @foreach($rentOutNotifications as $notification)
+                            @if($notification->item) <!-- Ensure the item exists -->
+                                <div class="item-card">
+                                    <!-- Dynamically handle item images -->
+                                    @php
+                                        $imagePath = $notification->item->images->first() 
+                                                    ? 'storage/' . $notification->item->images->first()->path 
+                                                    : 'images/default.jpg';
+                                    @endphp
+                                    <img src="{{ asset($imagePath) }}" alt="{{ $notification->item->item_name }}" class="item-image">
+                                    <div class="item-details">
+                                        <h3>{{ $notification->item->item_name }}</h3>
+                                        <p><strong>Requested By:</strong> 
+                                            <a href="{{ route('user.profile', $notification->renter->id) }}">
+                                                {{ $notification->renter->name }}
+                                            </a>
+                                        </p>
+                                        <p><strong>Status:</strong> {{ ucfirst($notification->status) }}</p>
+                                        <p><strong>Start Date:</strong> {{ $notification->start_date }}</p>
+                                        <p><strong>End Date:</strong> {{ $notification->end_date }}</p>
+                                        <p><strong>Total Days:</strong> {{ $notification->total_days }}</p>
+                                        <p><strong>Total Price (without deposit):</strong> RM {{ number_format($notification->total_price, 2) }}</p>
+                                        <p><strong>Final Price (with deposit):</strong> RM {{ number_format($notification->final_price, 2) }}</p>
+                                    </div>
+                                    <div class="item-actions">
+                                        <form action="{{ route('notifications.approve', $notification->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary" style="width: 100px">Approve</button>
+                                        </form>
+                                        <form action="{{ route('notifications.decline', $notification->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger" style="width: 100px">Decline</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            @else
+                                <p>Item not available anymore.</p>
+                            @endif
+                        @endforeach
+                    </div>
+                @endif
+            </div>
     </div>
 </div>
 
