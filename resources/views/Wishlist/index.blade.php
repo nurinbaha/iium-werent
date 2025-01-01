@@ -288,7 +288,7 @@
                     @endforeach
                 @else
                     <div class="no-wishlist">
-                    <img src="{{ asset('storage/images/wishlist.png') }}" alt="No items found" style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
+                    <img src="{{ asset('storage/images/wishlist.png') }}" alt="No items found" style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
                         <p>Your wishlist is empty. Start adding some items!</p>
                     </div>
                 @endif
