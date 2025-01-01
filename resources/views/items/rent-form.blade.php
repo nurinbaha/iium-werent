@@ -109,14 +109,17 @@
 
         /* Centered Form Styling */
         .rent-container {
-    max-width: 900px; /* Increase the maximum width */
-    margin: 0 auto; /* Center the container */
-    background: #ffffff; /* Background color */
-    padding: 100px; /* Increase padding for a larger box */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Add a subtle shadow for better visibility */
-    margin-top: 70px; /* Adjust spacing from the top */
-}
+            max-width: 900px; /* Increase the maximum width */
+            margin: 0 auto; /* Center the container */
+            background: #ffffff; /* Background color */
+            padding: 100px; /* Increase padding for a larger box */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Add a subtle shadow for better visibility */
+            margin-top: 70px; /* Adjust spacing from the top */
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+        }
 
 
     .rent-container h1 {
@@ -133,6 +136,7 @@
 
         .rent-container .form-group {
             margin-bottom: 15px;
+            
         }
 
         .rent-container .form-group label {
@@ -150,7 +154,7 @@
 }
 
         .rent-container .form-group input[readonly] {
-            background: #f5f5f5;
+            background:rgb(255, 255, 255);
         }
 
         .rent-container button {
@@ -190,8 +194,7 @@
 
     .dashboard-container {
     margin-left: 180px; /* Matches the width of the sidebar */
-    margin-top: 0px; /* Matches the height of the header */
-    padding: 20px; /* Adds internal padding for content */
+    margin-top: 0px; /* Matches the height of the header */ /* Adds internal padding for content */
     background-color: #ffffff; /* Background color for the dashboard */
     min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
     width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
@@ -202,7 +205,7 @@
             margin-left: 40px;
             padding: 20px;
             background-color: #f8f9fa;
-            min-height: 100vh;
+            overflow: auto;
         }
     </style>
 </head>
@@ -263,7 +266,7 @@
         // Check if the item has an image; use a default if not
         $imagePath = $item->images->first() ? 'storage/' . $item->images->first()->path : 'images/default.jpg';
         @endphp
-        <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" style="width: 180px; height: 180px; margin-right: 20px; border-radius: 4px;" class="item-image">
+        <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" style="width: 180px; height: 180px; border-radius: 4px;" class="item-image">
     <h1>Rent Item : {{ $item->item_name }}</h1>
     <p><strong>Price per day:</strong> RM {{ number_format($item->price, 2) }}</p>
     <p><strong>Location:</strong> {{ $item->location }}</p>
