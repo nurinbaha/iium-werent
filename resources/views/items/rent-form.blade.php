@@ -297,7 +297,7 @@
             <label>Total Price</label>
             <input type="text" id="total_price" class="form-control" readonly>
         </div>
-        <button type="submit" class="btn-success">Confirm Rent</button>
+        <button type="submit" class="btn-success">Confirm</button>
     </form>
 </div>
 

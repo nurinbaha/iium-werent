@@ -425,7 +425,7 @@
         <input type="hidden" name="end_date" value="{{ $end_date }}">
         <input type="hidden" name="total_days" value="{{ $total_days }}">
         <input type="hidden" name="final_price" value="{{ $final_price }}">
-        <button type="submit">Confirm Rent</button>
+        <button type="submit">Send Rent Request</button>
     </form>
 </div>
 
