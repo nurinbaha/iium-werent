@@ -94,6 +94,15 @@
             font-size: 30px;
             color: black;
         }
+
+        #history-arrow, #notification-arrow {
+                    transition: transform 0.3s;
+                    margin-left: 10px;
+                }
+
+         .rotate-down {
+                    transform: rotate(180deg);
+                }
     </style>
 </head>
 <body>
@@ -102,12 +111,34 @@
         <div class="sidebar">
             <h2>IIUM WeRent</h2>
             <ul>
-                <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
                 <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
-                <li><a href="{{ url('/rent-history') }}"><i class="fas fa-history"></i> Rent History</a></li>
-                <li><a href="{{ url('/notifications') }}"><i class="fas fa-bell"></i> Notifications</a></li>
-                <li><a href="{{ url('/chat') }}"><i class="fas fa-comments"></i> Chat</a></li>
+                <li><a href="#" id="history-link"><i class="fas fa-history"></i> History <i class="fas fa-chevron-down" id="history-arrow"></i></a>
+                <ul class="nav" id="history-sections" style="display: none;">
+                    <!-- Rent History Link -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('rent.history') }}"> My Rental</a>
+                    </li>
+                    <!-- Rent Out Notifications Link -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('rentout.history') }}">My Rent Out</a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="#" id="notification-link"><i class="fas fa-bell"></i> Notifications <i class="fas fa-chevron-down" id="notification-arrow"></i></a>
+                <ul class="nav" id="notification-sections" style="display: none;">
+                        <!-- Rent Notifications Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('notifications.rent') }}">My Rental Status</a>
+                        </li>
+                        <!-- Rent Out Notifications Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('notifications.rent_out') }}">My Rent Request</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="{{ url('/chat') }}"><i class="fas fa-message"></i> Chat</a></li>
                 <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Profile</a></li>
                 <li><a href="{{ url('/terms') }}"><i class="fas fa-file-contract"></i> T&Cs</a></li> <!-- T&Cs Link -->
                 <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -169,5 +200,32 @@
 
         </div>
     </div>
+
+    <script>
+     // Function to toggle sections and arrows
+     function toggleSection(sectionId, arrowId) {
+            var sections = document.getElementById(sectionId);
+            var arrow = document.getElementById(arrowId);
+
+            // Toggle the display of the section
+            if (sections.style.display === "none" || sections.style.display === "") {
+                sections.style.display = "block";
+                arrow.classList.add('rotate-down');  // Add rotation when expanded
+            } else {
+                sections.style.display = "none";
+                arrow.classList.remove('rotate-down');  // Remove rotation when collapsed
+            }
+        }
+
+        // Attach event listeners for both History and Notifications
+        document.getElementById('history-link').addEventListener('click', function () {
+            toggleSection('history-sections', 'history-arrow');
+        });
+
+        document.getElementById('notification-link').addEventListener('click', function () {
+            toggleSection('notification-sections', 'notification-arrow');
+        });
+
+    </script>
 </body>
 </html>

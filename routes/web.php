@@ -286,6 +286,9 @@ Route::get('/terms-and-conditions', function () {
     return view('terms');
 })->name('terms');
 
+Route::get('/get-approved-dates/{itemId}', [RentController::class, 'getApprovedDates']);
+
+Route::post('/rent-request', [RentController::class, 'store']);
 
 
 

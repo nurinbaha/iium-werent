@@ -253,14 +253,23 @@
         }
 
         .dashboard-container {
-    margin-left: 180px; /* Matches the width of the sidebar */
-    margin-top: 40px; /* Matches the height of the header */
-    padding: 20px; /* Adds internal padding for content */
-    background-color: #ffffff; /* Background color for the dashboard */
-    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
-    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
-    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
-}
+            margin-left: 180px; /* Matches the width of the sidebar */
+            margin-top: 40px; /* Matches the height of the header */
+            padding: 20px; /* Adds internal padding for content */
+            background-color: #ffffff; /* Background color for the dashboard */
+            min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+            width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+            box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+        }
+
+        #history-arrow, #notification-arrow {
+                    transition: transform 0.3s;
+                    margin-left: 10px;
+                }
+
+         .rotate-down {
+                    transform: rotate(180deg);
+                }
     </style>
 </head>
 <body>
@@ -271,17 +280,19 @@
             <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
             <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
-            <li><a href="#" id="history-link"><i class="fas fa-history"></i> History</a>
+            <li><a href="#" id="history-link"><i class="fas fa-history"></i> History <i class="fas fa-chevron-down" id="history-arrow"></i></a>
                 <ul class="nav" id="history-sections" style="display: none;">
+                    <!-- Rent History Link -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('rent.history') }}">My Rental</a>
+                        <a class="nav-link" href="{{ route('rent.history') }}"> My Rental</a>
                     </li>
+                    <!-- Rent Out Notifications Link -->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('rentout.history') }}">My Rent Out</a>
                     </li>
                 </ul>
             </li>
-            <li><a href="#" id="notification-link"><i class="fas fa-bell"></i> Notifications</a>
+            <li><a href="#" id="notification-link"><i class="fas fa-bell"></i> Notifications <i class="fas fa-chevron-down" id="notification-arrow"></i></a>
                 <ul class="nav" id="notification-sections" style="display: none;">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('notifications.rent') }}">My Rental Status</a>
@@ -379,15 +390,30 @@
 
 
 <script>
-    document.getElementById('notification-link').addEventListener('click', function() {
-        const sections = document.getElementById('notification-sections');
-        sections.style.display = sections.style.display === "none" || sections.style.display === "" ? "block" : "none";
-    });
+     // Function to toggle sections and arrows
+     function toggleSection(sectionId, arrowId) {
+            var sections = document.getElementById(sectionId);
+            var arrow = document.getElementById(arrowId);
 
-    document.getElementById('history-link').addEventListener('click', function() {
-        const sections = document.getElementById('history-sections');
-        sections.style.display = sections.style.display === "none" || sections.style.display === "" ? "block" : "none";
-    });
-</script>
+            // Toggle the display of the section
+            if (sections.style.display === "none" || sections.style.display === "") {
+                sections.style.display = "block";
+                arrow.classList.add('rotate-down');  // Add rotation when expanded
+            } else {
+                sections.style.display = "none";
+                arrow.classList.remove('rotate-down');  // Remove rotation when collapsed
+            }
+        }
+
+        // Attach event listeners for both History and Notifications
+        document.getElementById('history-link').addEventListener('click', function () {
+            toggleSection('history-sections', 'history-arrow');
+        });
+
+        document.getElementById('notification-link').addEventListener('click', function () {
+            toggleSection('notification-sections', 'notification-arrow');
+        });
+
+    </script>
 </body>
 </html>

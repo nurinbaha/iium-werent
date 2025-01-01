@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 class RentController extends Controller
 {
 
-
     public function showRentForm($id)
     {
         $item = Item::findOrFail($id);
@@ -88,5 +87,53 @@ class RentController extends Controller
 
         return redirect()->route('dashboard', $id)->with('success', 'Rent confirmed successfully!');
     }
+
+    public function getApprovedDates($itemId)
+    {
+            // Fetch approved rent requests for the item
+            $approvedRequests = DB::table('rent_requests')
+                ->where('item_id', $itemId)
+                ->where('status', 'approved') // Ensure it's only approved requests
+                ->select('start_date', 'end_date')
+                ->get();
+
+            return response()->json($approvedRequests);
+        }
+
+ 
+     // Validate date availability during rent request submission
+     public function store(Request $request)
+     {
+         $itemId = $request->item_id;
+         $startDate = $request->start_date;
+         $endDate = $request->end_date;
+ 
+         // Check for overlapping dates
+         $isAvailable = DB::table('rent_requests')
+             ->where('item_id', $itemId)
+             ->where(function ($query) use ($startDate, $endDate) {
+                 $query->whereBetween('start_date', [$startDate, $endDate])
+                       ->orWhereBetween('end_date', [$startDate, $endDate])
+                       ->orWhere(function ($query) use ($startDate, $endDate) {
+                           $query->where('start_date', '<=', $startDate)
+                                 ->where('end_date', '>=', $endDate);
+                       });
+             })
+             ->exists();
+ 
+         if ($isAvailable) {
+             return response()->json(['error' => 'Selected date is not available'], 400);
+         }
+ 
+         // If available, save the request
+         $rentRequest = new RentRequest();
+         $rentRequest->user_id = auth()->id();
+         $rentRequest->item_id = $itemId;
+         $rentRequest->start_date = $startDate;
+         $rentRequest->end_date = $endDate;
+         $rentRequest->save();
+ 
+         return response()->json(['success' => 'Rent request created successfully!']);
+     }
 
 }

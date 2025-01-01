@@ -202,14 +202,25 @@
     min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
     width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
     box-sizing: border-box; /* Ensures padding is included in width/height calculations */
-}
-
-.main-content {
-            margin-left: 40px;
-            padding: 20px;
-            background-color: #f8f9fa;
-            overflow: auto;
         }
+
+        .main-content {
+                    margin-left: 40px;
+                    padding: 20px;
+                    background-color: #f8f9fa;
+                    overflow: auto;
+                }
+
+                #history-arrow, #notification-arrow {
+                    transition: transform 0.3s;
+                    margin-left: 10px;
+                }
+
+         .rotate-down {
+                    transform: rotate(180deg);
+                }
+
+
     </style>
 </head>
 <body>
@@ -221,7 +232,7 @@
             <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
             <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
-            <li><a href="#" id="history-link"><i class="fas fa-history"></i> History</a>
+            <li><a href="#" id="history-link"><i class="fas fa-history"></i> History <i class="fas fa-chevron-down" id="history-arrow"></i></a>
                 <ul class="nav" id="history-sections" style="display: none;">
                     <!-- Rent History Link -->
                     <li class="nav-item">
@@ -233,7 +244,7 @@
                     </li>
                 </ul>
             </li>
-            <li><a href="#" id="notification-link"><i class="fas fa-bell"></i> Notifications</a>
+            <li><a href="#" id="notification-link"><i class="fas fa-bell"></i> Notifications <i class="fas fa-chevron-down" id="notification-arrow"></i></a>
                 <ul class="nav" id="notification-sections" style="display: none;">
                     <!-- Rent Notifications Link -->
                     <li class="nav-item">
@@ -270,14 +281,14 @@
         $imagePath = $item->images->first() ? 'storage/' . $item->images->first()->path : 'images/default.jpg';
         @endphp
         <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" style="width: 250px; height: 250px; border-radius: 4px; margin-top: 0px;" class="item-image">
-    <h1>{{ $item->item_name }}</h1>
-    <p><strong>Price per day:</strong> RM {{ number_format($item->price, 2) }}</p>
-    <p><strong>Location:</strong> {{ $item->location }}</p>
-    <p><strong>Category:</strong> {{ ucfirst($item->category) }}</p>
-    <p><strong>Pickup Method:</strong> {{ $item->pickup_method }}</p>
-    <p><strong>Description:</strong> {{ $item->item_description }}</p><br>
+        <h1>{{ $item->item_name }}</h1>
+        <p><strong>Price per day:</strong> RM {{ number_format($item->price, 2) }}</p>
+        <p><strong>Location:</strong> {{ $item->location }}</p>
+        <p><strong>Category:</strong> {{ ucfirst($item->category) }}</p>
+        <p><strong>Pickup Method:</strong> {{ $item->pickup_method }}</p>
+        <p><strong>Description:</strong> {{ $item->item_description }}</p><br>
 
-    <h2 style="font-size: 20px; color: #0a73a6; text-align: center; margin-top: 10px;">Please fill in your desired date :</h2>
+        <h2 style="font-size: 20px; color: #0a73a6; text-align: center; margin-top: 10px;">Please fill in your desired date :</h2>
 
     <form action="{{ route('item.rent.confirm', $item->id) }}" method="POST">
         @csrf
@@ -319,24 +330,31 @@
             }
         }
 
-        // JavaScript to toggle the visibility of rent and rent out sections
-        document.getElementById('notification-link').addEventListener('click', function () {
-            var sections = document.getElementById('notification-sections');
+        // Function to toggle sections and arrows
+        function toggleSection(sectionId, arrowId) {
+            var sections = document.getElementById(sectionId);
+            var arrow = document.getElementById(arrowId);
+
+            // Toggle the display of the section
             if (sections.style.display === "none" || sections.style.display === "") {
-                sections.style.display = "block"; // Show the sections
+                sections.style.display = "block";
+                arrow.classList.add('rotate-down');  // Add rotation when expanded
             } else {
-                sections.style.display = "none"; // Hide the sections
+                sections.style.display = "none";
+                arrow.classList.remove('rotate-down');  // Remove rotation when collapsed
             }
+        }
+
+        // Attach event listeners for both History and Notifications
+        document.getElementById('history-link').addEventListener('click', function () {
+            toggleSection('history-sections', 'history-arrow');
         });
 
-        document.getElementById('history-link').addEventListener('click', function () {
-            var sections = document.getElementById('history-sections');
-            if (sections.style.display === "none" || sections.style.display === "") {
-                sections.style.display = "block"; // Show the sections
-            } else {
-                sections.style.display = "none"; // Hide the sections
-            }
+        document.getElementById('notification-link').addEventListener('click', function () {
+            toggleSection('notification-sections', 'notification-arrow');
         });
-    </script>
+
+        </script>  
+        
 </body>
 </html>
