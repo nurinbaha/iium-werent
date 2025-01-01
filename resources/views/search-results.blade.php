@@ -362,6 +362,7 @@
     </div>
                 @else
                     @foreach($results as $item)
+                    @if($item->user_id != auth()->id())  <!-- Exclude the logged-in user's items -->
                         <a href="{{ route('item.show', ['id' => $item->id]) }}" class="item-link">
                             <div class="item-card">
                                 @php
@@ -377,6 +378,7 @@
                                 </div>
                             </div>
                         </a>
+                        @endif
                     @endforeach
                 @endif
             </div>

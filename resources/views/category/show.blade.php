@@ -392,6 +392,7 @@
                     <p>No items available under this category.</p>
                 @else
                     @foreach($items as $item)
+                    @if($item->user_id != auth()->id())  <!-- Exclude the logged-in user's items -->
                         <!-- Wrap the item card in an anchor tag to link to the item details page -->
                         <a href="{{ route('item.show', ['id' => $item->id]) }}" class="item-link">
                             <div class="item-card">
@@ -408,6 +409,7 @@
                                 </div>
                             </div>
                         </a>
+                        @endif
                     @endforeach
                 @endif
             </div>

@@ -41,6 +41,8 @@ public function search(Request $request)
     // Build the query
     $query = Item::query();
 
+    $query->where('user_id', '!=', auth()->id());
+
     if ($itemName) {
         $query->where('item_name', 'LIKE', '%' . $itemName . '%');
     }

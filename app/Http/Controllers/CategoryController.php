@@ -13,8 +13,7 @@ class CategoryController extends Controller
     {
         // Fetch the latest items
         $latestItems = Item::where('user_id', '!=', auth()->id())
-                         -> orderBy('created_at', 'desc')->take(10)
-                         ->get();
+                         -> orderBy('created_at', 'desc')->take(10)->get();
 
         // Pass the items to the view
         return view('categories', compact('latestItems'));
@@ -22,8 +21,12 @@ class CategoryController extends Controller
 
     public function show($categoryName)
     {
-        $items = Item::where('category', $categoryName)->orderBy('created_at', 'desc')->get();
-        return view('category.show', compact('items', 'categoryName'));
-    }
+        $items = Item::where('category', $categoryName)
+                 ->where('user_id', '!=', auth()->id()) // Exclude logged-in user's items
+                 ->orderBy('created_at', 'desc')
+                 ->get();
+
+    return view('category.show', compact('items', 'categoryName'));
+}
     
 }
