@@ -430,6 +430,7 @@
                     <p>No items available.</p>
                 @else
                     @foreach($latestItems as $item)
+                    @if($item->user_id != auth()->id())  <!-- Check if the item is not posted by the logged-in user -->
                         <!-- Wrap the item card in an anchor tag to link to the item details page -->
                         <a href="{{ route('item.show', ['id' => $item->id]) }}" class="item-link">
                             <div class="item-card">
@@ -446,6 +447,7 @@
                                 </div>
                             </div>
                         </a>
+                        @endif
                     @endforeach
                 @endif
             </div> <!-- End of latest items section -->

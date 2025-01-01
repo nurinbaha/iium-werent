@@ -12,7 +12,9 @@ class CategoryController extends Controller
     public function index()
     {
         // Fetch the latest items
-        $latestItems = Item::orderBy('created_at', 'desc')->take(10)->get();
+        $latestItems = Item::where('user_id', '!=', auth()->id())
+                         -> orderBy('created_at', 'desc')->take(10)
+                         ->get();
 
         // Pass the items to the view
         return view('categories', compact('latestItems'));
