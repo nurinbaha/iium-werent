@@ -295,6 +295,7 @@
                 @endforeach
             @else
                 <div class="no-rent-out">
+                <img src="{{ asset('storage/images/unavailable.png') }}" alt="No items found" style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
                     <p>No rent-out history found. Start renting out some items!</p>
                 </div>
             @endif

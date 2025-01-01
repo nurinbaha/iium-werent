@@ -361,6 +361,7 @@
                 @endforeach
             @else
                 <div class="no-rental">
+                    <img src="{{ asset('storage/images/unavailable.png') }}" alt="No items found" style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
                     <p>No rental history found. Start renting some items!</p>
                 </div>
             @endif

@@ -51,7 +51,7 @@
 
         /* Main Content Styling */
         .main-content {
-            padding: 20px;
+            padding: 40px;
             background-color: #f8f9fa;
             min-height: 100vh;
             overflow: auto;
@@ -294,7 +294,6 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        .rent-requests {
 
 
     </style>
