@@ -109,10 +109,10 @@
 
         /* Centered Form Styling */
         .rent-container {
-            max-width: 900px; /* Increase the maximum width */
+            max-width: 600px; /* Increase the maximum width */
             margin: 0 auto; /* Center the container */
             background: #ffffff; /* Background color */
-            padding: 100px; /* Increase padding for a larger box */
+            padding: 30px; /* Increase padding for a larger box */
             border-radius: 10px; /* Rounded corners */
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Add a subtle shadow for better visibility */
             margin-top: 70px; /* Adjust spacing from the top */
@@ -168,6 +168,7 @@
 
         .form-group {
         margin-bottom: 15px;
+        text-align: center;
     }
 
     .form-control {
@@ -178,7 +179,7 @@
     }
 
     .btn-success {
-        width: 100%; /* Makes the button take full width */
+        width: 112%; /* Makes the button take full width */
         padding: 10px;
         border: none;
         border-radius: 4px;
@@ -186,10 +187,12 @@
         color: white;
         font-size: 16px;
         cursor: pointer;
+        align-items: center;
     }
 
     .btn-success:hover {
         background-color: #218838;
+
     }
 
     .dashboard-container {
@@ -266,13 +269,15 @@
         // Check if the item has an image; use a default if not
         $imagePath = $item->images->first() ? 'storage/' . $item->images->first()->path : 'images/default.jpg';
         @endphp
-        <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" style="width: 180px; height: 180px; border-radius: 4px;" class="item-image">
-    <h1>Rent Item : {{ $item->item_name }}</h1>
+        <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" style="width: 250px; height: 250px; border-radius: 4px; margin-top: 0px;" class="item-image">
+    <h1>{{ $item->item_name }}</h1>
     <p><strong>Price per day:</strong> RM {{ number_format($item->price, 2) }}</p>
     <p><strong>Location:</strong> {{ $item->location }}</p>
     <p><strong>Category:</strong> {{ ucfirst($item->category) }}</p>
     <p><strong>Pickup Method:</strong> {{ $item->pickup_method }}</p>
     <p><strong>Description:</strong> {{ $item->item_description }}</p><br>
+
+    <h2 style="font-size: 20px; color: #0a73a6; text-align: center; margin-top: 10px;">Please fill in your desired date :</h2>
 
     <form action="{{ route('item.rent.confirm', $item->id) }}" method="POST">
         @csrf

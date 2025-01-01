@@ -63,7 +63,6 @@
         .main-content {
             margin-left: 260px;
             padding: 20px;
-            background-color: #f8f9fa;
             min-height: 100vh;
         }
 
