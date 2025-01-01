@@ -51,8 +51,7 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 40px;
-            padding: 20px;
+            padding: 40px;
             
             min-height: 100vh;
         }
@@ -275,19 +274,14 @@
         }
 
         .dashboard-container {
-            margin-left: 180px; /* Matches the width of the sidebar */
+            margin-left: 220px; /* Matches the width of the sidebar */
             margin-top: 40px; /* Matches the height of the header */
-            padding: 20px; /* Adds internal padding for content */
             background-color: #ffffff; /* Background color for the dashboard */
-            min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
-            width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+            width: 100%; /* Adjusts width to exclude the sidebar */
             box-sizing: border-box; /* Ensures padding is included in width/height calculations */
         }
 
         .container1 {
-            margin-left: 10px; /* Matches the width of the sidebar */
-            padding: 20px; /* Adds internal padding */
-             /* Optional: Sets a background color */ /* Adjusts height to fit within the viewport */
             width: 100%;
             max-width: 100%;
             box-sizing: border-box; /* Ensures padding is included in the width/height calculations */

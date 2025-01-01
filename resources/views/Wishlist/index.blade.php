@@ -108,7 +108,6 @@
         /* Main Content Styling */
         .main-content {
             padding: 40px;
-            background-color: #f8f9fa;
             min-height: 100vh;
         }
 
