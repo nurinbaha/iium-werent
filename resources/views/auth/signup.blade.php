@@ -68,7 +68,7 @@
 
     .form-group input,
     .form-group select {
-        width: 95%;
+        width: 94%;
         padding: 10px;
         font-size: 14px;
         border: 1px solid #ced4da;
