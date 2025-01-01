@@ -168,8 +168,7 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 40px;
-            padding: 20px;
+            padding: 40px;
             background-color: #f8f9fa;
             min-height: 100vh;
         }
@@ -237,14 +236,21 @@
         }
 
         .dashboard-container {
-    margin-left: 180px; /* Matches the width of the sidebar */
-    margin-top: 40px; /* Matches the height of the header */
-    padding: 20px; /* Adds internal padding for content */
-    background-color: #ffffff; /* Background color for the dashboard */
-    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
-    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
-    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
-}
+            margin-left: 220px; /* Matches the width of the sidebar */
+            margin-top: 40px; /* Matches the height of the header */
+            background-color: #ffffff; /* Background color for the dashboard */
+            min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+            width: 100%; /* Adjusts width to exclude the sidebar */
+            box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+        }
+
+        .no-rental {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
     </style>
 </head>
@@ -350,11 +356,14 @@
                             </div>
                         </div>
                     @else
-                        <p>Item not available anymore.</p>
+                            <p>Item not available anymore.</p>
                     @endif
                 @endforeach
             @else
-                <p>No rental history found. Start renting some items!</p>
+                <div class="no-rental">
+                    <img src="{{ asset('storage/images/unavailable.png') }}" alt="No items found" style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
+                    <p>No rental history found. Start renting some items!</p>
+                </div>
             @endif
         </div>
 
