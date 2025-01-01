@@ -290,20 +290,25 @@
             </div>
 
             <!-- Breadcrumb -->
-            <div class="breadcrumb">
-                <a href="{{ route('admin.view-listings') }}">Listings</a> / {{ $item->item_name }}
-            </div>
+            
 
             <!-- Item Container -->
             <div class="item-container">
                 <!-- Item Image -->
                 <div class="item-image">
-                <img src="{{ asset('storage/' . $item->item_image) }}" alt="{{ $item->name }}">
+                @php
+                        // Check if the item has an image; use a default if not
+                        $imagePath = $item->images->first() ? 'storage/' . $item->images->first()->path : 'images/default.jpg';
+                    @endphp
+                <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" class="item-image">
                 </div>
 
                 <!-- Item Information -->
                 <div class="item-info">
                     <h1>{{ $item->item_name }}</h1>
+                    <div class="breadcrumb">
+                        <a href="{{ route('admin.view-listings') }}">Listings</a> / {{ $item->item_name }}
+                    </div>
                     <p>Listed on {{ $item->created_at->format('d M Y, H:i') }} / {{ $item->location }}</p>
 
                     <table>

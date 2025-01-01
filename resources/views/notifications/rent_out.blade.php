@@ -363,62 +363,74 @@
             </h2>
             </div>
 
-            <div class="container1">
-                @if($rentOutNotifications->isEmpty())
-                    <!-- Show message when there are no rent requests -->
-                    <div class="no-rent-requests-container">
-                        <h3>No Rent Requests Available</h3>
-                        <p>Please check back later for new requests.</p>
-                        <img src="{{ asset('storage/images/unavailable.png') }}" alt="No items found" 
-                            style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
-                    </div>
-                @else
-                    <!-- Show rent request items -->
-                    <div class="rent-requests-container">
-                        @foreach($rentOutNotifications as $notification)
-                            @if($notification->item) <!-- Ensure the item exists -->
-                                <div class="item-card">
-                                    <!-- Dynamically handle item images -->
-                                    @php
-                                        $imagePath = $notification->item->images->first() 
-                                                    ? 'storage/' . $notification->item->images->first()->path 
-                                                    : 'images/default.jpg';
-                                    @endphp
-                                    <img src="{{ asset($imagePath) }}" alt="{{ $notification->item->item_name }}" class="item-image">
-                                    <div class="item-details">
-                                        <h3>{{ $notification->item->item_name }}</h3>
-                                        <p><strong>Requested By:</strong> 
-                                            <a href="{{ route('user.profile', $notification->renter->id) }}">
-                                                {{ $notification->renter->name }}
-                                            </a>
-                                        </p>
-                                        <p><strong>Status:</strong> {{ ucfirst($notification->status) }}</p>
-                                        <p><strong>Start Date:</strong> {{ $notification->start_date }}</p>
-                                        <p><strong>End Date:</strong> {{ $notification->end_date }}</p>
-                                        <p><strong>Total Days:</strong> {{ $notification->total_days }}</p>
-                                        <p><strong>Total Price (without deposit):</strong> RM {{ number_format($notification->total_price, 2) }}</p>
-                                        <p><strong>Final Price (with deposit):</strong> RM {{ number_format($notification->final_price, 2) }}</p>
-                                    </div>
-                                    <div class="item-actions">
-                                        <form action="{{ route('notifications.approve', $notification->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-primary" style="width: 100px">Approve</button>
-                                        </form>
-                                        <form action="{{ route('notifications.decline', $notification->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger" style="width: 100px">Decline</button>
-                                        </form>
-                                    </div>
+                    <div class="container1">
+            @if($rentOutNotifications->isEmpty())
+                <!-- Show message when there are no rent requests -->
+                <div class="no-rent-requests-container">
+                    <h3>No Rent Requests Available</h3>
+                    <p>Please check back later for new requests.</p>
+                    <img src="{{ asset('storage/images/unavailable.png') }}" alt="No items found" 
+                        style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
+                </div>
+            @else
+                <!-- Show rent request items -->
+                <div class="rent-requests-container">
+                    @php
+                        $hasValidItems = false;
+                    @endphp
+
+                    @foreach($rentOutNotifications as $notification)
+                        @if($notification->item) <!-- Ensure the item exists -->
+                            @php $hasValidItems = true; @endphp
+                            <div class="item-card">
+                                <!-- Dynamically handle item images -->
+                                @php
+                                    $imagePath = $notification->item->images->first() 
+                                                ? 'storage/' . $notification->item->images->first()->path 
+                                                : 'images/default.jpg';
+                                @endphp
+                                <img src="{{ asset($imagePath) }}" alt="{{ $notification->item->item_name }}" class="item-image">
+                                <div class="item-details">
+                                    <h3>{{ $notification->item->item_name }}</h3>
+                                    <p><strong>Requested By:</strong> 
+                                        <a href="{{ route('user.profile', $notification->renter->id) }}">
+                                            {{ $notification->renter->name }}
+                                        </a>
+                                    </p>
+                                    <p><strong>Status:</strong> {{ ucfirst($notification->status) }}</p>
+                                    <p><strong>Start Date:</strong> {{ $notification->start_date }}</p>
+                                    <p><strong>End Date:</strong> {{ $notification->end_date }}</p>
+                                    <p><strong>Total Days:</strong> {{ $notification->total_days }}</p>
+                                    <p><strong>Total Price (without deposit):</strong> RM {{ number_format($notification->total_price, 2) }}</p>
+                                    <p><strong>Final Price (with deposit):</strong> RM {{ number_format($notification->final_price, 2) }}</p>
                                 </div>
-                            @else
-                                <p>Item not available anymore. Rent out more items !</p>
-                        <img src="{{ asset('storage/images/unavailable.png') }}" alt="No items found" 
-                            style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
-                            @endif
-                        @endforeach
-                    </div>
-                @endif
-            </div>
+                                <div class="item-actions">
+                                    <form action="{{ route('notifications.approve', $notification->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary" style="width: 100px">Approve</button>
+                                    </form>
+                                    <form action="{{ route('notifications.decline', $notification->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger" style="width: 100px">Decline</button>
+                                    </form>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+
+                    @if(!$hasValidItems)
+                        <!-- Show message when no valid items are available -->
+                        <div class="no-rent-requests-container">
+                    <h3>No Rent Requests Available</h3>
+                    <p>Please check back later for new requests.</p>
+                    <img src="{{ asset('storage/images/unavailable.png') }}" alt="No items found" 
+                        style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
+                </div>
+                    @endif
+                </div>
+            @endif
+        </div>
+
     </div>
 </div>
 

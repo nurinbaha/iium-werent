@@ -60,12 +60,12 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 260px;
+            margin-left: 150px;
             padding: 20px;
-            background-color: #f8f9fa;
             min-height: 100vh;
             align-items: center;
             margin-top: 180px;
+            overflow: auto;
         }
 
         /* Header Styling */
@@ -73,7 +73,7 @@
             background-color: #3c75ba;
             padding: 10px 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Adjust the elements to be spread apart */
             align-items: center;
             width: 100%;
             height: 40px;
@@ -109,8 +109,9 @@
         .add-post-form-layout {
             display: flex;
             justify-content: space-around;
-            margin-top: 10px;
-            gap: 50px; /* Increase space between image upload and form */
+            margin-top: 70px;
+            gap: 30px; /* Increase space between image upload and form */
+            height: 50%;
         }
 
         .add-post-image-upload {
@@ -130,6 +131,7 @@
 
         .add-post-form-fields {
             width: 400px; /* Widen the form */
+            height: 100%;
         }
 
         .add-post-form-group {
@@ -213,31 +215,28 @@
             </ul>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
+                <div class="main-content">
             <!-- Header -->
             <div class="header">
                 <h1>IIUM WeRent</h1>
             </div>
 
-            <!-- Page Title Section -->
-            <div class="page-title">
-            <h2 style="margin-top: 70px; font-size:30px; text-align: left; color: black;">
-                Add a post :
-            </h2>
-            </div>
-
             <!-- Add Post Form Section -->
-            <!--
             <div class="add-post-form-layout">
-                <!-- Image Upload Section 
-                <div class="add-post-image-upload">
-                    <label for="item-image">
-                        <img src="{{ asset('images/placeholder-image.png') }}" alt="Placeholder Image" class="image-placeholder">
-                        <p>Upload an image</p>
-                    </label>
-                    <input type="file" id="item-image" name="item_image" accept="image/*">
-                </div> --> 
+                <!-- Illustration Section -->
+                <div class="add-post-illustration" 
+                    style="text-align: center; margin-bottom: 30px; margin-top; 20px; padding: 20px;">
+                    <h3 style="font-size: 24px; color: #333; margin-bottom: 10px;">
+                        Rent out your own item today!
+                    </h3>
+                    <p style="font-size: 16px; color: #555; margin-bottom: 20px;">
+                        Enjoy a free and seamless renting experience with IIUM Werent.
+                    </p>
+                    <img src="{{ asset('storage/images/addpost.png') }}" 
+                        alt="Add Post Illustration" 
+                        style="width: 600px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
+                </div>
+
 
                 <!-- Form Fields Section -->
                 <div class="add-post-form-fields">
@@ -282,25 +281,25 @@
                         <div class="add-post-form-group">
                             <label for="location">Location:</label>
                             <select id="location" name="location" required>
-                            <option value="">Location</option>
-                            <option value="Mahallah Ali">Mahallah Ali</option>
-                            <option value="Mahallah Zubair">Mahallah Zubair</option>
-                            <option value="Mahallah Uthman">Mahallah Uthman</option>
-                            <option value="Mahallah Faruq">Mahallah Faruq</option>
-                            <option value="Mahallah Bilal">Mahallah Bilal</option>
-                            <option value="Mahallah Siddiq">Mahallah Siddiq</option>
-                            <option value="Mahallah Salahuddin">Mahallah Salahuddin</option>
-                            <option value="Mahallah Aminah">Mahallah Aminah</option>
-                            <option value="Mahallah Asiah">Mahallah Asiah</option>
-                            <option value="Mahallah Hafsa">Mahallah Hafsa</option>
-                            <option value="Mahallah Asma">Mahallah Asma</option>
-                            <option value="Mahallah Ruqayyah">Mahallah Ruqayyah</option>
-                            <option value="Mahallah Halimah">Mahallah Halimah</option>
-                            <option value="Mahallah Maryam">Mahallah Maryam</option>
-                            <option value="Mahallah Nusaibah">Mahallah Nusaibah</option>
-                            <option value="Mahallah Sumayyah">Mahallah Sumayyah</option>
-                            <option value="Mahallah Safiyyah">Mahallah Safiyyah</option>
-                        </select>
+                                <option value="">Location</option>
+                                <option value="Mahallah Ali">Mahallah Ali</option>
+                                <option value="Mahallah Zubair">Mahallah Zubair</option>
+                                <option value="Mahallah Uthman">Mahallah Uthman</option>
+                                <option value="Mahallah Faruq">Mahallah Faruq</option>
+                                <option value="Mahallah Bilal">Mahallah Bilal</option>
+                                <option value="Mahallah Siddiq">Mahallah Siddiq</option>
+                                <option value="Mahallah Salahuddin">Mahallah Salahuddin</option>
+                                <option value="Mahallah Aminah">Mahallah Aminah</option>
+                                <option value="Mahallah Asiah">Mahallah Asiah</option>
+                                <option value="Mahallah Hafsa">Mahallah Hafsa</option>
+                                <option value="Mahallah Asma">Mahallah Asma</option>
+                                <option value="Mahallah Ruqayyah">Mahallah Ruqayyah</option>
+                                <option value="Mahallah Halimah">Mahallah Halimah</option>
+                                <option value="Mahallah Maryam">Mahallah Maryam</option>
+                                <option value="Mahallah Nusaibah">Mahallah Nusaibah</option>
+                                <option value="Mahallah Sumayyah">Mahallah Sumayyah</option>
+                                <option value="Mahallah Safiyyah">Mahallah Safiyyah</option>
+                            </select>
                         </div>
 
                         <div class="add-post-form-group">
@@ -320,7 +319,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
 
     <script>
     // JavaScript to toggle the visibility of rent and rent out sections

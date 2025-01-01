@@ -202,16 +202,27 @@
             @else
                 @foreach($reportedItems as $report)
                 <div class="item-card">
-    <img src="{{ asset('storage/' . $report->item->item_image) }}" alt="{{ $report->item->item_name }}">
-    <div class="item-details">
-        <h3>{{ $report->item->item_name }}</h3>
-        <p><strong>Reported Reason:</strong> {{ $report->reason }}</p>
-        <p><strong>Reported By:</strong> {{ $report->user->name ?? 'N/A' }}</p>
-        <p><strong>Reporter Email:</strong> {{ $report->user->email ?? 'N/A' }}</p>
-    </div>
-    <a href="{{ route('admin.report.details', $report->item_id) }}" class="btn-view">View Details</a>
-</div>
+                    @php
+                        // Ensure the $item variable is defined from the $report object
+                        $item = $report->item ?? null;
 
+                        // Check if the item has an image; use a default if not
+                        $imagePath = $item && $item->images->first() ? 'storage/' . $item->images->first()->path : 'images/default.jpg';
+                    @endphp
+
+                    @if($item)
+                        <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" class="item-image">
+                        <div class="item-details">
+                            <h3>{{ $item->item_name }}</h3>
+                            <p><strong>Reported Reason:</strong> {{ $report->reason }}</p>
+                            <p><strong>Reported By:</strong> {{ $report->user->name ?? 'N/A' }}</p>
+                            <p><strong>Reporter Email:</strong> {{ $report->user->email ?? 'N/A' }}</p>
+                        </div>
+                        <a href="{{ route('admin.report.details', $report->item_id) }}" class="btn-view">View Details</a>
+                    @else
+                        <p>Item not available.</p>
+                    @endif
+                </div>
                 @endforeach
             @endif
         </div>

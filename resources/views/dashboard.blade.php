@@ -57,6 +57,7 @@
         .main-content {
             padding-inline: 130px;
             background-color: rgb(255, 255, 255);
+            margin-top: 20px;
             overflow: auto; /* Allow the content to grow dynamically */
         }
 
@@ -233,6 +234,7 @@
         .post-alert-success {
             background-color: #d4edda;
             color: #155724;
+            margin-bottom: 0px;
         }
 
         .post-alert-danger {
@@ -330,23 +332,9 @@
         <a href="{{ route('posts.add') }}">Add A Post</a>
     </button>
 </div>
-
-            <!-- Flash Messages -->
-            @if (session('success'))
-                <div class="post-alert post-alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div class="post-alert post-alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
-
             <!-- Page Title Section -->
             <div class="page-title">
-            <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
+            <h2 style="margin-top: 40px; font-size: 30px; text-align: left; color: black;">
                 Home
             </h2>
             </div>
@@ -461,37 +449,43 @@
         </div> <!-- End of main content -->
     </div> <!-- End of dashboard container -->
 
-    <!-- JavaScript for auto-hiding alerts after 3 seconds -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var alertMessage = document.querySelector('.post-alert');
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var alertMessage = '{{ session("success") }}'; // Get the success message from the session
 
-            if (alertMessage) {
-                setTimeout(function () {
-                    alertMessage.style.display = 'none';
-                }, 3000);
-            }
-        });
+        if (alertMessage) {
+            Swal.fire({
+                title: 'Success!',
+                text: alertMessage,
+                icon: 'success',
+                confirmButtonText: 'OK',
+                timer: 3000, // Optional: Auto-close after 3 seconds
+                timerProgressBar: true,
+                customClass: {
+                    popup: 'custom-alert' // Add a custom class to the alert
+                }
+            });
+        }
+    });
 
-        // JavaScript to toggle the visibility of rent and rent out sections
-    document.getElementById('notification-link').addEventListener('click', function() {
+    // Toggle visibility for rent and rent-out sections
+    document.getElementById('notification-link').addEventListener('click', function () {
         var sections = document.getElementById('notification-sections');
-        if (sections.style.display === "none" || sections.style.display === "") {
-            sections.style.display = "block"; // Show the sections
-        } else {
-            sections.style.display = "none"; // Hide the sections
-        }
+        sections.style.display = sections.style.display === "none" || sections.style.display === "" ? "block" : "none";
     });
 
-     // JavaScript to toggle the visibility of rent and rent out sections
-     document.getElementById('history-link').addEventListener('click', function() {
+    document.getElementById('history-link').addEventListener('click', function () {
         var sections = document.getElementById('history-sections');
-        if (sections.style.display === "none" || sections.style.display === "") {
-            sections.style.display = "block"; // Show the sections
-        } else {
-            sections.style.display = "none"; // Hide the sections
-        }
+        sections.style.display = sections.style.display === "none" || sections.style.display === "" ? "block" : "none";
     });
-    </script>
+</script>
+<style>
+    /* Add this CSS to style the SweetAlert */
+    .custom-alert {
+        margin-left: 150px !important; /* Adjust the margin-left value as needed */
+    }
+</style>
+
 </body>
 </html>

@@ -60,6 +60,7 @@
 
         .dashboard-container{
             margin-left: 220px;
+            width: 100%;
         }
 
         /* Main Content Styling */
@@ -194,7 +195,7 @@
             display: flex;
             /* flex-grow: 1; */
             width: 100%;
-            height: 300px;
+            height: 500px;
             border-radius: 10px;
             object-fit: contain;
         }

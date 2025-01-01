@@ -50,9 +50,7 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 260px; /* To align with the sidebar */
-            padding: 20px;
-            background-color: #f8f9fa;
+            padding: 40px;
             min-height: 100vh;
         }
 
@@ -186,6 +184,7 @@
         /* Latest Items Section */
         .latest-items-section-dashboard {
             margin-bottom: 30px;
+            margin-top: 0px;
         }
 
         .item-card {
@@ -264,7 +263,22 @@
             text-decoration: none;
         }
 
-        
+        .dashboard-container {
+            margin-left: 220px; /* Matches the width of the sidebar */
+            margin-top: 40px; /* Matches the height of the header */
+            background-color: #ffffff; /* Background color for the dashboard */
+            min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+            width: 100%; /* Adjusts width to exclude the sidebar */
+            box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+        }
+
+        .no-rent-requests-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
     </style>
 </head>
@@ -319,92 +333,24 @@
         <a href="{{ route('posts.add') }}">Add A Post</a>
     </button>
 </div>
-<br><br>
 
             <!-- Page Title Section -->
             <div class="page-title">
             <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
-                Search Result
+                Search Results
             </h2>
-            </div>
-
-<div class="search-section">
-    <!-- Logo Container -->
-    <div class="logo-container">
-        <img src="{{ asset('images/logo.png') }}" alt="IIUM WeRent Logo">
-        <p>Fostering Community Sharing and Promoting Sustainability at IIUM</p>
-    </div>
-
-    <!-- Search Box -->
-    <div class="search-box">
-        <h2>Search for your desired items!</h2>
-        <!-- Begin Search Form -->
-        <form action="{{ route('search') }}" method="GET">
-            @csrf
-            <input 
-                type="text" 
-                name="item_name" 
-                placeholder="What are you looking for?" 
-                class="search-input" 
-                value="{{ request('item_name') }}">
-            <div class="category-filters">
-                <select name="category" class="category-dropdown">
-                    <option value="">Categories</option>
-                    <option value="fashion" {{ request('category') == 'fashion' ? 'selected' : '' }}>Fashion</option>
-                    <option value="home-living" {{ request('category') == 'home-living' ? 'selected' : '' }}>Home & Living</option>
-                    <option value="books-stationaries" {{ request('category') == 'books-stationaries' ? 'selected' : '' }}>Books & Stationaries</option>
-                    <option value="sports-equipment" {{ request('category') == 'sports-equipment' ? 'selected' : '' }}>Sports Equipment</option>
-                    <option value="mobile-electronics" {{ request('category') == 'mobile-electronics' ? 'selected' : '' }}>Mobile & Electronics</option>
-                    <option value="free-items" {{ request('category') == 'free-items' ? 'selected' : '' }}>Free Items</option>
-                    <option value="others" {{ request('category') == 'others' ? 'selected' : '' }}>Others</option>
-                </select>
-                <select name="location" class="area-dropdown">
-                    <option value="">Location</option>
-                    <option value="Mahallah Zubair" {{ request('location') == 'Mahallah Zubair' ? 'selected' : '' }}>Mahallah Zubair</option>
-                    <option value="Mahallah Uthman" {{ request('location') == 'Mahallah Uthman' ? 'selected' : '' }}>Mahallah Uthman</option>
-                    <option value="Mahallah Uthman" {{ request('location') == 'Mahallah Uthman' ? 'selected' : '' }}>Mahallah Uthman</option>
-                    <option value="Mahallah Faruq" {{ request('location') == 'Mahallah Faruq' ? 'selected' : '' }}>Mahallah Faruq</option>
-                    <option value="Mahallah Bilal" {{ request('location') == 'Mahallah Bilal' ? 'selected' : '' }}>Mahallah Bilal</option>
-                    <option value="Mahallah Siddiq" {{ request('location') == 'Mahallah Siddiq' ? 'selected' : '' }}>Mahallah Siddiq</option>
-                    <option value="Mahallah Salahuddin" {{ request('location') == 'Mahallah Salahuddin' ? 'selected' : '' }}>Mahallah Salahuddin</option>
-                    <option value="Mahallah Aminah" {{ request('location') == 'Mahallah Aminah' ? 'selected' : '' }}>Mahallah Aminah</option>
-                    <option value="Mahallah Asiah" {{ request('location') == 'Mahallah Asiah' ? 'selected' : '' }}>Mahallah Asiah</option>
-                    <option value="Mahallah Hafsa" {{ request('location') == 'Mahallah Hafsa' ? 'selected' : '' }}>Mahallah Hafsa</option>
-                    <option value="Mahallah Asma" {{ request('location') == 'Mahallah Asma' ? 'selected' : '' }}>Mahallah Asma</option>
-                    <option value="Mahallah Ruqayyah" {{ request('location') == 'Mahallah Ruqayyah' ? 'selected' : '' }}>Mahallah Ruqayyah</option>
-                    <option value="Mahallah Halimah" {{ request('location') == 'Mahallah Halimah' ? 'selected' : '' }}>Mahallah Halimah</option>
-                    <option value="Mahallah Maryam" {{ request('location') == 'Mahallah Maryam' ? 'selected' : '' }}>Mahallah Maryam</option>
-                    <option value="Mahallah Nusaibah" {{ request('location') == 'Mahallah Nusaibah' ? 'selected' : '' }}>Mahallah Nusaibah</option>
-                    <option value="Mahallah Sumayyah" {{ request('location') == 'Mahallah Sumayyah' ? 'selected' : '' }}>Mahallah Sumayyah</option>
-                    <option value="Mahallah Safiyyah" {{ request('location') == 'Mahallah Safiyyah' ? 'selected' : '' }}>Mahallah Safiyyah</option>
-                    <option value="Off Campus" {{ request('category') == 'Off Campus' ? 'selected' : '' }}>Off Campus</option>
-                </select>
-            </div>
-            <button type="submit" class="search-btn">Search</button>
-        </form>
-        <!-- End Search Form -->
-    </div>
-</div>
-
-<!-- Categories Section -->
-<div class="categories-section">
-                <h2>Browse Categories</h2><br>
-                <div class="categories-buttons">
-                    <a href="{{ url('/category/fashion') }}" class="category-btn">Fashion</a>
-                    <a href="{{ url('/category/home-living') }}" class="category-btn">Home & Living</a>
-                    <a href="{{ url('/category/books-stationaries') }}" class="category-btn">Books & Stationaries</a>
-                    <a href="{{ url('/category/sports-equipment') }}" class="category-btn">Sports Equipment</a>
-                    <a href="{{ url('/category/mobile-electronics') }}" class="category-btn">Mobile & Electronics</a>
-                    <a href="{{ url('/category/free-items') }}" class="category-btn">Free Items</a>
-                    <a href="{{ url('/category/others') }}" class="category-btn">Others</a>
-                </div>
             </div>
 
             <!-- Search Results Section -->
             <div class="latest-items-section-dashboard">
                 <h2>Results found</h2>
                 @if($results->isEmpty())
-                    <p>No items found.</p>
+                <div class="no-rent-requests-container">
+                        <h3>No items was found</h3>
+                        <p>Please come and check again soon !</p>
+                        <img src="{{ asset('storage/images/unavailable.png') }}" alt="No items found" 
+                            style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
+    </div>
                 @else
                     @foreach($results as $item)
                         <a href="{{ route('item.show', ['id' => $item->id]) }}" class="item-link">
