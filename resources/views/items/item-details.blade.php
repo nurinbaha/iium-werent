@@ -584,30 +584,31 @@
         confirmButtonColor: '#d33',
         confirmButtonText: 'OK'
     });
-    
-    // JavaScript to toggle the visibility of rent and rent out sections
-    document.getElementById('notification-link').addEventListener('click', function() {
-        var sections = document.getElementById('notification-sections');
-        if (sections.style.display === "none" || sections.style.display === "") {
-            sections.style.display = "block"; // Show the sections
-        } else {
-            sections.style.display = "none"; // Hide the sections
-        }
-    });
-
-     // JavaScript to toggle the visibility of rent and rent out sections
-     document.getElementById('history-link').addEventListener('click', function() {
-        var sections = document.getElementById('history-sections');
-        if (sections.style.display === "none" || sections.style.display === "") {
-            sections.style.display = "block"; // Show the sections
-        } else {
-            sections.style.display = "none"; // Hide the sections
-        }
-    });
-    
 </script>
 
 @endif
+
+    <script>
+      // JavaScript to toggle the visibility of rent and rent out sections
+      document.getElementById('notification-link').addEventListener('click', function () {
+            var sections = document.getElementById('notification-sections');
+            if (sections.style.display === "none" || sections.style.display === "") {
+                sections.style.display = "block"; // Show the sections
+            } else {
+                sections.style.display = "none"; // Hide the sections
+            }
+        });
+
+        document.getElementById('history-link').addEventListener('click', function () {
+            var sections = document.getElementById('history-sections');
+            if (sections.style.display === "none" || sections.style.display === "") {
+                sections.style.display = "block"; // Show the sections
+            } else {
+                sections.style.display = "none"; // Hide the sections
+            }
+        });
+
+    </script>
 
 </body>
 </html>
