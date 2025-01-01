@@ -353,8 +353,6 @@
         </li>
     @endforeach
 </ul>
-
-
     </div>
 
     <!-- Chat Box -->
@@ -378,7 +376,6 @@
         </div>
     @endforeach
 </div>
-
 
             <form method="POST" action="{{ route('chat.send') }}" style="display: flex; gap: 10px; margin-top: 10px; align-items: center;">
     @csrf
