@@ -252,6 +252,14 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        .no-rent-requests-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
     </style>
 </head>
 <body>
@@ -360,13 +368,14 @@
                     @endif
                 @endforeach
             @else
-                <div class="no-rental">
-                    <img src="{{ asset('storage/images/unavailable.png') }}" alt="No items found" style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
-                    <p>No rental history found. Start renting some items!</p>
-                </div>
+            <div class="no-rent-requests-container">
+                        <h3>No rental history found</h3>
+                        <p>Start renting some items!</p>
+                        <img src="{{ asset('storage/images/unavailable.png') }}" alt="No items found" 
+                            style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
+                    </div>
             @endif
         </div>
-
 
     <script>
     document.getElementById('notification-link').addEventListener('click', function() {

@@ -190,6 +190,14 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        .no-rent-requests-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
     </style>
 </head>
 <body>
@@ -287,9 +295,12 @@
                         @endif
                     @endforeach
                 @else
-                    <div class="no-wishlist">
-                    <img src="{{ asset('storage/images/wishlist.png') }}" alt="No items found" style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
-                        <p>Your wishlist is empty. Start adding some items!</p>
+                    <!-- Show message when there are no rent requests -->
+                    <div class="no-rent-requests-container">
+                        <h3>No Items Available</h3>
+                        <p>Please add some items in your Wishlist.</p>
+                        <img src="{{ asset('storage/images/wishlist.png') }}" alt="No items found" 
+                            style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
                     </div>
                 @endif
             </div>
