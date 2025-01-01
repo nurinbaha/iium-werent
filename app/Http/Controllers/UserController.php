@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\RentHistory;
+use App\Models\RentOutHistory;
 
 class UserController extends Controller
 {
@@ -149,11 +150,12 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         // Fetch reviews from RentHistory for this user
-        $reviews = RentHistory::where('renter_id', $id)
-            ->whereNotNull('item_review')
-            ->get();
+        $reviews = RentOutHistory::with('item') // Load the related item
+        ->where('renter_id', $id)
+        ->whereNotNull('renter_review')
+        ->get();
 
-        return view('profiles.show', compact('user', 'reviews'));
+        return view('renter-profile', compact('user', 'reviews'));
     }
 
 

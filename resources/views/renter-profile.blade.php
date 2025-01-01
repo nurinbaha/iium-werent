@@ -217,6 +217,37 @@
             text-decoration: none;
         }
 
+        .review-container {
+            margin-top: 20px;
+        }
+
+        .review-box {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-box strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .review-box p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .review-box .review-date {
+            font-size: 12px;
+            color: #888;
+            text-align: right;
+        }
+
     </style>
 </head>
 <body>
@@ -271,57 +302,47 @@
             <!-- Page Title Section -->
             <div class="page-title">
             <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
-                Owner Profile / {{ $owner->name }}
+                Owner Profile / {{ $user->name }}
             </h2>
             </div>
 
             <!-- Owner Information -->
             <div class="profile-container">
-            <img src="{{ asset($owner->user_image ?? 'images/default-profile.png') }}" alt="User Image" class="profile-image">
+            <img src="{{ asset($renter->user_image ?? 'images/default-profile.png') }}" alt="User Image" class="profile-image">
                 <div class="user-info">
                     <table>
                         <tr>
                             <th>Name</th>
-                            <td>{{ $owner->name }}</td>
+                            <td>{{ $user->name }}</td>
                         </tr>
                         <tr>
                             <th>Email</th>
-                            <td>{{ $owner->email }}</td>
-                        </tr>
-                        <tr>
-                            <th>Status</th>
-                            <td>{{ $owner->status ?? 'N/A' }}</td>
+                            <td>{{ $user->email }}</td>
                         </tr>
                         <tr>
                             <th>Location</th>
-                            <td>{{ $owner->location ?? 'N/A' }}</td>
-                        </tr>
-                        <tr>
-                            <th>Phone Number</th>
-                            <td>{{ $owner->phone_number ?? 'N/A' }}</td>
-                        </tr>
-                        <tr>
-                            <th>Gender</th>
-                            <td>{{ $owner->gender ?? 'N/A' }}</td>
+                            <td>{{ $user->location ?? 'N/A' }}</td>
                         </tr>
                     </table>
                 </div>
             </div>
 
             <h2>Renter Reviews</h2>
-            @if($reviews->isEmpty())
-                <p>No reviews for this renter yet.</p>
-            @else
-                <ul>
+            <div class="review-container">
+                @if($reviews->isEmpty())
+                    <p>No reviews for this renter yet.</p>
+                @else
                     @foreach($reviews as $review)
-                        <li>
-                            <strong>Item:</strong> {{ $review->item->item_name }} <br>
-                            <strong>Review:</strong> {{ $review->item_review }} <br>
-                            <strong>Submitted on:</strong> {{ $review->updated_at->format('d M Y') }}
-                        </li>
-                    @endforeach
-                </ul>
-            @endif
+                        <div class="review-box">
+                        <strong>Name of items:</strong> {{ $review->item->item_name }} <br><br>
+                        <strong>Review:</strong> {{ $review->renter_review }} <br>
+                            <div class="review-date">
+                                <em>Submitted on : {{ $review->updated_at->format('d M Y') }}</em>
+                            </div>
+                        </div>
+        @endforeach
+    @endif
+</div>
 
             </div>
         </div>
