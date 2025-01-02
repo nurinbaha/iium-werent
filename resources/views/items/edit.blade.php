@@ -51,12 +51,10 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 220px; /* To align with the sidebar */
-            margin-top: 168px;
+            margin-left: 40px;
             padding: 20px;
-            align-items: center;
-            background-color: #f8f9fa;
             min-height: 100vh;
+            align-items: center;
         }
 
         /* Sidebar Styling */
@@ -281,18 +279,105 @@
         }
 
         .container {
-            width: 60vh;
-            max-width: none;
-        }
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-        .image-container img {
-            object-fit: cover;
-        }
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.existing-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.image-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-container label {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.2);
+}
+
+        .dashboard-container {
+    margin-left: 180px; /* Matches the width of the sidebar */
+    margin-top: 40px; /* Matches the height of the header */
+    padding: 20px; /* Adds internal padding for content */
+    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+}
 
     </style>
 </head>
 <body>
-
+<div class="dashboard-container">
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>IIUM WeRent</h2>
@@ -399,7 +484,7 @@
 
                     <!-- Existing Images -->
                     <div class="form-group">
-                        <label for="item_images">Existing Images</label>
+                        <label for="item_images">Remove Existing Images</label>
                         <div class="existing-images">
                             @foreach($item->images as $image)
                                 <div class="image-container" style="display: inline-block; margin-right: 10px;">
