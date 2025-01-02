@@ -137,7 +137,8 @@
 
         .search-box input {
     width: 100%;
-    max-width: 400px; /* Set a consistent width */
+    box-sizing: border-box;
+    max-width: none; /* Set a consistent width */
     padding: 10px;
     margin-bottom: 10px; /* Space below the input field */
     border-radius: 5px;

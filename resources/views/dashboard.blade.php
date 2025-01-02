@@ -135,6 +135,7 @@
 
 .search-box input {
     width: 100%;
+    box-sizing: border-box;
     max-width: 400px; /* Set a consistent width */
     padding: 10px;
     margin-bottom: 10px; /* Space below the input field */
@@ -209,6 +210,7 @@
             height: 80px;
             margin-right: 20px;
             border-radius: 4px;
+            object-fit: cover;
         }
 
         .item-details {

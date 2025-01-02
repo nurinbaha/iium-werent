@@ -129,6 +129,7 @@
             height: 180px;
             margin-right: 20px;
             border-radius: 4px;
+            onject-fit: cover;
         }
 
         .item-details {

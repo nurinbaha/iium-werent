@@ -290,6 +290,12 @@ Route::get('/get-approved-dates/{itemId}', [RentController::class, 'getApprovedD
 
 Route::post('/rent-request', [RentController::class, 'store']);
 
+//Edit Item Details
+Route::get('/items/{id}/details', [ItemController::class, 'itemDetails'])->name('items.item-details');
+
+
+
+
 
 
 

@@ -51,8 +51,10 @@
 
         /* Main Content Styling */
         .main-content {
-            margin-left: 260px; /* To align with the sidebar */
+            margin-left: 220px; /* To align with the sidebar */
+            margin-top: 168px;
             padding: 20px;
+            align-items: center;
             background-color: #f8f9fa;
             min-height: 100vh;
         }
@@ -270,9 +272,22 @@
                     margin-left: 10px;
                 }
 
-         .rotate-down {
-                    transform: rotate(180deg);
-                }
+        .rotate-down {
+            transform: rotate(180deg);
+        }
+
+        .form-control {
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 60vh;
+            max-width: none;
+        }
+
+        .image-container img {
+            object-fit: cover;
+        }
 
     </style>
 </head>
@@ -331,70 +346,81 @@
 <br>
 
             <!-- Page Title Section -->
-            <div class="page-title">
-            <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
-                Edit Items
-            </h2>
+            
+
+            <div class="container">
+                <h1>Edit Item</h1>
+
+                <form action="{{ route('items.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="form-group">
+                        <label for="item_name">Item Name</label>
+                        <input type="text" id="nitem_name" name="item_name" class="form-control" value="{{ old('item_name', $item->item_name) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="item_description">Description</label>
+                        <textarea id="item_description" name="item_description" class="form-control">{{ old('item_description', $item->item_description) }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" id="price" name="price" class="form-control" value="{{ old('price', $item->price) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select name="category" id="category" class="form-control" required>
+                            <option value="">Select Category</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category }}" 
+                                    @if($item->category == $category) selected @endif>
+                                    {{ $category }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Item Location (Dropdown) -->
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <select name="location" id="location" class="form-control" required>
+                            <option value="">Select Location</option>
+                            @foreach($locations as $location)
+                                <option value="{{ $location }}" 
+                                    @if($item->location == $location) selected @endif>
+                                    {{ $location }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Existing Images -->
+                    <div class="form-group">
+                        <label for="item_images">Existing Images</label>
+                        <div class="existing-images">
+                            @foreach($item->images as $image)
+                                <div class="image-container" style="display: inline-block; margin-right: 10px;">
+                                    <img src="{{ asset('storage/' . $image->path) }}" alt="Item Image" style="width: 100px; height: 100px;">
+                                    <label>
+                                        <input type="checkbox" name="remove_images[]" value="{{ $image->id }}">
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <!-- Add New Images -->
+                    <div class="form-group">
+                        <label for="new_item_images">Add New Images</label>
+                        <input type="file" name="new_item_images[]" id="new_item_images" class="form-control" multiple>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Update Item</button>
+                </form>
             </div>
-
-<div class="container">
-    <h1>Edit Item</h1>
-
-    <form action="{{ route('items.update', $item->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-
-        <div class="form-group">
-            <label for="item_name">Item Name</label>
-            <input type="text" id="nitem_name" name="item_name" class="form-control" value="{{ old('item_name', $item->item_name) }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="item_description">Description</label>
-            <textarea id="item_description" name="item_description" class="form-control">{{ old('item_description', $item->item_description) }}</textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="price">Price</label>
-            <input type="number" id="price" name="price" class="form-control" value="{{ old('price', $item->price) }}" required>
-        </div>
-
-        <div class="form-group">
-        <label for="category">Category</label>
-        <select name="category" id="category" class="form-control" required>
-            <option value="">Select Category</option>
-            @foreach($categories as $category)
-                <option value="{{ $category }}" 
-                    @if($item->category == $category) selected @endif>
-                    {{ $category }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-
-        <!-- Item Location (Dropdown) -->
-    <div class="form-group">
-        <label for="location">Location</label>
-        <select name="location" id="location" class="form-control" required>
-            <option value="">Select Location</option>
-            @foreach($locations as $location)
-                <option value="{{ $location }}" 
-                    @if($item->location == $location) selected @endif>
-                    {{ $location }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-
-        <!-- Item Image -->
-    <div class="form-group">
-        <label for="item_image">Image</label>
-        <input type="file" name="item_image" id="item_image" class="form-control">
-    </div>
-
-        <button type="submit" class="btn btn-success">Update Item</button>
-    </form>
-</div>
 
 <script>
      // Function to toggle sections and arrows

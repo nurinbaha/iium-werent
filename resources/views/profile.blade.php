@@ -110,9 +110,8 @@
         }
 
         .container {
-    margin-top: 20px; /* Adds spacing from the previous section */
-    padding: 20px; /* Adds internal spacing */
-}
+            padding: 20px; /* Adds internal spacing */
+        }
 
 
         /* User Info Section */
@@ -204,6 +203,7 @@
             height: 200px;
             margin-right: 20px;
             border-radius: 4px;
+            object-fit: cover;
         }
 
         .item-details {
@@ -337,7 +337,7 @@
                 <img src="{{ asset($user->user_image ? 'storage/' . $user->user_image : 'images/profiles/profile.png') }}" 
                     alt="User Image" 
                     class="profile-image" 
-                    style="width:400px; height:400px; object-fit:cover; border: 2px solid #ddd; border-radius: 10px;">
+                    style="width:386px; height:386px; object-fit:cover; border: 2px solid #ddd; border-radius: 10px;">
                 
                 <!-- Icon to Trigger File Input -->
                 <label for="user_image" style="

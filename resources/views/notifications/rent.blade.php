@@ -203,7 +203,7 @@
             height: 300px;
             margin-right: 20px;
             border-radius: 4px;
-            object-fit: contain;
+            object-fit: cover;
         }
 
         .item-details {

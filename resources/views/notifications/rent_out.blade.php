@@ -206,6 +206,7 @@
     margin-right: 20px;
     border-radius: 4px;
     align-self: center; /* Ensures the image is centered vertically */
+    object-fit: cover;
 }
 
 .item-details {
