@@ -19,7 +19,8 @@ use App\Http\Controllers\RentRequestController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ReviewController;
-
+use App\Http\Controllers\UserReportController;
+use App\Http\Controllers\Admin\AdminUserReportsController;
 
 // Display the sign-up form using the SignUpController
 Route::get('/signup', [SignUpController::class, 'create'])->name('signup.create');
@@ -292,6 +293,23 @@ Route::post('/rent-request', [RentController::class, 'store']);
 
 //Edit Item Details
 Route::get('/items/{id}/details', [ItemController::class, 'itemDetails'])->name('items.item-details');
+
+//Report User
+Route::post('/report/user', [ReportController::class, 'storeUserReport'])->name('report.user.store');
+Route::post('/report-user', [UserReportController::class, 'store'])->name('report.user.store');
+
+// User Reports page route
+Route::get('/admin/user-reports', [AdminUserReportsController::class, 'index'])->name('admin.user-reports.index');
+
+// View details of a specific reported user
+Route::get('/admin/user-reports/{user_id}', [AdminUserReportsController::class, 'show'])->name('admin.user-report.details');
+
+
+
+
+
+
+
 
 
 

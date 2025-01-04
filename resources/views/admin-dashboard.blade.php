@@ -173,6 +173,7 @@
                 <li><a href="{{ url('/admin/users') }}"><i class="fas fa-users"></i> Users</a></li>
                 <li><a href="{{ url('/admin/listings') }}"><i class="fas fa-list"></i> Listings</a></li>
                 <li><a href="{{ url('/admin/reports') }}"><i class="fas fa-exclamation-circle"></i> Reports</a></li>
+                <li><a href="{{ url('/admin/user-reports') }}"><i class="fas fa-exclamation-circle"></i> User Reports</a></li>                
                 <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </div>

@@ -6,6 +6,8 @@
     <title>Owner Profile Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         /* Sidebar Styles */
         .sidebar {
@@ -326,36 +328,56 @@
         </h2>
     </div>
 
-    <!-- Owner Information -->
-    <div class="profile-container" style="display: flex; gap: 40px; align-items: flex-start; margin-bottom: 40px;">
-        <!-- User Image -->
-        <img src="{{ asset($owner && $owner->user_image ? 'storage/' . $owner->user_image : 'images/profiles/profile.png') }}" 
-             alt="Owner Image" 
-             class="profile-image" 
-             style="width: 400px; height: 400px; object-fit: cover; border: 2px solid #ddd; border-radius: 10px;">
+        <!-- Owner Information -->
+        <div class="profile-container" style="display: flex; gap: 40px; align-items: flex-start; margin-bottom: 40px;">
+            <!-- User Image -->
+            <img src="{{ asset($owner && $owner->user_image ? 'storage/' . $owner->user_image : 'images/profiles/profile.png') }}" 
+                alt="Owner Image" 
+                class="profile-image" 
+                style="width: 400px; height: 400px; object-fit: cover; border: 2px solid #ddd; border-radius: 10px;">
 
-        <!-- User Info -->
-        <div class="user-info">
-            <table style="border-collapse: collapse; width: 100%; max-width: 400px;">
-                <tr>
-                    <th style="background-color: #007bff; color: white; padding: 10px; text-align: left;">Name</th>
-                    <td style="background-color: white; padding: 10px;">{{ $owner->name }}</td>
-                </tr>
-                <tr>
-                    <th style="background-color: #007bff; color: white; padding: 10px; text-align: left;">Email</th>
-                    <td style="background-color: white; padding: 10px;">{{ $owner->email }}</td>
-                </tr>
-                <tr>
-                    <th style="background-color: #007bff; color: white; padding: 10px; text-align: left;">Location</th>
-                    <td style="background-color: white; padding: 10px;">{{ $owner->location ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <th style="background-color: #007bff; color: white; padding: 10px; text-align: left;">Gender</th>
-                    <td style="background-color: white; padding: 10px;">{{ ucfirst($owner->gender) ?? 'N/A' }}</td>
-                </tr>
-            </table>
+            <!-- User Info -->
+            <div class="user-info">
+                <table style="border-collapse: collapse; width: 100%; max-width: 400px;">
+                    <tr>
+                        <th style="background-color: #007bff; color: white; padding: 10px; text-align: left;">Name</th>
+                        <td style="background-color: white; padding: 10px;">{{ $owner->name }}</td>
+                    </tr>
+                    <tr>
+                        <th style="background-color: #007bff; color: white; padding: 10px; text-align: left;">Email</th>
+                        <td style="background-color: white; padding: 10px;">{{ $owner->email }}</td>
+                    </tr>
+                    <tr>
+                        <th style="background-color: #007bff; color: white; padding: 10px; text-align: left;">Location</th>
+                        <td style="background-color: white; padding: 10px;">{{ $owner->location ?? 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th style="background-color: #007bff; color: white; padding: 10px; text-align: left;">Gender</th>
+                        <td style="background-color: white; padding: 10px;">{{ ucfirst($owner->gender) ?? 'N/A' }}</td>
+                    </tr>
+                </table>
+
+                <!-- Report User Button -->
+                @if(auth()->id() !== $owner->id) <!-- Only show for non-owners -->
+                <button class="btn btn-danger" 
+                        style="margin-top: 20px; padding: 10px; width: 100%; background-color: red; color: white; border: none; border-radius: 5px;" 
+                        onclick="openReportUserModal()">
+                    Report User
+                </button>
+                @endif
+            </div>
         </div>
-    </div>
+
+
+        <!-- Hidden Report User Form -->
+        <form id="reportUserForm" action="{{ route('report.user.store') }}" method="POST" style="display: none;">
+            @csrf
+            <input type="hidden" name="user_id" value="{{ $owner->id }}">
+            <input type="hidden" name="reason" id="reportUserReason">
+            <input type="hidden" name="details" id="additionalDetailsInput">
+        </form>
+
+
 
     <!-- Owner's Items Section -->
     <div class="user-items-section">
@@ -413,6 +435,69 @@
         document.getElementById('notification-link').addEventListener('click', function () {
             toggleSection('notification-sections', 'notification-arrow');
         });
+
+        // SweetAlert Modal for Reporting User
+            function openReportUserModal() {
+        Swal.fire({
+            title: 'Report User',
+            html: `
+                <p>Please select a reason for reporting this user:</p>
+                <select id="reportReasonSelect" class="swal2-input">
+                    <option value="">Select a reason</option>
+                    <option value="Violation of Terms">Violation of Terms</option>
+                    <option value="Inappropriate Behavior">Inappropriate Behavior</option>
+                    <option value="Fraudulent Activity">Fraudulent Activity</option>
+                    <option value="Other">Other</option>
+                </select>
+                <textarea id="additionalDetails" class="swal2-textarea" placeholder="Additional details (optional)"></textarea>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Submit Report',
+            cancelButtonText: 'Cancel',
+            preConfirm: () => {
+                const reason = document.getElementById('reportReasonSelect').value;
+                const details = document.getElementById('additionalDetails').value;
+
+                if (!reason) {
+                    Swal.showValidationMessage('Please select a reason to continue.');
+                    return false;
+                }
+
+                return { reason, details }; // Pass data back to the submit function
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Fill the hidden form fields with the values
+                document.getElementById('reportUserReason').value = result.value.reason;
+                document.getElementById('additionalDetailsInput').value = result.value.details;
+                // Submit the form
+                document.getElementById('reportUserForm').submit();
+            }
+        });
+    }
+
+
+        // SweetAlert Success Message for Reporting
+        @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: "{{ session('success') }}",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        });
+        @endif
+
+        // SweetAlert Error Message for Reporting (Optional)
+        @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops!',
+            text: "{{ session('error') }}",
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'OK'
+        });
+        @endif
 
     </script>
 </body>
