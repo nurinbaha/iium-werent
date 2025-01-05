@@ -147,11 +147,6 @@
             font-size: 16px;
         }
 
-        .item-card:hover {
-        transform: scale(1.05); /* Slightly enlarges the card */
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Adds a stronger shadow */
-    }
-
     .dashboard-container {
     margin-left: 180px; /* Matches the width of the sidebar */
     margin-top: 40px; /* Matches the height of the header */
