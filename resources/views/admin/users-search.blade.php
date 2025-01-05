@@ -170,7 +170,22 @@
             <li><a href="{{ url('/admin/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ url('/admin/users') }}"><i class="fas fa-users"></i> Users</a></li>
                 <li><a href="{{ url('/admin/listings') }}"><i class="fas fa-list"></i> Listings</a></li>
-                <li><a href="{{ url('/admin/reports') }}"><i class="fas fa-exclamation-circle"></i> Reports</a></li>
+                <li>
+                    <a href="#" id="reports-link">
+                        <i class="fas fa-exclamation-circle"></i> Reports 
+                        <i class="fas fa-chevron-down" id="reports-arrow" style="margin-left: 5px;"></i>
+                    </a>
+                    <ul class="nav" id="reports-sections" style="display: none;">
+                        <!-- Item Reports Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/admin/reports') }}">Item Reports</a>
+                        </li>
+                        <!-- User Reports Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/admin/user-reports') }}">User Reports</a>
+                        </li>
+                    </ul>
+                </li>
                 <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </div>
@@ -243,5 +258,25 @@
             @endif
         </div>
     </div>
+    <script>
+        // Toggle Reports Section
+        document.getElementById('reports-link').addEventListener('click', function () {
+            toggleSection('reports-sections', 'reports-arrow');
+        });
+
+        // Generic Function to Toggle Sections
+        function toggleSection(sectionId, arrowId) {
+            var section = document.getElementById(sectionId);
+            var arrow = document.getElementById(arrowId);
+
+            if (section.style.display === "none" || section.style.display === "") {
+                section.style.display = "block";
+                arrow.classList.add('rotate-down'); // Add a CSS class for the down arrow
+            } else {
+                section.style.display = "none";
+                arrow.classList.remove('rotate-down'); // Remove the class for the default arrow
+            }
+        }
+    </script>
 </body>
 </html>

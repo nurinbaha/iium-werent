@@ -172,8 +172,24 @@
             <li><a href="{{ url('/admin/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ url('/admin/users') }}"><i class="fas fa-users"></i> Users</a></li>
                 <li><a href="{{ url('/admin/listings') }}"><i class="fas fa-list"></i> Listings</a></li>
-                <li><a href="{{ url('/admin/reports') }}"><i class="fas fa-exclamation-circle"></i> Reports</a></li>
-                <li><a href="{{ url('/admin/user-reports') }}"><i class="fas fa-exclamation-circle"></i> User Reports</a></li>                
+                <li>
+                    <a href="#" id="reports-link">
+                        <i class="fas fa-exclamation-circle"></i> Reports 
+                        <i class="fas fa-chevron-down" id="reports-arrow" style="margin-left: 5px;"></i>
+                    </a>
+                    <ul class="nav" id="reports-sections" style="display: none;">
+                        <!-- Item Reports Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/admin/reports') }}">Item Reports</a>
+                        </li>
+                        <!-- User Reports Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/admin/user-reports') }}">User Reports</a>
+                        </li>
+                    </ul>
+                </li>
+
+              
                 <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </div>
@@ -192,34 +208,53 @@
                 <p>Fostering Community Sharing and Promoting Sustainability at IIUM</p>
             </div>
 
-<!-- Latest Items Section -->
-<div class="latest-items-section">
-    <h2>Latest Upload</h2>
-    @if($latestItems->isEmpty())
-        <p>No items found.</p>
-    @else
-        @foreach($latestItems as $item)
-            <a href="{{ url('/admin/admin-item-details/' . $item->id) }}" style="text-decoration: none; color: inherit;">
-                <div class="item-card" 
-                     style="display: flex; align-items: center; background-color: #fff; border-radius: 8px; padding: 15px; margin-bottom: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                     @php
-                        // Check if the item has an image; use a default if not
-                        $imagePath = $item->images->first() ? 'storage/' . $item->images->first()->path : 'images/default.jpg';
-                    @endphp
-                    <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" style="width: 180px; height: 180px; margin-right: 20px; border-radius: 4px;" class="item-image">
-                    <div class="item-details" style="font-size: 16px;">
-                        <h3 style="color: blue;">{{ $item->item_name }}</h3>
-                        <p>Price: RM{{ $item->price }}</p>
-                        <p>Uploaded on: {{ $item->created_at->format('d M Y, H:i') }}</p>
-                    </div>
-                </div>
-            </a>
-        @endforeach
-    @endif
-</div>
-
-
+        <!-- Latest Items Section -->
+        <div class="latest-items-section">
+            <h2>Latest Upload</h2>
+            @if($latestItems->isEmpty())
+                <p>No items found.</p>
+            @else
+                @foreach($latestItems as $item)
+                    <a href="{{ url('/admin/admin-item-details/' . $item->id) }}" style="text-decoration: none; color: inherit;">
+                        <div class="item-card" 
+                            style="display: flex; align-items: center; background-color: #fff; border-radius: 8px; padding: 15px; margin-bottom: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                            @php
+                                // Check if the item has an image; use a default if not
+                                $imagePath = $item->images->first() ? 'storage/' . $item->images->first()->path : 'images/default.jpg';
+                            @endphp
+                            <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" style="width: 180px; height: 180px; margin-right: 20px; border-radius: 4px;" class="item-image">
+                            <div class="item-details" style="font-size: 16px;">
+                                <h3 style="color: blue;">{{ $item->item_name }}</h3>
+                                <p>Price: RM{{ $item->price }}</p>
+                                <p>Uploaded on: {{ $item->created_at->format('d M Y, H:i') }}</p>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            @endif
+        </div>
         </div>
     </div>
+
+    <script>
+        // Toggle Reports Section
+        document.getElementById('reports-link').addEventListener('click', function () {
+            toggleSection('reports-sections', 'reports-arrow');
+        });
+
+        // Generic Function to Toggle Sections
+        function toggleSection(sectionId, arrowId) {
+            var section = document.getElementById(sectionId);
+            var arrow = document.getElementById(arrowId);
+
+            if (section.style.display === "none" || section.style.display === "") {
+                section.style.display = "block";
+                arrow.classList.add('rotate-down'); // Add a CSS class for the down arrow
+            } else {
+                section.style.display = "none";
+                arrow.classList.remove('rotate-down'); // Remove the class for the default arrow
+            }
+        }
+    </script>
 </body>
 </html>

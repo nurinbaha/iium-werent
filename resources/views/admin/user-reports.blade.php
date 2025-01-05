@@ -88,26 +88,31 @@
             min-height: 100vh;
         }
 
+        /* Item Card Styling */
         .item-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        }
+    display: flex;
+    justify-content: space-between; /* Add this */
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
 
-        .item-details {
-            flex-grow: 1;
-        }
+.item-details {
+    flex-grow: 1; /* Allows the details to take up remaining space */
+}
 
         .item-card img {
-            width: 180px;
-            height: 180px;
+            width: 300px;
+            height: 300px;
             margin-right: 20px;
             border-radius: 4px;
+        }
+
+        .item-card .item-info {
+            font-size: 16px;
         }
 
         .btn-view {
@@ -151,7 +156,22 @@
                 <li><a href="{{ url('/admin/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ url('/admin/users') }}"><i class="fas fa-users"></i> Users</a></li>
                 <li><a href="{{ url('/admin/listings') }}"><i class="fas fa-list"></i> Listings</a></li>
-                <li><a href="{{ url('/admin/user-reports') }}"><i class="fas fa-exclamation-circle"></i> User Reports</a></li>
+                <li>
+                    <a href="#" id="reports-link">
+                        <i class="fas fa-exclamation-circle"></i> Reports 
+                        <i class="fas fa-chevron-down" id="reports-arrow" style="margin-left: 5px;"></i>
+                    </a>
+                    <ul class="nav" id="reports-sections" style="display: none;">
+                        <!-- Item Reports Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/admin/reports') }}">Item Reports</a>
+                        </li>
+                        <!-- User Reports Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/admin/user-reports') }}">User Reports</a>
+                        </li>
+                    </ul>
+                </li>
                 <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </div>
@@ -185,7 +205,7 @@
                     @endphp
 
                     @if($user)
-                        <img src="{{ asset($user->user_image ? 'storage/' . $user->user_image : 'images/profiles/profile.png') }}" alt="User Photo" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                        <img src="{{ asset($user->user_image ? 'storage/' . $user->user_image : 'images/profiles/profile.png') }}" alt="User Photo" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover;">
                         <div class="item-details">
                             <h3>{{ $user->name }}</h3>
                             <p><strong>Reported Reason:</strong> {{ $report->reason }}</p>
@@ -193,7 +213,7 @@
                             <p><strong>Reported By:</strong> {{ $report->reporter->name ?? 'N/A' }}</p>
                             <p><strong>Reporter Email:</strong> {{ $report->reporter->email ?? 'N/A' }}</p>
                         </div>
-                        <a href="{{ route('admin.user-report.details', $user->id) }}" class="btn-view">View Details</a>
+                        <a href="{{ route('admin.user.details', $user->id) }}" class="btn-view">View Details</a>
                     @else
                         <p>User not available.</p>
                     @endif
@@ -247,6 +267,25 @@
                     );
                 }
             });
+        }
+
+        // Toggle Reports Section
+        document.getElementById('reports-link').addEventListener('click', function () {
+            toggleSection('reports-sections', 'reports-arrow');
+        });
+
+        // Generic Function to Toggle Sections
+        function toggleSection(sectionId, arrowId) {
+            var section = document.getElementById(sectionId);
+            var arrow = document.getElementById(arrowId);
+
+            if (section.style.display === "none" || section.style.display === "") {
+                section.style.display = "block";
+                arrow.classList.add('rotate-down'); // Add a CSS class for the down arrow
+            } else {
+                section.style.display = "none";
+                arrow.classList.remove('rotate-down'); // Remove the class for the default arrow
+            }
         }
     </script>
 </body>
