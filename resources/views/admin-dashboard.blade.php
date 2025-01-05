@@ -175,7 +175,7 @@
                 <li>
                     <a href="#" id="reports-link">
                         <i class="fas fa-exclamation-circle"></i> Reports 
-                        <i class="fas fa-chevron-down" id="reports-arrow" style="margin-left: 5px;"></i>
+                        <i class="fas fa-chevron-down" id="reports-arrow" style="margin-left: 8px;"></i>
                     </a>
                     <ul class="nav" id="reports-sections" style="display: none;">
                         <!-- Item Reports Link -->
@@ -188,8 +188,6 @@
                         </li>
                     </ul>
                 </li>
-
-              
                 <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </div>
