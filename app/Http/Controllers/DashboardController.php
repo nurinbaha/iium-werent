@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Item; // Make sure you have the Item model imported
 use App\Models\Notification;
 use App\Models\RentNotification;
+use App\Models\RentOutHistory;
+use App\Models\RentHistory;
 
 class DashboardController extends Controller
 {
@@ -36,16 +38,29 @@ class DashboardController extends Controller
 
         // Fetch viewed notification IDs from session
         $viewedNotifications = session()->get('viewed_notifications', []);
-
-        // Calculate unviewed notifications count
         $unreadCount = count(array_diff($rentNotifications, $viewedNotifications));
+
+         $approvedRentRequests = RentOutHistory::where('owner_id', $user->id)
+        ->where('status', 'rented')
+        ->get();
+
+         $unreviewedCount = $approvedRentRequests->count();
+    
+         $unreviewedRequests = RentHistory::where('renter_id', auth()->id())
+         ->where('status', 'rented')  // Only the requests that are returned and not reviewed
+         ->get();
+ 
+         // Count the number of notifications for pending reviews
+         $rentCount = $unreviewedRequests->count();
 
         // Pass all data to the dashboard view
         return view('dashboard', compact(
             'user',
             'itemsNearYou',
             'pendingRequestsCount',
-            'unreadCount'
+            'unreadCount',
+            'unreviewedCount',
+            'rentCount'
         ));
     
     }

@@ -324,11 +324,22 @@
                 <ul class="nav" id="history-sections" style="display: none;">
                     <!-- Rent History Link -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('rent.history') }}"> My Rental</a>
+                        <a class="nav-link" href="{{ route('rent.history') }}"> My Rental Status
+                            @if(isset($rentCount) && $rentCount > 0)
+                                <span class="badge badge-grey">{{ $rentCount }}</span>
+                            @else
+                                <span class="badge badge-grey">0</span>
+                            @endif
+                        </a>
                     </li>
                     <!-- Rent Out Notifications Link -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('rentout.history') }}">My Rent Out</a>
+                        <a class="nav-link" href="{{ route('rentout.history') }}">My Rent Out
+                        @if(isset($unreviewedCount) && $unreviewedCount > 0)
+                            <span class="badge badge-grey">{{ $unreviewedCount }}</span>
+                        @endif
+
+                        </a>
                     </li>
                 </ul>
             </li>

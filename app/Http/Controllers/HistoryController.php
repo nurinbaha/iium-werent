@@ -31,7 +31,15 @@ class HistoryController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
         
-        return view('history.rent', compact('rentHistory'));
+        // Fetch rent requests that haven't been reviewed yet
+        $unreviewedRequests = RentHistory::where('renter_id', auth()->id())
+        ->where('status', 'rented')  // Only the requests that are returned and not reviewed
+        ->get();
+
+        // Count the number of notifications for pending reviews
+        $rentCount = $unreviewedRequests->count();
+
+        return view('history.rent', compact('rentHistory', 'rentCount'));
     }
     
     public function showRentOutHistory()
@@ -39,6 +47,8 @@ class HistoryController extends Controller
         if (!auth()->check()) {
             return redirect()->route('login')->with('error', 'You need to log in first.');
         }
+
+        $user = auth()->user();
 
         $rentOutHistory = RentOutHistory::where('owner_id', auth()->id())
         ->with(['item'])
@@ -52,8 +62,16 @@ class HistoryController extends Controller
         ")
         ->orderBy('created_at', 'desc')
         ->get();
+
+         // Fetch approved requests that haven't been reviewed yet
+         $approvedRentRequests = RentOutHistory::where('owner_id', $user->id)
+         ->where('status', 'rented')  // Only the requests that are rented and not reviewed
+         ->get();
+
+        // Count the number of notifications for pending reviews
+        $unreviewedCount = $approvedRentRequests->count();
                                         
-        return view('history.rentout', compact('rentOutHistory'));
+        return view('history.rentout', compact('rentOutHistory', 'unreviewedCount'));
     }
 
     public function markAsReturned($id)
