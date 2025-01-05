@@ -239,6 +239,14 @@
          .rotate-down {
                     transform: rotate(180deg);
                 }
+
+                .no-rent-requests-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -389,7 +397,12 @@
             <div class="latest-items-section-dashboard">
                 <h2>Latest Items in {{ ucfirst($categoryName) }}</h2>
                 @if($items->isEmpty())
-                    <p>No items available under this category.</p>
+                <div class="no-rent-requests-container">
+                        <h3>No items was found under this category</h3>
+                        <p>Please come and check again soon !</p>
+                        <img src="{{ asset('storage/images/unavailable.png') }}" alt="No items found" 
+                            style="width: 300px; height: auto; display: block; margin: 0 auto; border: 0px solid #ddd; border-radius: 10px;">
+                </div>
                 @else
                     @foreach($items as $item)
                     @if($item->user_id != auth()->id())  <!-- Exclude the logged-in user's items -->

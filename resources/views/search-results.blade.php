@@ -345,14 +345,13 @@
 
             <!-- Page Title Section -->
             <div class="page-title">
-            <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
+            <h2 style="margin-top: 40px; font-size: 30px; text-align: left; color: black;">
                 Search Results
             </h2>
             </div>
 
             <!-- Search Results Section -->
             <div class="latest-items-section-dashboard">
-                <h2>Results found</h2>
                 @if($results->isEmpty())
                 <div class="no-rent-requests-container">
                         <h3>No items was found</h3>

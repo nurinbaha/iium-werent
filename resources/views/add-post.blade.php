@@ -308,6 +308,7 @@
                                 <option value="Mahallah Nusaibah">Mahallah Nusaibah</option>
                                 <option value="Mahallah Sumayyah">Mahallah Sumayyah</option>
                                 <option value="Mahallah Safiyyah">Mahallah Safiyyah</option>
+                                <option value="Off Campus">Off Campus</option>
                             </select>
                         </div>
 

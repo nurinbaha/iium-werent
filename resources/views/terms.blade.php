@@ -292,7 +292,7 @@
 
 <!-- Content Section -->
 <div class="content-section">
-    <h2>Rules & Guidelines</h2>
+    <h2>Terms & Conditions</h2>
 
     <!-- General Rules -->
     <h3>General Rules</h3>
