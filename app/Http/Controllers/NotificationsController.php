@@ -32,7 +32,14 @@ class NotificationsController extends Controller
         ->whereIn('status', ['approved', 'declined']) 
         ->get();
 
-        return view('notifications.rent', compact('rentNotifications'));
+       // Fetch viewed notification IDs from session
+    $viewedNotifications = session()->get('viewed_notifications', []);
+
+    // Add current notification IDs to the session as viewed
+    $newViewed = $rentNotifications->pluck('id')->toArray();
+    session()->put('viewed_notifications', array_unique(array_merge($viewedNotifications, $newViewed)));
+
+    return view('notifications.rent', compact('rentNotifications'));
     }
 
     public function approveNotification($id)
@@ -132,5 +139,18 @@ class NotificationsController extends Controller
 
         return response()->json(['count' => $count]);
     }
+
+    public function markNotificationsAsRead()
+    {
+        $userId = auth()->id();
+
+        RentNotification::where('user_id', $userId)
+            ->whereIn('status', ['approved', 'declined'])
+            ->where('viewed', 0) // Only mark unread notifications
+            ->update(['viewed' => 1]);
+
+        return redirect()->route('notifications.rent')->with('success', 'Notifications marked as read.');
+    }
+
 
 }

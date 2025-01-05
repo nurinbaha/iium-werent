@@ -289,7 +289,7 @@
          .rotate-down {
                     transform: rotate(180deg);
                 }
-                
+
          .badge {
             display: inline-block;
             padding: 0.25em 0.4em;
@@ -336,7 +336,11 @@
                 <ul class="nav" id="notification-sections" style="display: none;">
                         <!-- Rent Notifications Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('notifications.rent') }}">My Rental Status</a>
+                            <a class="nav-link" href="{{ route('notifications.rent') }}">My Rental Status
+                            @if($unreadCount > 0)
+                                <span class="badge badge-grey">{{ $unreadCount }}</span>
+                            @endif
+                            </a>
                         </li>
                         <!-- Rent Out Notifications Link -->
                         <li class="nav-item">
