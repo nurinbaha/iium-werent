@@ -233,7 +233,7 @@
                             <p><strong>Reported By:</strong> {{ $report->user->name ?? 'N/A' }}</p>
                             <p><strong>Reporter Email:</strong> {{ $report->user->email ?? 'N/A' }}</p>
                         </div>
-                        <a href="{{ route('admin.report.details', $report->item_id) }}" class="btn-view">View Details</a>
+                        <a href="{{ route('admin.report.details', $report->item_id) }}" class="btn-view">View Item</a>
                     @else
                         <p>Item not available.</p>
                     @endif
