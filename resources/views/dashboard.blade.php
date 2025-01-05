@@ -22,26 +22,26 @@
         }
 
         .sidebar ul li {
-    padding: 5px 20px; /* Reduced padding */
-    margin-bottom: 5px; /* Adjust the margin to reduce space between items */
-}
+            padding: 5px 20px; /* Reduced padding */
+            margin-bottom: 5px; /* Adjust the margin to reduce space between items */
+        }
 
-.sidebar ul li a {
-    font-size: 16px; /* You can also adjust the font size if needed */
-    color: #ffffff;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-}
+        .sidebar ul li a {
+            font-size: 16px; /* You can also adjust the font size if needed */
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
 
-.sidebar ul li a i {
-    margin-right: 10px;
-}
+        .sidebar ul li a i {
+            margin-right: 10px;
+        }
 
-.sidebar ul li a:hover {
-    background-color: #1f2529;
-    border-radius: 4px;
-}
+        .sidebar ul li a:hover {
+            background-color: #1f2529;
+            border-radius: 4px;
+        }
 
 
         .sidebar ul li a:hover i {
@@ -289,6 +289,25 @@
          .rotate-down {
                     transform: rotate(180deg);
                 }
+                
+         .badge {
+            display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 0.75rem;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.375rem;
+        }
+
+        .badge-grey {
+            background-color: #6c757d; /* Grey color */
+            color: #fff; /* White text */
+        }
+
 
     </style>
 </head>
@@ -321,7 +340,8 @@
                         </li>
                         <!-- Rent Out Notifications Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('notifications.rent_out') }}">My Rent Request</a>
+                            <a class="nav-link" href="{{ route('notifications.rent_out') }}">My Rent Request
+                            <span class="badge badge-grey">{{ $pendingRequestsCount }}</span></a>
                         </li>
                     </ul>
                 </li>
@@ -342,7 +362,7 @@
     <button class="add-post-btn">
         <a href="{{ route('posts.add') }}">Add A Post</a>
     </button>
-</div>
+    </div>
 
             <!-- Page Title Section -->
             <div class="page-title">
@@ -530,7 +550,20 @@
             toggleSection('notification-sections', 'notification-arrow');
         });
 
+
+        //count pending
+        setInterval(function() {
+            fetch('{{ route("pending.count") }}')
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector('.badge.bg-danger').textContent = data.count;
+                })
+                .catch(error => console.error('Error:', error));
+        }, 5000); // Check every 5 seconds
+
+
     </script>
+
 <style>
     /* Add this CSS to style the SweetAlert */
     .custom-alert {

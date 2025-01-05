@@ -22,9 +22,7 @@ class NotificationsController extends Controller
                                         ->where('status', 'pending')
                                         ->get();
     
-                                        // If no notifications, show an appropriate message on the rent out notifications page                                     // If no notifications, redirect to My Rent Out page with a message
-       
-        // Pass data to the view
+
         return view('notifications.rent_out', compact('rentOutNotifications'));
     }    
 
@@ -104,7 +102,7 @@ class NotificationsController extends Controller
             $renter = User::find($notification->user_id);  // The renter who made the request
         
             // Update the status of the rent out notification to 'declined'
-            $notification->update(['status' => 'declined']);
+            $notification->update(['status' => 'rejected']);
         
             // Create a new rent notification for the renter
             RentNotification::create([
@@ -125,6 +123,14 @@ class NotificationsController extends Controller
         // Redirect back or show error message
         return redirect()->route('notifications.rent_out')->with('error', 'Rent request declined and renter notified!');
     }
+    
+    public function pendingCount()
+    {
+        $count = RentNotification::where('user_id', auth()->id())
+            ->where('status', 'pending')
+            ->count();
 
+        return response()->json(['count' => $count]);
+    }
 
 }

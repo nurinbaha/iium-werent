@@ -304,8 +304,7 @@ Route::get('/admin/user-reports', [AdminUserReportsController::class, 'index'])-
 // View details of a specific reported user
 Route::get('/admin/user-reports/{user_id}', [AdminUserReportsController::class, 'show'])->name('admin.user-report.details');
 
-
-
+Route::get('/pending-count', [NotificationsController::class, 'pendingCount'])->name('pending.count');
 
 
 
