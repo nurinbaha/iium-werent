@@ -336,10 +336,8 @@
                 <ul class="nav" id="notification-sections" style="display: none;">
                         <!-- Rent Notifications Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('notifications.rent') }}">My Rental Status
-                            @if($unreadCount > 0)
+                            <a class="nav-link" href="{{ route('notifications.rent') }}"> My Rental Status
                                 <span class="badge badge-grey">{{ $unreadCount }}</span>
-                            @endif
                             </a>
                         </li>
                         <!-- Rent Out Notifications Link -->

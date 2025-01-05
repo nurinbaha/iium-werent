@@ -29,8 +29,6 @@ class DashboardController extends Controller
             ->where('status', 'pending')
             ->count();
 
-         // Count unread notifications for the renter
-         // Fetch all notifications
         $rentNotifications = RentNotification::where('user_id', $user->id)
         ->whereIn('status', ['approved', 'declined'])
         ->pluck('id')
