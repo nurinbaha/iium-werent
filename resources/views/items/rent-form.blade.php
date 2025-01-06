@@ -312,48 +312,41 @@
     </form>
 </div>
 
-    <script>
-        document.getElementById('start_date').addEventListener('change', calculateTotal);
-        document.getElementById('end_date').addEventListener('change', calculateTotal);
+<script>
+    // Get today's date in the correct format (YYYY-MM-DD)
+    const today = new Date().toISOString().split('T')[0];
 
-        function calculateTotal() {
-            const startDate = new Date(document.getElementById('start_date').value);
-            const endDate = new Date(document.getElementById('end_date').value);
-            if (startDate && endDate && endDate > startDate) {
-                const totalDays = (endDate - startDate) / (1000 * 60 * 60 * 24);
-                const pricePerDay = {{ $item->price }};
-                document.getElementById('total_days').value = totalDays;
-                document.getElementById('total_price').value = (totalDays * pricePerDay).toFixed(2);
-            } else {
-                document.getElementById('total_days').value = '';
-                document.getElementById('total_price').value = '';
-            }
+    // Disable past dates in both input fields
+    document.getElementById('start_date').setAttribute('min', today);
+    document.getElementById('end_date').setAttribute('min', today);
+
+    // Add event listeners to calculate total days and price
+    document.getElementById('start_date').addEventListener('change', updateEndDate);
+    document.getElementById('end_date').addEventListener('change', calculateTotal);
+
+    function updateEndDate() {
+        const startDate = document.getElementById('start_date').value;
+        if (startDate) {
+            // Set the minimum end date based on selected start date
+            document.getElementById('end_date').setAttribute('min', startDate);
         }
+        calculateTotal(); // Recalculate in case end date is already selected
+    }
 
-        // Function to toggle sections and arrows
-        function toggleSection(sectionId, arrowId) {
-            var sections = document.getElementById(sectionId);
-            var arrow = document.getElementById(arrowId);
-
-            // Toggle the display of the section
-            if (sections.style.display === "none" || sections.style.display === "") {
-                sections.style.display = "block";
-                arrow.classList.add('rotate-down');  // Add rotation when expanded
-            } else {
-                sections.style.display = "none";
-                arrow.classList.remove('rotate-down');  // Remove rotation when collapsed
-            }
+    function calculateTotal() {
+        const startDate = new Date(document.getElementById('start_date').value);
+        const endDate = new Date(document.getElementById('end_date').value);
+        if (startDate && endDate && endDate >= startDate) {
+            const totalDays = (endDate - startDate) / (1000 * 60 * 60 * 24);
+            const pricePerDay = {{ $item->price }};
+            document.getElementById('total_days').value = totalDays;
+            document.getElementById('total_price').value = (totalDays * pricePerDay).toFixed(2);
+        } else {
+            document.getElementById('total_days').value = '';
+            document.getElementById('total_price').value = '';
         }
-
-        // Attach event listeners for both History and Notifications
-        document.getElementById('history-link').addEventListener('click', function () {
-            toggleSection('history-sections', 'history-arrow');
-        });
-
-        document.getElementById('notification-link').addEventListener('click', function () {
-            toggleSection('notification-sections', 'notification-arrow');
-        });
-
+    }
+</script>
         </script>  
         
 </body>
