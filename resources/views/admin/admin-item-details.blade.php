@@ -310,11 +310,11 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .custom-carousel {
-                height: 400px;
+                height: auto;
             }
 
             .carousel-images img {
-                height: 400px;
+                height: auto;
             }
 
             .carousel-control {
