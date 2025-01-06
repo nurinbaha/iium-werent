@@ -132,6 +132,7 @@
             height: 80px;
             margin-right: 20px;
             border-radius: 4px;
+            object-fit: cover;
         }
 
         .item-card a {
