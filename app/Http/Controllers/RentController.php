@@ -15,7 +15,21 @@ class RentController extends Controller
     public function showRentForm($id)
     {
         $item = Item::findOrFail($id);
-        return view('items.rent-form', compact('item'));
+
+        $bookedDates = $item->rentRequests()->select('start_date', 'end_date')->get();
+
+        // Flatten booked dates into an array of individual unavailable dates
+        $unavailableDates = [];
+        foreach ($bookedDates as $rent) {
+            $start = new \DateTime($rent->start_date);
+            $end = new \DateTime($rent->end_date);
+            while ($start <= $end) {
+                $unavailableDates[] = $start->format('Y-m-d');
+                $start->modify('+1 day');
+            }
+        }
+
+        return view('items.rent-form', compact('item', 'unavailableDates'));
     }
 
     public function confirmRent(Request $request, $id)
