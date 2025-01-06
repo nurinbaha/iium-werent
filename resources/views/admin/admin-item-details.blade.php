@@ -116,8 +116,9 @@
 
 .item-image img {
     width: 100%;
-    height: auto; /* Kekalkan nisbah imej */
+    height: 500px; /* Kekalkan nisbah imej */
     border-radius: 10px;
+    object-fit: contain;
 }
 
 
@@ -243,20 +244,82 @@
         }
  
         .dashboard-container {
-    margin-left: 180px; /* Matches the width of the sidebar */
-    margin-top: 40px; /* Matches the height of the header */
-    padding: 20px; /* Adds internal padding for content */
-    background-color: #ffffff; /* Background color for the dashboard */
-    min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
-    width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
-    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
-}
+            margin-left: 180px; /* Matches the width of the sidebar */
+            margin-top: 40px; /* Matches the height of the header */
+            padding: 20px; /* Adds internal padding for content */
+            background-color: #ffffff; /* Background color for the dashboard */
+            min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+            width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+            box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+        }
 
-.main-content {
+        .main-content {
             margin-left: 40px;
             padding: 20px;
             background-color: #f8f9fa;
             min-height: 100vh;
+        }
+
+        /* Carousel Container */
+        .custom-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Carousel Images */
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-images img {
+            width: 100%;
+            flex-shrink: 0;
+            border-radius: 10px;
+        }
+
+        /* Carousel Navigation Buttons */
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        .carousel-control.prev {
+            left: 10px;
+        }
+
+        .carousel-control.next {
+            right: 10px;
+        }
+
+        .carousel-control:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .custom-carousel {
+                height: 400px;
+            }
+
+            .carousel-images img {
+                height: 400px;
+            }
+
+            .carousel-control {
+                padding: 8px;
+            }
         }
 
     </style>
@@ -309,13 +372,17 @@
 
             <!-- Item Container -->
             <div class="item-container">
-                <!-- Item Image -->
+                <!-- Item Image Carousel -->
                 <div class="item-image">
-                @php
-                        // Check if the item has an image; use a default if not
-                        $imagePath = $item->images->first() ? 'storage/' . $item->images->first()->path : 'images/default.jpg';
-                    @endphp
-                <img src="{{ asset($imagePath) }}" alt="{{ $item->item_name }}" class="item-image">
+                    <div class="custom-carousel">
+                        <div class="carousel-images">
+                            @foreach ($item->images as $image)
+                                <img src="{{ asset('storage/' . $image->path) }}" alt="Item Image" />
+                            @endforeach
+                        </div>
+                        <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
+                        <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
+                    </div>
                 </div>
 
                 <!-- Item Information -->
@@ -415,6 +482,37 @@
                 arrow.classList.remove('rotate-down'); // Remove the class for the default arrow
             }
         }
+    </script>
+
+    <script>
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            const carouselImages = document.querySelector('.carousel-images');
+            const totalSlides = document.querySelectorAll('.carousel-images img').length;
+
+            if (index >= totalSlides) {
+                currentIndex = 0; // Loop back to the first image
+            } else if (index < 0) {
+                currentIndex = totalSlides - 1; // Loop back to the last image
+            } else {
+                currentIndex = index;
+            }
+
+            const offset = -currentIndex * 100; // Calculate the offset
+            carouselImages.style.transform = `translateX(${offset}%)`;
+        }
+
+        function nextSlide() {
+            showSlide(currentIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentIndex - 1);
+        }
+
+        // Initialize the carousel
+        showSlide(currentIndex);
     </script>
 
 </body>

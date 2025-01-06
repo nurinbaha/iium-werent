@@ -133,6 +133,7 @@
             height: 180px;
             margin-right: 20px;
             border-radius: 4px;
+            object-fit: cover;
         }
 
         .item-card .item-info {
