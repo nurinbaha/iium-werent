@@ -483,6 +483,7 @@ input[type="checkbox"] {
                     </div>
 
                     <!-- Existing Images -->
+                     
                     <div class="form-group">
                         <label for="item_images">Remove Existing Images</label>
                         <div class="existing-images">

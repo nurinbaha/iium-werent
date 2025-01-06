@@ -136,7 +136,9 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id); // Fetch user by ID
-        $userItems = Item::where('user_id', $id)->get();
+        $userItems = Item::where('user_id', $id)->get()
+                            ->orderBy('created_at', 'desc')
+                            ->get();
         $rentHistory = RentHistory::where('user_id', $user->id)
                                     ->with('item')  // Assuming you have an item relationship
                                     ->get();

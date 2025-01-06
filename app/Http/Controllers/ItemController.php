@@ -42,6 +42,7 @@ class ItemController extends Controller
 
         // Predefined locations
         $locations = [
+            'Mahallah Ali',
             'Mahallah Zubair',
             'Mahallah Uthman',
             'Mahallah Faruq',
@@ -58,6 +59,7 @@ class ItemController extends Controller
             'Mahallah Nusaibah',
             'Mahallah Sumayyah',
             'ahallah Safiyyah',
+            'Off Campus',
         ];
 
         // Pass the item to the edit view
