@@ -346,8 +346,61 @@
             document.getElementById('total_price').value = '';
         }
     }
-</script>
+
         </script>  
+
+<script>
+    // Unavailable dates passed from backend
+    const unavailableDates = @json($unavailableDates);
+
+    // Get input fields
+    const startDateInput = document.getElementById('start_date');
+    const endDateInput = document.getElementById('end_date');
+
+    // Disable unavailable dates on focus
+    document.addEventListener('DOMContentLoaded', function () {
+        disableUnavailableDates(startDateInput, unavailableDates);
+        disableUnavailableDates(endDateInput, unavailableDates);
+    });
+
+    // Update end date minimum based on start date selection
+    startDateInput.addEventListener('input', function () {
+        const selectedStartDate = new Date(startDateInput.value);
+        if (startDateInput.value) {
+            // Set end date minimum as the selected start date
+            endDateInput.setAttribute('min', startDateInput.value);
+
+            // Filter unavailable dates for the end date
+            const filteredDates = unavailableDates.filter(date => new Date(date) >= selectedStartDate);
+            disableUnavailableDates(endDateInput, filteredDates);
+        }
+    });
+
+    // Function to disable unavailable dates dynamically
+    function disableUnavailableDates(inputElement, dates) {
+        const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+        inputElement.setAttribute('min', today);
+
+        // Disable unavailable dates when input is focused
+        inputElement.addEventListener('focus', function () {
+            const selectedDate = inputElement.value;
+
+            // Use custom validity to block unavailable dates
+            inputElement.addEventListener('input', function () {
+                const selectedDate = inputElement.value;
+                if (dates.includes(selectedDate)) {
+                    inputElement.setCustomValidity("This date is unavailable. Please select another date.");
+                    inputElement.reportValidity(); // Show validity message
+                    inputElement.value = ""; // Clear the invalid input
+                } else {
+                    inputElement.setCustomValidity(""); // Clear validity message
+                }
+            });
+        });
+    }
+</script>
+
+
         
 </body>
 </html>

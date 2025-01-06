@@ -53,7 +53,6 @@ class Item extends Model
         return $this->hasMany(RentHistory::class, 'item_id');
     }
 
-
     public function reports()
 {
     return $this->hasMany(Report::class, 'item_id');
@@ -63,6 +62,12 @@ class Item extends Model
     {
         return $this->hasMany(ItemImage::class);
     }
+
+    public function rentRequests()
+    {
+        return $this->hasMany(RentRequest::class, 'item_id'); // Relating to the RentRequest model
+    }
+
 
 
 }
