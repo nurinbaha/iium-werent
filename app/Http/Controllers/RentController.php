@@ -16,16 +16,20 @@ class RentController extends Controller
     {
         $item = Item::findOrFail($id);
 
-        $bookedDates = $item->rentRequests()->select('start_date', 'end_date')->get();
+        $approvedRentRequests = RentRequest::where('item_id', $id)
+        ->where('status', 'approved')
+        ->select('start_date', 'end_date')
+        ->get();
 
-        // Flatten booked dates into an array of individual unavailable dates
+        // Generate unavailable dates
         $unavailableDates = [];
-        foreach ($bookedDates as $rent) {
-            $start = new \DateTime($rent->start_date);
-            $end = new \DateTime($rent->end_date);
-            while ($start <= $end) {
-                $unavailableDates[] = $start->format('Y-m-d');
-                $start->modify('+1 day');
+        foreach ($approvedRentRequests as $request) {
+            $startDate = new \DateTime($request->start_date);
+            $endDate = new \DateTime($request->end_date);
+
+            while ($startDate <= $endDate) {
+                $unavailableDates[] = $startDate->format('Y-m-d');
+                $startDate->modify('+1 day');
             }
         }
 

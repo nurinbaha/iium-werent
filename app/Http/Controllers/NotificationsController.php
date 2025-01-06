@@ -51,6 +51,10 @@ class NotificationsController extends Controller
         // Update the status of the rent out notification to 'approved'
         $notification->update(['status' => 'approved']);
     
+        $rentRequest = RentRequest::findOrFail($id);
+        $rentRequest->status = 'approved';
+        $rentRequest->save();
+
         // Create a new rent notification for the renter
         RentNotification::create([
             'message' => 'Your rent request has been approved.',

@@ -348,7 +348,6 @@
     }
 
         </script>  
-
 <script>
     // Unavailable dates passed from backend
     const unavailableDates = @json($unavailableDates);
@@ -357,7 +356,6 @@
     const startDateInput = document.getElementById('start_date');
     const endDateInput = document.getElementById('end_date');
 
-    // Disable unavailable dates on focus
     document.addEventListener('DOMContentLoaded', function () {
         disableUnavailableDates(startDateInput, unavailableDates);
         disableUnavailableDates(endDateInput, unavailableDates);
@@ -366,8 +364,9 @@
     // Update end date minimum based on start date selection
     startDateInput.addEventListener('input', function () {
         const selectedStartDate = new Date(startDateInput.value);
+
         if (startDateInput.value) {
-            // Set end date minimum as the selected start date
+            // Set the minimum end date to the selected start date
             endDateInput.setAttribute('min', startDateInput.value);
 
             // Filter unavailable dates for the end date
@@ -378,28 +377,23 @@
 
     // Function to disable unavailable dates dynamically
     function disableUnavailableDates(inputElement, dates) {
-        const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
-        inputElement.setAttribute('min', today);
+        const today = new Date().toISOString().split('T')[0];
+        inputElement.setAttribute('min', today); // Ensure today is the minimum date
 
-        // Disable unavailable dates when input is focused
-        inputElement.addEventListener('focus', function () {
+        inputElement.addEventListener('input', function () {
             const selectedDate = inputElement.value;
 
-            // Use custom validity to block unavailable dates
-            inputElement.addEventListener('input', function () {
-                const selectedDate = inputElement.value;
-                if (dates.includes(selectedDate)) {
-                    inputElement.setCustomValidity("This date is unavailable. Please select another date.");
-                    inputElement.reportValidity(); // Show validity message
-                    inputElement.value = ""; // Clear the invalid input
-                } else {
-                    inputElement.setCustomValidity(""); // Clear validity message
-                }
-            });
+            // Check if the selected date is in the unavailable dates array
+            if (dates.includes(selectedDate)) {
+                inputElement.setCustomValidity("This date is unavailable. Please select another date.");
+                inputElement.reportValidity();
+                inputElement.value = ""; // Clear invalid input
+            } else {
+                inputElement.setCustomValidity(""); // Clear validity message if valid
+            }
         });
     }
 </script>
-
 
         
 </body>
