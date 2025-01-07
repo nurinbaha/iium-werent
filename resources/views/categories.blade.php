@@ -118,60 +118,60 @@
 
         /* Search Box Styling */
         .search-section {
-    background-color: transparent; /* Change to transparent to remove the grey background */
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    margin-top: 0px; /* Adjust this value to create space between the header and the search section */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.search-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-        .search-box input {
-    width: 100%;
-    box-sizing: border-box;
-    max-width: none; /* Set a consistent width */
-    padding: 10px;
-    margin-bottom: 10px; /* Space below the input field */
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-        .category-filters {
+            background-color: transparent; /* Change to transparent to remove the grey background */
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            margin-top: 0px; /* Adjust this value to create space between the header and the search section */
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            gap: 10px;
         }
 
-        .category-dropdown, .area-dropdown {
+        .search-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+                .search-box input {
             width: 100%;
-            max-width: 200px;
+            box-sizing: border-box;
+            max-width: none; /* Set a consistent width */
             padding: 10px;
+            margin-bottom: 10px; /* Space below the input field */
             border-radius: 5px;
             border: 1px solid #ccc;
         }
 
-        .search-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    border: none;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 10px;
-}
+                .category-filters {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 10px;
+                }
 
-.search-btn:hover {
-    background-color: #0056b3;
-}
+                .category-dropdown, .area-dropdown {
+                    width: 100%;
+                    max-width: 200px;
+                    padding: 10px;
+                    border-radius: 5px;
+                    border: 1px solid #ccc;
+                }
+
+                .search-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .search-btn:hover {
+            background-color: #0056b3;
+        }
 
 
         /* Categories Section */
@@ -278,7 +278,49 @@
          .rotate-down {
                     transform: rotate(180deg);
                 }
+
+                .badge {
+            display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 0.75rem;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.375rem;
+        }
+
+        .badge-grey {
+            background-color: #6c757d; /* Grey color */
+            color: #fff; /* White text */
+        }
     </style>
+    @if(auth()->check())
+    @php
+        // Fetch notifications for rental status
+        $rentCount = \App\Models\RentHistory::where('renter_id', auth()->id())
+            ->where('status', 'rented') // Customize the condition as needed
+            ->count();
+
+        // Fetch unreviewed rent out history
+        $unreviewedCount = \App\Models\RentOutHistory::where('owner_id', auth()->id())
+            ->where('status', 'rented')
+            ->count();
+
+        // Fetch unread notifications for rentals
+        $unreadCount = \App\Models\RentNotification::where('user_id', auth()->id())
+            ->whereIn('status', ['approved', 'declined'])
+            ->count();
+
+        // Fetch pending requests count for rent out requests
+        $pendingRequestsCount = \App\Models\Notification::where('owner_id', auth()->id())
+            ->where('status', 'pending')
+            ->count();
+    @endphp
+@endif
+
 </head>
 <body>
     <div class="dashboard-container">
@@ -286,18 +328,26 @@
         <div class="sidebar">
             <h2>IIUM WeRent</h2>
             <ul>
-                <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
                 <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
                 <li><a href="#" id="history-link"><i class="fas fa-history"></i> History <i class="fas fa-chevron-down" id="history-arrow"></i></a>
                 <ul class="nav" id="history-sections" style="display: none;">
                     <!-- Rent History Link -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('rent.history') }}"> My Rental</a>
+                        <a class="nav-link" href="{{ route('rent.history') }}">My Rental  
+                        @if(isset($rentCount) && $rentCount > 0)
+                            <span class="badge badge-grey">{{ $rentCount }}</span>
+                        @endif
+                        </a>
                     </li>
                     <!-- Rent Out Notifications Link -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('rentout.history') }}">My Rent Out</a>
+                        <a class="nav-link" href="{{ route('rentout.history') }}">My Rent Out
+                        @if(isset($unreviewedCount) && $unreviewedCount > 0)
+                            <span class="badge badge-grey">{{ $unreviewedCount }}</span>
+                        @endif
+                        </a>
                     </li>
                 </ul>
             </li>
@@ -305,15 +355,18 @@
                 <ul class="nav" id="notification-sections" style="display: none;">
                         <!-- Rent Notifications Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('notifications.rent') }}">My Rental Status</a>
+                            <a class="nav-link" href="{{ route('notifications.rent') }}"> My Rental Status
+                                <span class="badge badge-grey">{{ $unreadCount }}</span>
+                            </a>
                         </li>
                         <!-- Rent Out Notifications Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('notifications.rent_out') }}">My Rent Request</a>
+                            <a class="nav-link" href="{{ route('notifications.rent_out') }}">My Rent Request
+                            <span class="badge badge-grey">{{ $pendingRequestsCount }}</span></a>
                         </li>
                     </ul>
                 </li>
-                <li><a href="{{ url('/chat') }}"><i class="fas fa-message"></i> Chat</a></li>
+                <li><a href="{{ url('/chat') }}"><i class="fas fa-comments"></i> Chat</a></li>
                 <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Profile</a></li>
                 <li><a href="{{ url('/terms') }}"><i class="fas fa-file-contract"></i> T&Cs</a></li> <!-- T&Cs Link -->
                 <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>

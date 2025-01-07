@@ -23,26 +23,26 @@
         }
 
         .sidebar ul li {
-    padding: 5px 20px; /* Reduced padding */
-    margin-bottom: 5px; /* Adjust the margin to reduce space between items */
-}
+        padding: 5px 20px; /* Reduced padding */
+        margin-bottom: 5px; /* Adjust the margin to reduce space between items */
+        }
 
-.sidebar ul li a {
-    font-size: 16px; /* You can also adjust the font size if needed */
-    color: #ffffff;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-}
+        .sidebar ul li a {
+            font-size: 16px; /* You can also adjust the font size if needed */
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
 
-.sidebar ul li a i {
-    margin-right: 10px;
-}
+        .sidebar ul li a i {
+            margin-right: 10px;
+        }
 
-.sidebar ul li a:hover {
-    background-color: #1f2529;
-    border-radius: 4px;
-}
+        .sidebar ul li a:hover {
+            background-color: #1f2529;
+            border-radius: 4px;
+        }
 
 
         .sidebar ul li a:hover i {
@@ -52,7 +52,6 @@
         /* Main Content Styling */
         .main-content {
             padding: 40px;
-            
             min-height: 100vh;
         }
 
@@ -70,27 +69,27 @@
 
         /* Header Styling */
         .header {
-    background-color: #3c75ba;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between; /* Adjust the elements to be spread apart */
-    align-items: center;
-    width: 100%;
-    height: 40px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    border-bottom: none;
-}
+            background-color: #3c75ba;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between; /* Adjust the elements to be spread apart */
+            align-items: center;
+            width: 100%;
+            height: 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            border-bottom: none;
+        }
 
-.header-title h2 {
-    color: white; /* Set the text color */
-    margin: 0;
-    font-size: 1.4rem; /* Adjust the size as needed */
-    font-weight: bold;
-    margin-left: 10px; /* Adjust this margin to control the left spacing */
-}
+        .header-title h2 {
+            color: white; /* Set the text color */
+            margin: 0;
+            font-size: 1.4rem; /* Adjust the size as needed */
+            font-weight: bold;
+            margin-left: 10px; /* Adjust this margin to control the left spacing */
+        }
 
 
         /* Adjust the Add Post Button */
@@ -107,118 +106,37 @@
             background-color: #0a73a6;
         }
 
-        /* Search Box Styling */
-
-        .search-section {
-    background-color: transparent; /* Change to transparent to remove the grey background */
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    margin-top: 0px; /* Adjust this value to create space between the header and the search section */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-        
-.search-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.search-box input {
-    width: 100%;
-    max-width: 400px; /* Set a consistent width */
-    padding: 10px;
-    margin-bottom: 10px; /* Space below the input field */
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.category-filters {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px; /* Space between dropdowns */
-}
-
-.category-dropdown, .area-dropdown {
-    width: 100%;
-    max-width: 200px; /* Set a consistent width for the dropdowns */
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.search-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    border: none;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.search-btn:hover {
-    background-color: #0056b3;
-}
-
-
-        .categories-section {
-            margin-bottom: 20px;
-            margin-top: 0px;
-        }
-
-        .category-btn {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 15px;
-            margin-right: 0px;
-            border-radius: 10px;
-            text-decoration: none;
-        }
-
-        .category-btn:hover {
-            background-color: #0056b3;
-        }
-
-        /* Latest Items Section */
-        .latest-items-section-dashboard {
-            margin-bottom: 30px;
-        }
-
         .item-card {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between; /* Spreads the content within the card */
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    
-}
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between; /* Spreads the content within the card */
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            
+        }
 
-.item-card img {
-    max-width: 180px;
-    max-height: 180px;
-    margin-right: 20px;
-    border-radius: 4px;
-    align-self: center; /* Ensures the image is centered vertically */
-    object-fit: cover;
-}
+        .item-card img {
+            max-width: 180px;
+            max-height: 180px;
+            margin-right: 20px;
+            border-radius: 4px;
+            align-self: center; /* Ensures the image is centered vertically */
+            object-fit: cover;
+        }
 
-.item-details {
-    flex: 1; /* Allows the item details to expand and fill the available space */
-    font-size: 16px;
-}
+        .item-details {
+            flex: 1; /* Allows the item details to expand and fill the available space */
+            font-size: 16px;
+        }
 
-.item-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+        .item-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
         /* Remove underline from item links */
         .latest-items-section-dashboard a {
@@ -309,8 +227,51 @@
                     transform: rotate(180deg);
                 }
 
+                .badge {
+            display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 0.75rem;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.375rem;
+        }
+
+        .badge-grey {
+            background-color: #6c757d; /* Grey color */
+            color: #fff; /* White text */
+        }
+
 
     </style>
+
+@if(auth()->check())
+    @php
+        // Fetch notifications for rental status
+        $rentCount = \App\Models\RentHistory::where('renter_id', auth()->id())
+            ->where('status', 'rented') // Customize the condition as needed
+            ->count();
+
+        // Fetch unreviewed rent out history
+        $unreviewedCount = \App\Models\RentOutHistory::where('owner_id', auth()->id())
+            ->where('status', 'rented')
+            ->count();
+
+        // Fetch unread notifications for rentals
+        $unreadCount = \App\Models\RentNotification::where('user_id', auth()->id())
+            ->whereIn('status', ['approved', 'declined'])
+            ->count();
+
+        // Fetch pending requests count for rent out requests
+        $pendingRequestsCount = \App\Models\Notification::where('owner_id', auth()->id())
+            ->where('status', 'pending')
+            ->count();
+    @endphp
+@endif
+
 </head>
 <body>
 <div class="dashboard-container">
@@ -318,18 +279,26 @@
         <div class="sidebar">
             <h2>IIUM WeRent</h2>
             <ul>
-                <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
                 <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
                 <li><a href="#" id="history-link"><i class="fas fa-history"></i> History <i class="fas fa-chevron-down" id="history-arrow"></i></a>
                 <ul class="nav" id="history-sections" style="display: none;">
                     <!-- Rent History Link -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('rent.history') }}"> My Rental</a>
+                        <a class="nav-link" href="{{ route('rent.history') }}">My Rental
+                        @if(isset($rentCount) && $rentCount > 0)
+                            <span class="badge badge-grey">{{ $rentCount }}</span>
+                        @endif
+                        </a>
                     </li>
                     <!-- Rent Out Notifications Link -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('rentout.history') }}">My Rent Out</a>
+                        <a class="nav-link" href="{{ route('rentout.history') }}">My Rent Out
+                        @if(isset($unreviewedCount) && $unreviewedCount > 0)
+                            <span class="badge badge-grey">{{ $unreviewedCount }}</span>
+                        @endif
+                        </a>
                     </li>
                 </ul>
             </li>
@@ -337,11 +306,14 @@
                 <ul class="nav" id="notification-sections" style="display: none;">
                         <!-- Rent Notifications Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('notifications.rent') }}">My Rental Status</a>
+                            <a class="nav-link" href="{{ route('notifications.rent') }}"> My Rental Status
+                                <span class="badge badge-grey">{{ $unreadCount }}</span>
+                            </a>
                         </li>
                         <!-- Rent Out Notifications Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('notifications.rent_out') }}">My Rent Request</a>
+                            <a class="nav-link" href="{{ route('notifications.rent_out') }}">My Rent Request
+                            <span class="badge badge-grey">{{ $pendingRequestsCount }}</span></a>
                         </li>
                     </ul>
                 </li>

@@ -7,7 +7,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <style>
-        /* Sidebar Styles */
+
+         /* Sidebar Styling */
+         .sidebar {
+            width: 180px; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #222;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1); 3c75ba
+        }
+       
         .sidebar h2 {
             color: #fff;
             font-size: 1.5rem;
@@ -48,152 +60,121 @@
             color: #0dcaf0; /* Icon color on hover */
         }
 
-        .dashboard-container{
-            margin-left: 220px;
-            width: 100%;
-        }
 
         /* Main Content Styling */
         .main-content {
-            padding-inline: 130px;
+            padding-inline: 70px;
             background-color: rgb(255, 255, 255);
             margin-top: 20px;
             overflow: auto; /* Allow the content to grow dynamically */
         }
 
-        /* Sidebar Styling */
-        .sidebar {
-            width: 180px; /* Adjust the sidebar width */
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            background-color: #222;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1); 3c75ba
-        }
-
         /* Header Styling */
         .header {
-    background-color: #3c75ba;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between; /* Adjust the elements to be spread apart */
-    align-items: center;
-    width: 100%;
-    height: 40px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    border-bottom: none;
-}
+        background-color: #3c75ba;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between; /* Adjust the elements to be spread apart */
+        align-items: center;
+        width: 100%;
+        height: 40px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        border-bottom: none;
+    }
 
-.header-title h2 {
-    color: white; /* Set the text color */
-    margin: 0;
-    font-size: 1.4rem; /* Adjust the size as needed */
-    font-weight: bold;
-    margin-left: 10px; /* Adjust this margin to control the left spacing */
-}
-
-
-        /* Adjust the Add Post Button */
-        .header .add-post-btn a {
-            color: #ffffff;
-            background-color: #f1c40f;
-            font-size: 1rem
-            padding: 8px 15px;
-            border-radius: 10px;
-            text-decoration: none;
-        }
-
-        .header .add-post-btn a:hover {
-            background-color: #0a73a6;
-        }
+    .header-title h2 {
+        color: white; 
+        margin: 0;
+        font-size: 1.4rem; 
+        font-weight: bold;
+        margin-left: 10px;
+    }
 
         /* Search Box Styling */
 
         .search-section {
-    background-color: transparent; /* Change to transparent to remove the grey background */
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    margin-top: 0px; /* Adjust this value to create space between the header and the search section */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-        
-.search-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.search-box input {
-    width: 100%;
-    box-sizing: border-box;
-    max-width: 400px; /* Set a consistent width */
-    padding: 10px;
-    margin-bottom: 10px; /* Space below the input field */
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.category-filters {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px; /* Space between dropdowns */
-}
-
-.category-dropdown, .area-dropdown {
-    width: 100%;
-    max-width: 200px; /* Set a consistent width for the dropdowns */
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.search-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    border: none;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.search-btn:hover {
-    background-color: #0056b3;
-}
-
-
-        .categories-section {
-            margin-bottom: 20px;
-            margin-top: 0px;
+        background-color: transparent; /* Change to transparent to remove the grey background */
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        margin-top: 0px; /* Adjust this value to create space between the header and the search section */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         }
 
-        .category-btn {
+                
+        .search-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .search-box input {
+            width: 100%;
+            box-sizing: border-box;
+            max-width: 400px; /* Set a consistent width */
+            padding: 10px;
+            margin-bottom: 10px; /* Space below the input field */
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .category-filters {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px; /* Space between dropdowns */
+        }
+
+        .category-dropdown, .area-dropdown {
+            width: 100%;
+            max-width: 200px; /* Set a consistent width for the dropdowns */
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .search-btn {
+            padding: 10px 20px;
             background-color: #007bff;
-            color: #fff;
-            padding: 10px 15px;
-            margin-right: 0px;
+            border: none;
+            color: white;
             border-radius: 10px;
-            text-decoration: none;
+            cursor: pointer;
+            margin-top: 10px;
         }
 
-        .category-btn:hover {
+        .search-btn:hover {
             background-color: #0056b3;
         }
 
-        /* Latest Items Section */
-        .latest-items-section-dashboard {
-            margin-bottom: 30px;
-        }
+
+            .categories-section {
+                margin-bottom: 20px;
+                margin-top: 0px;
+            }
+
+            .category-btn {
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px 15px;
+                margin-right: 0px;
+                border-radius: 10px;
+                text-decoration: none;
+            }
+
+            .category-btn:hover {
+                background-color: #0056b3;
+            }
+
+            /* Latest Items Section */
+            .latest-items-section-dashboard {
+                margin-bottom: 30px;
+            }
 
         .item-card {
             display: flex;
@@ -281,6 +262,15 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        .dashboard-container {
+            margin-left: 220px; /* Matches the width of the sidebar */
+            margin-top: 40px; /* Matches the height of the header */
+            background-color: #ffffff; /* Background color for the dashboard */
+            min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
+            width: calc(100% - 180px); /* Adjusts width to exclude the sidebar */
+            box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+        }
+
         #history-arrow, #notification-arrow {
                     transition: transform 0.3s;
                     margin-left: 10px;
@@ -301,6 +291,7 @@
             white-space: nowrap;
             vertical-align: baseline;
             border-radius: 0.375rem;
+            
         }
 
         .badge-grey {
@@ -324,12 +315,8 @@
                 <ul class="nav" id="history-sections" style="display: none;">
                     <!-- Rent History Link -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('rent.history') }}"> My Rental Status
-                            @if(isset($rentCount) && $rentCount > 0)
-                                <span class="badge badge-grey">{{ $rentCount }}</span>
-                            @else
-                                <span class="badge badge-grey">0</span>
-                            @endif
+                        <a class="nav-link" href="{{ route('rent.history') }}">My Rental  
+                            <span class="badge badge-grey">{{ $rentCount }}</span>
                         </a>
                     </li>
                     <!-- Rent Out Notifications Link -->
@@ -338,7 +325,6 @@
                         @if(isset($unreviewedCount) && $unreviewedCount > 0)
                             <span class="badge badge-grey">{{ $unreviewedCount }}</span>
                         @endif
-
                         </a>
                     </li>
                 </ul>
@@ -347,7 +333,7 @@
                 <ul class="nav" id="notification-sections" style="display: none;">
                         <!-- Rent Notifications Link -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('notifications.rent') }}"> My Rental Status
+                            <a class="nav-link" href="{{ route('notifications.rent') }}">My Rental Status
                                 <span class="badge badge-grey">{{ $unreadCount }}</span>
                             </a>
                         </li>
@@ -573,7 +559,6 @@
                 })
                 .catch(error => console.error('Error:', error));
         }, 5000); // Check every 5 seconds
-
 
     </script>
 
