@@ -20,15 +20,14 @@
             height: 100%;
             background-color: #222;
             padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1); 3c75ba
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1); 
         }
 
         .sidebar h2 {
             color: #fff;
             font-size: 1.5rem;
-            margin-bottom: 30px;
-            margin-top: 0px;
             text-align: center;
+            margin: 0 0 30px 0;
         }
 
         .sidebar ul {
@@ -37,17 +36,17 @@
         }
 
         .sidebar ul li {
-            padding: 5px 20px; /* Reduced padding */
             margin-bottom: 5px; /* Adjust the margin to reduce space between items */
-        }
         }
 
         .sidebar ul li a {
-            font-size: 16px; /* You can also adjust the font size if needed */
-            color: #ffffff;
+            color: #fff;
+            font-size: 16px;
             text-decoration: none;
             display: flex;
             align-items: center;
+            padding: 5px 20px;
+            border-radius: 4px;
         }
 
         .sidebar ul li a i {
