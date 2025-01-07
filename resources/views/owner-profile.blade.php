@@ -423,7 +423,7 @@
                 <!-- Report User Button -->
                 @if(auth()->id() !== $owner->id) <!-- Only show for non-owners -->
                 <button class="btn btn-danger" 
-                        style="margin-top: 20px; padding: 10px; width: 100%; background-color: red; color: white; border: none; border-radius: 5px display: inline;" 
+                        style="margin-top: 20px; padding: 10px; width: 38%; background-color: red; color: white; border: none; border-radius: 5px display: inline;" 
                         onclick="openReportUserModal()">
                     Report User
                 </button>
