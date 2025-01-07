@@ -345,8 +345,8 @@
                 <ul class="nav" id="history-sections" style="display: none;">
                     <!-- Rent History Link -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('notifications.rent') }}">My Rental
-                            <span class="badge badge-grey" style="margin-left: 10px;">{{ $unreadCount }}</span>
+                        <a class="nav-link" href="{{ route('rent.history') }}">My Rental
+                            <span class="badge badge-grey" style="margin-left: 10px;">{{ $rentCount }}</span>
                         </a>
                     </li>
                     <!-- Rent Out Notifications Link -->
