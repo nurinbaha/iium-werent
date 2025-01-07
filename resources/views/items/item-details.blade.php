@@ -6,7 +6,7 @@
     <title>{{ $item->name }} - IIUM WeRent</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* Sidebar Styling */
         .sidebar {
@@ -184,7 +184,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            padding: 20px;
+            padding: 0px;
         }
 
         .item-image {
@@ -339,6 +339,19 @@
             color: #fff; /* White text */
         }
 
+        .delete-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .delete-button:hover {
+            background-color: darkred;
+        }
 
     </style>
 
@@ -517,36 +530,50 @@
                         </tr>
                     </table>
 
-<!-- Action Buttons -->
-<div class="item-actions" style="display: flex; gap: 10px; align-items: center;">
+    <!-- Action Buttons -->
+    <!-- Action Buttons -->
+    <div class="item-actions" style="display: flex; gap: 10px; align-items: center;">
 
-    <!-- Rent Button -->
-    @if($item->user_id !== auth()->id())
-        <a href="{{ route('item.rent.form', $item->id) }}" class="btn btn-success" style="padding: 8px 15px;">
-            <i class="fas fa-calendar-alt"></i> Rent
-        </a>
-    @endif
+        <!-- Rent Button -->
+        @if($item->user_id !== auth()->id())
+            <a href="{{ route('item.rent.form', $item->id) }}" class="btn btn-success" style="padding: 8px 15px;">
+                <i class="fas fa-calendar-alt"></i> Rent
+            </a>
+        @endif
 
-    <!-- Report Button -->
-    @if($item->user_id !== auth()->id())
-    <button class="btn btn-danger" style="padding: 8px 15px; background-color: green; color: white; border: none; border-radius: 5px;" onclick="openReportModal()">Report Item</button>
+        <!-- Report Button -->
+        @if($item->user_id !== auth()->id())
+            <button class="btn btn-danger" style="padding: 8px 15px; background-color: green; color: white; border: none; border-radius: 5px;" onclick="openReportModal()">Report Item</button>
+        @endif
 
-    @endif
+        <!-- Hidden Report -->
+        <form id="reportForm" action="{{ route('report.store') }}" method="POST" style="display: none;">
+            @csrf
+            <input type="hidden" name="item_id" value="{{ $item->id }}">
+            <input type="hidden" name="reason" id="reportReason">
+        </form>
 
-    <!-- Hidden Report -->
-    <form id="reportForm" action="{{ route('report.store') }}" method="POST" style="display: none;">
-    @csrf
-    <input type="hidden" name="item_id" value="{{ $item->id }}">
-    <input type="hidden" name="reason" id="reportReason">
-</form>
+        <!-- Edit Button (Only visible to the owner of the item) -->
+        @if($item->user_id === auth()->id())
+            <a href="{{ route('items.edit', $item->id) }}" class="btn btn-warning" style="padding: 8px 15px;">
+                Edit
+            </a>
 
-    <!-- Edit Button (Only visible to the owner of the item) -->
-    @if($item->user_id === auth()->id())
-        <a href="{{ route('items.edit', $item->id) }}" class="btn btn-warning" style="padding: 8px 15px;">
-            Edit
-        </a>
-    @endif
-</div>
+        <!-- Delete Button -->
+        <button type="button" class="btn delete-button" onclick="confirmDelete('{{ $item->id }}')">
+            <i class="fas fa-trash-alt"></i> Delete
+        </button>
+
+
+        <!-- Hidden Delete Form -->
+        <form id="deleteForm-{{ $item->id }}" action="{{ route('items.destroy', $item->id) }}" method="POST" style="display: none;">
+            @csrf
+            @method('DELETE')
+        </form>
+
+        @endif
+    </div>
+
 
 
 <h2>Item Reviews</h2>
@@ -681,6 +708,26 @@
         });
 
     </script>
+
+<script>
+    function confirmDelete(itemId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you really want to delete this item? This action cannot be undone.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the corresponding form
+                document.getElementById(`deleteForm-${itemId}`).submit();
+            }
+        });
+    }
+</script>
+
 
 </body>
 </html>

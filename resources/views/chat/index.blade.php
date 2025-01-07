@@ -343,12 +343,9 @@
     </button>
     </div>
 
-<br>
-
-
             <!-- Page Title Section -->
             <div class="page-title">
-            <h2 style="margin-top: 70px; font-size: 30px; text-align: left; color: black;">
+            <h2 style="margin-top: 80px; font-size: 30px; text-align: left; color: black;">
                 Chat
             </h2>
             </div>

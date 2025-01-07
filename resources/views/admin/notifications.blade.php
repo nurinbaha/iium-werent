@@ -465,7 +465,7 @@
 
         <!-- Page Title Section -->
         <div class="page-title">
-            <h2 style="margin-top: 40px; font-size: 30px; text-align: left; color: black;">Notifications</h2>
+            <h2 style="margin-top: 30px; font-size: 30px; text-align: left; color: black;">Notifications</h2>
         </div>
 
         <!-- Notifications Section -->

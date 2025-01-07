@@ -319,7 +319,7 @@
 
                         <!-- Page Title Section -->
                         <div class="page-title">
-                <h2 style="margin-top: 40px; font-size: 30px; text-align: left; color: black;">
+                <h2 style="margin-top: 30px; font-size: 30px; text-align: left; color: black;">
                     My Rent Out History
                 </h2>
             </div>

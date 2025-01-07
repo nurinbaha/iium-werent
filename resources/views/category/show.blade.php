@@ -376,7 +376,7 @@
 
 <!-- Page Title Section -->
 <div class="page-title">
-    <h2 style="margin-top: 10px; font-size: 30px; text-align: left; color: black;">
+    <h2 style="margin-top: 0px; font-size: 30px; text-align: left; color: black;">
         {{ ucfirst($categoryName) }} Page
     </h2>
 </div>

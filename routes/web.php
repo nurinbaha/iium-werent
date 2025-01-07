@@ -309,6 +309,10 @@ Route::get('/pending-count', [NotificationsController::class, 'pendingCount'])->
 
 Route::get('/admin/notifications', [AdminNotificationsController::class, 'index'])->name('admin.notifications');
 
+Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
+Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+
+
 
 
 

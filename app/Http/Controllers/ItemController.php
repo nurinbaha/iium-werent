@@ -123,4 +123,22 @@ class ItemController extends Controller
         $item = Item::findOrFail($id); // Fetch the item or return 404
         return view('items.item-details', compact('item')); // Return the appropriate view
     }
+
+    public function destroy($id)
+    {
+        $item = Item::findOrFail($id);
+    
+        // Check if the current user owns the item
+        if ($item->user_id !== auth()->id()) {
+            return redirect()->back()->with('error', 'You do not have permission to delete this item.');
+        }
+    
+        // Delete the item
+        $item->delete();
+    
+        // Redirect to the user's profile page with a success message
+        return redirect()->route('profile')->with('success', 'Item has been successfully deleted.');
+    }
+    
+
 }
