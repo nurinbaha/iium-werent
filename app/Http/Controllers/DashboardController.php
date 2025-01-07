@@ -53,6 +53,10 @@ class DashboardController extends Controller
  
          // Count the number of notifications for pending reviews
          $rentCount = $unreviewedRequests->count();
+    
+         $deletedCount = AdminNotification::where('user_id', auth()->id())
+         ->whereNull('read_at') // Count only unread notifications
+        ->count();
 
         // Pass all data to the dashboard view
         return view('dashboard', compact(
@@ -61,7 +65,8 @@ class DashboardController extends Controller
             'pendingRequestsCount',
             'unreadCount',
             'unreviewedCount',
-            'rentCount'
+            'rentCount',
+            'deletedCount'
         ));
     
     }

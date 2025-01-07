@@ -14,7 +14,20 @@ class AdminNotificationsController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
+        AdminNotification::where('user_id', auth()->id())
+            ->whereNull('read_at') // Only update unread notifications
+            ->update(['read_at' => now()]);
+
         // Pass the data to the view
         return view('admin.notifications', compact('notifications'));
     }
+
+    public function markAsRead()
+{
+    \App\Models\AdminNotification::where('user_id', auth()->id())
+        ->whereNull('read_at')
+        ->update(['read_at' => now()]);
+
+    return redirect()->back();
+}
 }

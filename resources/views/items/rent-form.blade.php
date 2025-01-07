@@ -262,6 +262,10 @@
         $pendingRequestsCount = \App\Models\Notification::where('owner_id', auth()->id())
             ->where('status', 'pending')
             ->count();
+        
+        $deletedCount = \App\Models\AdminNotification::where('user_id', auth()->id())
+                ->whereNull('read_at')
+                ->count();
     @endphp
 @endif
 
@@ -275,6 +279,9 @@
         <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
                 <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
+                <li><a class="nav-link" href="{{ route('admin.notifications') }}"><i class="fas fa-bell"></i> Notification
+                                <span class="badge badge-grey" style="margin-left: 5px;">{{ $deletedCount }}</span>
+                            </a>
                 <li><a href="#" id="notification-link"><i class="fas fa-bell"></i> Requests <i class="fas fa-chevron-down" id="notification-arrow"></i></a>
                 <ul class="nav" id="notification-sections" style="display: none;">
                         <!-- Rent Notifications Link -->
@@ -446,6 +453,32 @@
         });
     }
 </script>
+
+<script>
+       // Function to toggle sections and arrows
+     function toggleSection(sectionId, arrowId) {
+            var sections = document.getElementById(sectionId);
+            var arrow = document.getElementById(arrowId);
+
+            // Toggle the display of the section
+            if (sections.style.display === "none" || sections.style.display === "") {
+                sections.style.display = "block";
+                arrow.classList.add('rotate-down');  // Add rotation when expanded
+            } else {
+                sections.style.display = "none";
+                arrow.classList.remove('rotate-down');  // Remove rotation when collapsed
+            }
+        }
+
+        // Attach event listeners for both History and Notifications
+        document.getElementById('history-link').addEventListener('click', function () {
+            toggleSection('history-sections', 'history-arrow');
+        });
+
+        document.getElementById('notification-link').addEventListener('click', function () {
+            toggleSection('notification-sections', 'notification-arrow');
+        });
+        </script>
 
         
 </body>

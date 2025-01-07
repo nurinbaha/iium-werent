@@ -144,6 +144,10 @@
         $pendingRequestsCount = \App\Models\Notification::where('owner_id', auth()->id())
             ->where('status', 'pending')
             ->count();
+
+            $deletedCount = \App\Models\AdminNotification::where('user_id', auth()->id())
+                ->whereNull('read_at')
+                ->count();
     @endphp
 @endif
 
@@ -157,6 +161,9 @@
             <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
                 <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
+                <li><a class="nav-link" href="{{ route('admin.notifications') }}"><i class="fas fa-bell"></i> Notification
+                                <span class="badge badge-grey" style="margin-left: 5px;">{{ $deletedCount }}</span>
+                            </a>
                 <li><a href="#" id="notification-link"><i class="fas fa-bell"></i> Requests <i class="fas fa-chevron-down" id="notification-arrow"></i></a>
                 <ul class="nav" id="notification-sections" style="display: none;">
                         <!-- Rent Notifications Link -->

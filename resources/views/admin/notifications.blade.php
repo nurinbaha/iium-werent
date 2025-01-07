@@ -370,6 +370,33 @@
             box-sizing: border-box; /* Ensures padding is included in width/height calculations */
         }
     </style>
+    @if(auth()->check())
+    @php
+        // Fetch notifications for rental status
+        $rentCount = \App\Models\RentHistory::where('renter_id', auth()->id())
+            ->where('status', 'rented') // Customize the condition as needed
+            ->count();
+
+        // Fetch unreviewed rent out history
+        $unreviewedCount = \App\Models\RentOutHistory::where('owner_id', auth()->id())
+            ->where('status', 'rented')
+            ->count();
+
+        // Fetch unread notifications for rentals
+        $unreadCount = \App\Models\RentNotification::where('user_id', auth()->id())
+            ->whereIn('status', ['approved', 'declined'])
+            ->count();
+
+        // Fetch pending requests count for rent out requests
+        $pendingRequestsCount = \App\Models\Notification::where('owner_id', auth()->id())
+            ->where('status', 'pending')
+            ->count();
+        
+        $deletedCount = \App\Models\AdminNotification::where('user_id', auth()->id())
+                ->whereNull('read_at')
+                ->count();
+    @endphp
+@endif
 </head>
 <body>
 <div class="dashboard-container">
@@ -377,16 +404,52 @@
     <div class="sidebar">
         <h2>IIUM WeRent</h2>
         <ul>
-            <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
-            <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
-            <li><a href="{{ route('admin.notifications') }}"><i class="fas fa-bell"></i> Notifications</a></li>
-            <li><a href="{{ url('/chat') }}"><i class="fas fa-comments"></i> Chat</a></li>
-            <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Profile</a></li>
-            <li><a href="{{ url('/terms') }}"><i class="fas fa-file-contract"></i> T&Cs</a></li>
-            <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-        </ul>
-    </div>
+        <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
+                <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
+                <li><a class="nav-link" href="{{ route('admin.notifications') }}"><i class="fas fa-bell"></i> Notification
+                                <span class="badge badge-grey" style="margin-left: 5px;">{{ $deletedCount }}</span>
+                            </a>
+                <li><a href="#" id="notification-link"><i class="fas fa-bell"></i> Requests <i class="fas fa-chevron-down" id="notification-arrow"></i></a>
+                <ul class="nav" id="notification-sections" style="display: none;">
+                        <!-- Rent Notifications Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('notifications.rent') }}"> Your Request
+                                <span class="badge badge-grey">{{ $unreadCount }}</span>
+                            </a>
+                        </li>
+                        <!-- Rent Out Notifications Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('notifications.rent_out') }}">Others Request
+                            <span class="badge badge-grey">{{ $pendingRequestsCount }}</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#" id="history-link"><i class="fas fa-history"></i> History <i class="fas fa-chevron-down" id="history-arrow"></i></a>
+                <ul class="nav" id="history-sections" style="display: none;">
+                    <!-- Rent History Link -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('rent.history') }}">My Rental
+                            <span class="badge badge-grey" style="margin-left: 10px;">{{ $rentCount }}</span>
+                        </a>
+                    </li>
+                    <!-- Rent Out Notifications Link -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('rentout.history') }}">My Rent Out
+                        @if(isset($unreviewedCount) && $unreviewedCount > 0)
+                            <span class="badge badge-grey">{{ $unreviewedCount }}</span>
+                        @endif
+                        </a>
+                    </li>
+                </ul>
+            </li>
+                <li><a href="{{ url('/chat') }}"><i class="fas fa-comments"></i> Chat</a></li>
+                <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="{{ url('/terms') }}"><i class="fas fa-file-contract"></i> T&Cs</a></li> <!-- T&Cs Link -->
+                <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+
 
     <!-- Main Content -->
     <div class="main-content">
@@ -439,5 +502,31 @@
         </div>
     </div>
 </div>
+
+<script>
+       // Function to toggle sections and arrows
+     function toggleSection(sectionId, arrowId) {
+            var sections = document.getElementById(sectionId);
+            var arrow = document.getElementById(arrowId);
+
+            // Toggle the display of the section
+            if (sections.style.display === "none" || sections.style.display === "") {
+                sections.style.display = "block";
+                arrow.classList.add('rotate-down');  // Add rotation when expanded
+            } else {
+                sections.style.display = "none";
+                arrow.classList.remove('rotate-down');  // Remove rotation when collapsed
+            }
+        }
+
+        // Attach event listeners for both History and Notifications
+        document.getElementById('history-link').addEventListener('click', function () {
+            toggleSection('history-sections', 'history-arrow');
+        });
+
+        document.getElementById('notification-link').addEventListener('click', function () {
+            toggleSection('notification-sections', 'notification-arrow');
+        });
+        </script>
 </body>
 </html>

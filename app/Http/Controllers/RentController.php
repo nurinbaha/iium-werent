@@ -33,6 +33,26 @@ class RentController extends Controller
             }
         }
 
+        // Exclude dates for returned rents
+        $returnedRents = RentRequest::where('item_id', $id)
+        ->where('status', 'returned') // Include 'returned' rents
+        ->select('start_date', 'end_date')
+        ->get();
+
+        foreach ($returnedRents as $returned) {
+        $startDate = new \DateTime($returned->start_date);
+        $endDate = new \DateTime($returned->end_date);
+
+        while ($startDate <= $endDate) {
+            // Remove returned dates from unavailableDates
+            $date = $startDate->format('Y-m-d');
+            if (($key = array_search($date, $unavailableDates)) !== false) {
+                unset($unavailableDates[$key]);
+            }
+            $startDate->modify('+1 day');
+        }
+        }
+
         return view('items.rent-form', compact('item', 'unavailableDates'));
     }
 
