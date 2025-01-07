@@ -326,14 +326,27 @@
             <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
                 <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
+                <li><a href="#" id="notification-link"><i class="fas fa-bell"></i> Requests <i class="fas fa-chevron-down" id="notification-arrow"></i></a>
+                <ul class="nav" id="notification-sections" style="display: none;">
+                        <!-- Rent Notifications Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('notifications.rent') }}"> Your Request
+                                <span class="badge badge-grey">{{ $unreadCount }}</span>
+                            </a>
+                        </li>
+                        <!-- Rent Out Notifications Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('notifications.rent_out') }}">Others Request
+                            <span class="badge badge-grey">{{ $pendingRequestsCount }}</span></a>
+                        </li>
+                    </ul>
+                </li>
                 <li><a href="#" id="history-link"><i class="fas fa-history"></i> History <i class="fas fa-chevron-down" id="history-arrow"></i></a>
                 <ul class="nav" id="history-sections" style="display: none;">
                     <!-- Rent History Link -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('rent.history') }}">My Rental 
-                        @if(isset($rentCount) && $rentCount > 0)
-                            <span class="badge badge-grey">{{ $rentCount }}</span>
-                        @endif
+                        <a class="nav-link" href="{{ route('notifications.rent') }}">My Rental
+                            <span class="badge badge-grey" style="margin-left: 10px;">{{ $unreadCount }}</span>
                         </a>
                     </li>
                     <!-- Rent Out Notifications Link -->
@@ -346,21 +359,6 @@
                     </li>
                 </ul>
             </li>
-            <li><a href="#" id="notification-link"><i class="fas fa-bell"></i> Notifications <i class="fas fa-chevron-down" id="notification-arrow"></i></a>
-                <ul class="nav" id="notification-sections" style="display: none;">
-                        <!-- Rent Notifications Link -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('notifications.rent') }}"> My Rental Status
-                            <span class="badge badge-grey">{{ $unreadCount }}</span>
-                            </a>
-                        </li>
-                        <!-- Rent Out Notifications Link -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('notifications.rent_out') }}">My Rent Request
-                            <span class="badge badge-grey">{{ $pendingRequestsCount }}</span></a>
-                        </li>
-                    </ul>
-                </li>
                 <li><a href="{{ url('/chat') }}"><i class="fas fa-comments"></i> Chat</a></li>
                 <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Profile</a></li>
                 <li><a href="{{ url('/terms') }}"><i class="fas fa-file-contract"></i> T&Cs</a></li> <!-- T&Cs Link -->
