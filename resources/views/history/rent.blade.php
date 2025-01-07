@@ -46,7 +46,6 @@
             align-items: center;
         }
 
-
         .sidebar ul li a i {
             margin-right: 10px;
         }

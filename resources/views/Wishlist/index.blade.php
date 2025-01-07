@@ -36,17 +36,16 @@
         }
 
         .sidebar ul li {
+            padding: 5px 20px; /* Reduced padding */
             margin-bottom: 5px; /* Adjust the margin to reduce space between items */
         }
 
         .sidebar ul li a {
-            color: #fff;
-            font-size: 16px;
+            font-size: 16px; /* You can also adjust the font size if needed */
+            color: #ffffff;
             text-decoration: none;
             display: flex;
             align-items: center;
-            padding: 5px 20px;
-            border-radius: 4px;
         }
 
         .sidebar ul li a i {
