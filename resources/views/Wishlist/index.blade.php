@@ -272,7 +272,7 @@
                 <li><a class="nav-link" href="{{ route('admin.notifications') }}"><i class="fas fa-bell"></i> Notification
                                 <span class="badge badge-grey" style="margin-left: 5px;">{{ $deletedCount }}</span>
                             </a>
-                <li><a href="#" id="notification-link"><i class="fas fa-bell"></i> Requests <i class="fas fa-chevron-down" id="notification-arrow"></i></a>
+                <li><a href="#" id="notification-link"><i class="fas fa-tasks"></i> Requests <i class="fas fa-chevron-down" id="notification-arrow"></i></a>
                 <ul class="nav" id="notification-sections" style="display: none;">
                         <!-- Rent Notifications Link -->
                         <li class="nav-item">

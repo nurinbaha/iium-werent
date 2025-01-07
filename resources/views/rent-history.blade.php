@@ -158,7 +158,7 @@
                 <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
                 <li><a href="{{ url('/wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
                 <li><a href="{{ route('admin.notifications') }}"><i class="fas fa-bell"></i> Notification</a></li>
-                <li><a href="#" id="notification-link"><i class="fas fa-bell"></i> Requests <i class="fas fa-chevron-down" id="notification-arrow"></i></a>
+                <li><a href="#" id="notification-link"><i class="fas fa-tasks"></i> Requests <i class="fas fa-chevron-down" id="notification-arrow"></i></a>
                 <ul class="nav" id="notification-sections" style="display: none;">
                         <!-- Rent Notifications Link -->
                         <li class="nav-item">

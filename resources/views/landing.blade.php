@@ -17,7 +17,7 @@
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), /* Adds the gradient overlay */
         url('/storage/images/landing_background.jpg') no-repeat center fixed; /* Background image */
     background-size: cover; /* Ensure the image covers the entire screen */
-    background-position: center 35%; /* Adjust the vertical position of the image */
+    background-position: center 60%; /* Adjust the vertical position of the image */
     height: 100vh; /* Full screen height */
     display: flex;
     flex-direction: column;
