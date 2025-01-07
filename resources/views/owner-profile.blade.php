@@ -123,6 +123,7 @@
     justify-content: center;
     margin-top: 20px; /* Adds spacing between sections */
     padding: 10px; /* Internal spacing for better readability */
+    flex-direction: column;
 }
 
 
