@@ -8,6 +8,7 @@ use App\Models\Notification;
 use App\Models\RentNotification;
 use App\Models\RentOutHistory;
 use App\Models\RentHistory;
+use App\Models\AdminNotification;
 
 class DashboardController extends Controller
 {
@@ -65,10 +66,39 @@ class DashboardController extends Controller
     
     }
 
-    public function dashboard()
-    {
-        $notifications = auth()->user()->notifications;
+  //  public function dashboard()
+   // {
+        // Fetch user notifications
+    //    $notifications = auth()->user()->notifications;
+    
+        // Fetch admin notifications for the logged-in user that are not yet shown
+   //     $adminNotifications = AdminNotification::where('user_id', auth()->id())
+   //         ->where('is_shown', false) // Only fetch unseen notifications
+   //         ->latest()
+   //         ->get();
+    
+        // Mark admin notifications as shown
+        //AdminNotification::whereIn('id', $adminNotifications->pluck('id'))
+        //    ->update(['is_shown' => true]);
+    
+        // Pass both notifications and adminNotifications to the view
+       // return view('dashboard', compact('notifications', 'adminNotifications'));
+   // }
+    
+   public function dashboard()
+   {
+       // Fetch notifications
+       $notifications = auth()->user()->notifications;
        
-        return view('dashboard', compact('notifications'));
-        }
+       // Fetch admin notifications
+       $adminNotifications = AdminNotification::where('user_id', auth()->id())
+           ->latest()
+           ->get();
+   
+       // Pass notifications to the view
+       return view('dashboard', compact('notifications', 'adminNotifications'));
+   }
+   
+
+
 }

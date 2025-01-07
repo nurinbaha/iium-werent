@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Item; // Import the Item model
 use App\Models\DeletedItem; // Correctly import the DeletedItem model
+use App\Models\AdminNotification;
 
 class AdminAuthController extends Controller
 {
@@ -221,15 +222,21 @@ public function searchItems(Request $request)
     public function deleteItem(Request $request, $id)
     {
         try {
-            // Validate the request
             $request->validate([
                 'delete_reason' => 'required|string',
             ]);
-
-            // Fetch the item
+    
             $item = Item::findOrFail($id);
-
-            // Insert data into `deleted_items` table using the model
+    
+            // Add an admin notification for the user
+            AdminNotification::create([
+                'user_id' => $item->user_id,
+                'item_name' => $item->item_name,
+                'reason' => $request->delete_reason,
+                'deleted_by' => auth()->id(), // Admin's ID
+            ]);
+    
+            // Insert data into the deleted_items table
             DeletedItem::create([
                 'item_id' => $item->id,
                 'item_name' => $item->item_name,
@@ -242,18 +249,17 @@ public function searchItems(Request $request)
                 'deleted_by' => auth()->id(), // Admin's ID
                 'reason' => $request->delete_reason,
             ]);
-
-            // Delete the item from the `items` table
+    
+            // Delete the item from the items table
             $item->delete();
-
-// Set success message
-return redirect()->route('admin.view-listings')->with('success', 'Item deleted successfully.');
-} catch (\Exception $e) {
-    // Log error and set error message
-    \Log::error('Error deleting item: ' . $e->getMessage());
-    return redirect()->back()->with('error', 'Failed to delete the item.');
-}
+    
+            return redirect()->route('admin.view-listings')->with('success', 'Item deleted successfully.');
+        } catch (\Exception $e) {
+            \Log::error('Error deleting item: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to delete the item.');
+        }
     }
+    
 
     public function suspendUser(Request $request, $id)
     {

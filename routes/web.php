@@ -21,6 +21,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserReportController;
 use App\Http\Controllers\Admin\AdminUserReportsController;
+use App\Http\Controllers\AdminNotificationsController;
 
 // Display the sign-up form using the SignUpController
 Route::get('/signup', [SignUpController::class, 'create'])->name('signup.create');
@@ -305,6 +306,10 @@ Route::get('/admin/user-reports', [AdminUserReportsController::class, 'index'])-
 Route::get('/admin/user-reports/{user_id}', [AdminUserReportsController::class, 'show'])->name('admin.user-report.details');
 
 Route::get('/pending-count', [NotificationsController::class, 'pendingCount'])->name('pending.count');
+
+Route::get('/admin/notifications', [AdminNotificationsController::class, 'index'])->name('admin.notifications');
+
+
 
 
 
