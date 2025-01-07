@@ -210,7 +210,7 @@
 <!-- Search Box -->
 <div class="search-box">
     <form action="{{ route('admin.search-items') }}" method="GET"> <!-- Updated action -->
-        <input type="text" name="item_name" placeholder="Item Name" value="{{ request('item_name') }}">
+        <input type="text" name="item_name" placeholder="Item Name" value="{{ request('item_name') }}" style="width: 400px; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
         <select name="category">
             <option value="">Select Category</option>
             <option value="fashion" {{ request('category') == 'fashion' ? 'selected' : '' }}>Fashion</option>
@@ -223,6 +223,7 @@
         </select>
         <select name="location"> <!-- Changed "area" to "location" for consistency -->
         <option value="">Select Location</option>
+        <option value="Mahallah Ali" {{ request('location') == 'Mahallah Ali' ? 'selected' : '' }}>Mahallah Ali</option>
                     <option value="Mahallah Zubair" {{ request('location') == 'Mahallah Zubair' ? 'selected' : '' }}>Mahallah Zubair</option>
                     <option value="Mahallah Uthman" {{ request('location') == 'Mahallah Uthman' ? 'selected' : '' }}>Mahallah Uthman</option>
                     <option value="Mahallah Uthman" {{ request('location') == 'Mahallah Uthman' ? 'selected' : '' }}>Mahallah Uthman</option>

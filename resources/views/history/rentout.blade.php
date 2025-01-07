@@ -173,7 +173,6 @@
         .dashboard-container {
             margin-left: 220px; /* Matches the width of the sidebar */
             margin-top: 40px; /* Matches the height of the header */
-            background-color: #ffffff; /* Background color for the dashboard */
             min-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */
             width: 100%; /* Adjusts width to exclude the sidebar */
             box-sizing: border-box; /* Ensures padding is included in width/height calculations */
@@ -298,6 +297,7 @@
                     </li>
                 </ul>
             </li>
+                <li><a href="{{ route('admin.notifications') }}"><i class="fas fa-bell"></i> Notifications</a></li>
                 <li><a href="{{ url('/chat') }}"><i class="fas fa-comments"></i> Chat</a></li>
                 <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Profile</a></li>
                 <li><a href="{{ url('/terms') }}"><i class="fas fa-file-contract"></i> T&Cs</a></li> <!-- T&Cs Link -->
@@ -340,6 +340,11 @@
                             <img src="{{ asset($imagePath) }}" alt="{{ $history->item->item_name }}" class="item-image">
                             <div class="item-details">
                                 <h3>{{ $history->item->item_name }}</h3><br>
+                                <p><strong>Rented By:</strong> 
+                                        <a href="{{ route('user.profile', $history->renter->id) }}">
+                                            {{ $history->renter->name }}
+                                        </a>
+                                    </p>
                                 <p><strong>Rent Duration:</strong> {{ $history->start_date }} to {{ $history->end_date }} ({{ $history->total_days }} days)</p>
                                 <p><strong>Status:</strong> {{ ucfirst($history->status) }}</p>
                                 <p><strong>Total Price:</strong> RM {{ number_format($history->total_price, 2) }}</p>

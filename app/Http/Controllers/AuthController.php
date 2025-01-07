@@ -15,31 +15,37 @@ class AuthController extends Controller
     }
 
     // Handle user login request
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-    
-        // Find the user by email
-        $user = \App\Models\User::where('email', $request->email)->first();
-    
-        // Check if the user exists and the role is not admin
-        if ($user && $user->role !== 'admin') {
-            // Verify the password
-            if (Hash::check($request->password, $user->password)) {
-                Auth::login($user);
-                return redirect()->intended('/dashboard'); // Redirect to user dashboard
-            }
+// Handle user login request
+public function login(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
+
+    // Find the user by email
+    $user = \App\Models\User::where('email', $request->email)->first();
+
+    if ($user) {
+        // Check if the user is suspended
+        if ($user->is_suspended) {
+            return redirect()->route('login')->with([
+                'suspended' => 'Your account has been suspended due to: ' . $user->suspend_reason,
+            ])->withInput();
         }
-    
-        // Authentication failed
-        return back()->withErrors([
-            'email' => 'The provided credentials are invalid or you are not allowed to login here.',
-        ])->onlyInput('email');
+
+        // Verify the password
+        if (Hash::check($request->password, $user->password)) {
+            Auth::login($user);
+            return redirect()->intended('/dashboard');
+        }
     }
-    
+
+    return back()->withErrors([
+        'email' => 'The provided credentials are invalid or you are not allowed to login here.',
+    ])->onlyInput('email');
+}
+
 
     // Handle user logout
     public function logout()

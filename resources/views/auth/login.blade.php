@@ -158,18 +158,20 @@
         </div>
     </div>
 
-    @if($errors->has('suspended'))
+
+
 <script>
-    Swal.fire({
-        icon: 'error',
-        title: 'Account Suspended',
-        text: "{{ $errors->first('suspended') }}",
-        confirmButtonColor: '#d33',
-        confirmButtonText: 'OK',
+    document.addEventListener('DOMContentLoaded', function () {
+        @if (session('suspended'))
+            Swal.fire({
+                title: 'Account Suspended',
+                text: "{{ session('suspended') }}",
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        @endif
     });
 </script>
-@endif
-
 
 
     <!-- JavaScript for auto-hiding the success message after 3 seconds -->
