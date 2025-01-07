@@ -398,6 +398,7 @@
                 style="width: 400px; height: 400px; object-fit: cover; border: 2px solid #ddd; border-radius: 10px;">
 
             <!-- User Info -->
+             
             <div class="user-info">
                 <table style="border-collapse: collapse; width: 100%; max-width: 400px;">
                     <tr>
@@ -421,11 +422,12 @@
                 <!-- Report User Button -->
                 @if(auth()->id() !== $owner->id) <!-- Only show for non-owners -->
                 <button class="btn btn-danger" 
-                        style="margin-top: 20px; padding: 10px; width: 100%; background-color: red; color: white; border: none; border-radius: 5px;" 
+                        style="margin-top: 20px; padding: 10px; width: 100%; background-color: red; color: white; border: none; border-radius: 5px display: inline;" 
                         onclick="openReportUserModal()">
                     Report User
                 </button>
                 @endif
+
             </div>
         </div>
 

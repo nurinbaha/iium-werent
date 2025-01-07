@@ -119,8 +119,8 @@
         }
 
         .item-card img {
-            max-width: 180px;
-            max-height: 180px;
+            max-width: 120px;
+            max-height: 120px;
             margin-right: 20px;
             border-radius: 4px;
             align-self: center; /* Ensures the image is centered vertically */

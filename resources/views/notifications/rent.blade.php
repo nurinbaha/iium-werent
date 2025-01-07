@@ -122,8 +122,8 @@
         }
 
         .item-card img {
-            width: 300px;
-            height: 300px;
+            width: 180px;
+            height: 180px;
             margin-right: 20px;
             border-radius: 4px;
             object-fit: cover;

@@ -262,12 +262,67 @@
     box-sizing: border-box; /* Ensures padding is included in width/height calculations */
 }
 
+#history-arrow, #notification-arrow {
+                    transition: transform 0.3s;
+                    margin-left: 10px;
+                }
+
+         .rotate-down {
+                    transform: rotate(180deg);
+                }
+
+                .badge {
+            display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 0.75rem;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.375rem;
+        }
+
+        .badge-grey {
+            background-color: #6c757d; /* Grey color */
+            color: #fff; /* White text */
+        }
+
     </style>
+    @if(auth()->check())
+    @php
+        // Fetch notifications for rental status
+        $rentCount = \App\Models\RentHistory::where('renter_id', auth()->id())
+            ->where('status', 'rented') // Customize the condition as needed
+            ->count();
+
+        // Fetch unreviewed rent out history
+        $unreviewedCount = \App\Models\RentOutHistory::where('owner_id', auth()->id())
+            ->where('status', 'rented')
+            ->count();
+
+        // Fetch unread notifications for rentals
+        $unreadCount = \App\Models\RentNotification::where('user_id', auth()->id())
+            ->whereIn('status', ['approved', 'declined'])
+            ->count();
+
+        // Fetch pending requests count for rent out requests
+        $pendingRequestsCount = \App\Models\Notification::where('owner_id', auth()->id())
+            ->where('status', 'pending')
+            ->count();
+
+        $deletedCount = \App\Models\AdminNotification::where('user_id', auth()->id())
+                ->whereNull('read_at')
+                ->count();
+    @endphp
+@endif
 </head>
 <body>
 <div class="dashboard-container">
         <!-- Sidebar -->
-        <div class="sidebar"><br><br>
+    <!-- Sidebar -->
+    <div class="sidebar"><br><br>
         <ul>
         <li><a href="{{ url('/dashboard') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ url('/categories') }}"><i class="fas fa-list"></i> Categories</a></li>
