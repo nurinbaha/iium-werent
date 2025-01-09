@@ -403,7 +403,7 @@
                             @endphp
                             <img src="{{ asset($imagePath) }}" alt="{{ $history->item->item_name }}" class="item-image">
                             <div class="item-details">
-                                <h3>{{ $history->item->item_name }}</h3><br>
+                            <p><strong>Item:</strong> <a href="{{ route('items.show', ['id' => $history->item->id]) }}">{{ $history->item->item_name }}</a></p
                                 <p><strong>Rent Duration:</strong> {{ $history->start_date }} to {{ $history->end_date }} ({{ $history->total_days }} days)</p>
                                 <p><strong>Status:</strong> {{ ucfirst($history->status) }}</p>
                                 <p><strong>Total Price:</strong> RM {{ number_format($history->total_price, 2) }}</p>

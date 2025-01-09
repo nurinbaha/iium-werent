@@ -339,7 +339,7 @@
                             @endphp
                             <img src="{{ asset($imagePath) }}" alt="{{ $history->item->item_name }}" class="item-image">
                             <div class="item-details">
-                                <h3>{{ $history->item->item_name }}</h3><br>
+                            <p><strong>Item : </strong><a href="{{ route('items.show', ['id' => $history->item->id]) }}">{{ $history->item->item_name }}</a></p>
                                 <p><strong>Rented By:</strong> 
                                         <a href="{{ route('user.profile', $history->renter->id) }}">
                                             {{ $history->renter->name }}

@@ -165,7 +165,7 @@
 <body>
     <!-- Header with title and Login/Sign Up buttons -->
     <div class="header">
-        <div class="title">IIUM Werent</div>
+        <div class="title">IIUM WeRent</div>
         <div>
             <a href="{{ route('login') }}" class="login">Login</a>
             <a href="{{ route('signup.create') }}" class="signup">Sign Up</a>
@@ -175,7 +175,7 @@
 <!-- Hero Section -->
 <div class="hero">
 <img src="{{ asset('images/logo.png') }}" alt="IIUM WeRent Logo" style="width: 180px; height: auto; display: block; margin: 20px auto;">
-    <h1>Welcome to IIUM Werent</h1>
+    <h1>Welcome to IIUM WeRent</h1>
     <p>Your go-to platform for rental solutions at IIUM!</p>
 </div>
 
@@ -197,7 +197,7 @@
 
     <!-- Call-to-Action Section -->
     <section class="cta">
-        <h2>Get Started with IIUM Werent Today!</h2>
+        <h2>Get Started with IIUM WeRent Today!</h2>
         <a href="{{ route('signup.create') }}">Sign Up Now</a>
     </section>
 </body>
